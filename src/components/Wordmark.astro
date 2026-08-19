@@ -1,0 +1,61 @@
+---
+// Reusable Stapled. wordmark. The full stop always renders in the lime
+// accent colour — this is the one fixed rule of the brand mark.
+interface Props {
+  as?: "span" | "div";
+  size?: "sm" | "md" | "lg";
+  light?: boolean; // true when placed on a dark background
+  class?: string;
+}
+
+const { as: Tag = "span", size = "md", light = false, class: className = "" } = Astro.props;
+
+const sizes: Record<string, string> = {
+  sm: "1.125rem",
+  md: "1.375rem",
+  lg: "1.75rem",
+};
+---
+
+<Tag class:list={["wordmark", className]} data-light={light ? "" : undefined} style={{ fontSize: sizes[size] }}>
+  <span class="wordmark__mark" aria-hidden="true">
+    <svg viewBox="0 0 28 28" width="1em" height="1em">
+      <path d="M6 12 V7.5 a2.5 2.5 0 0 1 2.5 -2.5 h11 a2.5 2.5 0 0 1 2.5 2.5 V12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+      <line x1="6" y1="7.5" x2="6" y2="15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+      <line x1="22" y1="7.5" x2="22" y2="15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    </svg>
+  </span>
+  <span class="wordmark__text">Stapled<span class="wordmark__dot">.</span></span>
+</Tag>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--colour-ink);
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .wordmark[data-light] {
+    color: var(--colour-bg);
+  }
+
+  .wordmark__mark {
+    display: inline-flex;
+    color: var(--colour-muted);
+    opacity: 0.85;
+  }
+
+  .wordmark[data-light] .wordmark__mark {
+    color: rgb(245 243 238 / 0.55);
+  }
+
+  .wordmark__dot {
+    color: var(--colour-lime);
+  }
+</style>

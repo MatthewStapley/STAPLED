@@ -1,0 +1,132 @@
+---
+// Realistic desktop/browser window frame built entirely from HTML + CSS.
+//
+// HOW TO ADD A REAL SCREENSHOT:
+// Pass `src` pointing at a file in /public/images/. If the file exists it
+// is displayed automatically; if it doesn't (e.g. the placeholder path
+// hasn't been filled in yet), a styled fallback design renders instead so
+// nothing ever breaks or shows a broken image icon.
+import fs from "node:fs";
+import path from "node:path";
+
+interface Props {
+  src?: string;
+  alt: string;
+  url?: string;
+  class?: string;
+}
+
+const { src, alt, url = "stapled.co.uk", class: className = "" } = Astro.props;
+
+const fileExists = src
+  ? fs.existsSync(path.join(process.cwd(), "public", src.replace(/^\//, "")))
+  : false;
+---
+
+<div class:list={["browser-mockup", className]}>
+  <div class="browser-mockup__chrome">
+    <div class="browser-mockup__dots" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="browser-mockup__url">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2a6 6 0 0 0-6 6v3H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-1V8a6 6 0 0 0-6-6Zm0 2a4 4 0 0 1 4 4v3H8V8a4 4 0 0 1 4-4Z" fill="currentColor"/>
+      </svg>
+      <span>{url}</span>
+    </div>
+  </div>
+  <div class="browser-mockup__viewport">
+    {fileExists ? (
+      <img src={src} alt={alt} loading="lazy" decoding="async" />
+    ) : (
+      <slot name="fallback">
+        <div class="browser-mockup__placeholder">
+          <p>Screenshot coming soon</p>
+        </div>
+      </slot>
+    )}
+  </div>
+</div>
+
+<style>
+  .browser-mockup {
+    border-radius: var(--radius-lg);
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    box-shadow: 0 40px 80px -30px rgb(17 17 17 / 0.25);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .browser-mockup__chrome {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    background: #ebe9e3;
+    border-bottom: 1px solid var(--colour-border);
+  }
+
+  .browser-mockup__dots {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .browser-mockup__dots span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #cfccc3;
+  }
+
+  .browser-mockup__url {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.75rem;
+    color: var(--colour-muted);
+    flex: 1;
+    min-width: 0;
+    max-width: 260px;
+  }
+
+  .browser-mockup__url span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .browser-mockup__url svg {
+    flex-shrink: 0;
+  }
+
+  .browser-mockup__viewport {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: var(--colour-bg);
+  }
+
+  .browser-mockup__viewport img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .browser-mockup__placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: var(--colour-muted);
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+const faqs = [
+  {
+    q: "How much does a website cost?",
+    a: "Most Stapled. websites cost between £400 and £800. The exact price depends on the number of pages, how much content is needed, any special features, and whether branding or Google Business support is included.",
+  },
+  {
+    q: "How long does a website take?",
+    a: "It varies by project, but most websites are ready within a few weeks of getting started, depending on how quickly content and feedback come together.",
+  },
+  {
+    q: "Can you redesign my existing website?",
+    a: "Yes. Redesigns are one of the most common projects — bringing an outdated or hard-to-use website up to a modern, mobile-friendly standard.",
+  },
+  {
+    q: "Do I need to provide the written content?",
+    a: "Ideally yes, since you know your business best, but I'll guide you on what's needed and can help shape and tidy up the wording where it helps.",
+  },
+  {
+    q: "Can you arrange the domain and hosting?",
+    a: "Yes, this can be arranged and discussed as part of your project, or you can keep an existing domain if you already have one.",
+  },
+  {
+    q: "What is included in the free homepage preview?",
+    a: "A first look at how your homepage could feel and read, based on the information you share. There's no cost and no obligation to continue afterwards.",
+  },
+  {
+    q: "Can you help with my Google Business Profile?",
+    a: "Yes, I can help set up or improve your Google Business Profile so customers can find accurate, up-to-date information about your business.",
+  },
+  {
+    q: "Will the website work properly on mobile?",
+    a: "Yes. Every Stapled. website is built mobile-first and tested across different screen sizes, since most local customers will find you on their phone.",
+  },
+];
+---
+
+<section class="faq section" id="faq">
+  <div class="container faq__inner">
+    <div class="faq__intro reveal">
+      <p class="eyebrow">FAQ</p>
+      <h2 class="faq__heading">Questions, answered.</h2>
+    </div>
+
+    <div class="faq__list reveal">
+      {faqs.map((item) => (
+        <details class="faq__item">
+          <summary>
+            <span>{item.q}</span>
+            <svg class="faq__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </summary>
+          <p class="text-muted">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__inner {
+    max-width: 760px;
+  }
+
+  .faq__intro {
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  .faq__heading {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-top: 0.75rem;
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--colour-border);
+    padding-block: 1.25rem;
+  }
+
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    list-style: none;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__chevron {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .faq__item[open] .faq__chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq__item p {
+    margin-top: 1rem;
+    padding-right: 2rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq__item p {
+      animation: faq-in var(--dur-fast) var(--ease-out);
+    }
+  }
+
+  @keyframes faq-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

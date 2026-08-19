@@ -1,0 +1,122 @@
+---
+const services = [
+  {
+    n: "01",
+    title: "Website design and build",
+    body: "Modern websites designed around the individual business rather than generic templates.",
+  },
+  {
+    n: "02",
+    title: "Website redesigns",
+    body: "Improving outdated, slow or difficult-to-use websites with a more professional, modern experience.",
+  },
+  {
+    n: "03",
+    title: "Google Business setup",
+    body: "Help creating or improving a Google Business Profile so customers can find the correct information easily.",
+  },
+  {
+    n: "04",
+    title: "Hosting and maintenance",
+    body: "Ongoing support, website updates and reliable hosting without needing to understand the technical side.",
+  },
+  {
+    n: "05",
+    title: "Branding essentials",
+    body: "Simple logos, colours and typography that help small businesses appear more consistent and professional.",
+  },
+];
+---
+
+<section class="services section" id="services">
+  <div class="container">
+    <div class="services__intro reveal">
+      <p class="eyebrow">Services</p>
+      <h2 class="services__heading">Everything a local business needs online.</h2>
+      <p class="text-muted services__note">
+        Google ranking depends on many factors outside any one website —
+        we focus on giving your business a strong, accurate foundation
+        rather than promising specific rankings.
+      </p>
+    </div>
+
+    <ul class="services__list">
+      {services.map((s) => (
+        <li class="services__item reveal">
+          <span class="services__num">{s.n}</span>
+          <div>
+            <h3>{s.title}</h3>
+            <p class="text-muted">{s.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services__intro {
+    max-width: 46ch;
+    margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .services__heading {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-top: 0.75rem;
+  }
+
+  .services__note {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .services__list {
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .services__item {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: baseline;
+    padding-block: 1.75rem;
+    border-bottom: 1px solid var(--colour-border);
+    transition: padding-left var(--dur-fast) var(--ease-out);
+  }
+
+  .services__item:hover {
+    padding-left: 0.5rem;
+  }
+
+  .services__num {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--colour-lime-ink);
+    background: var(--colour-lime);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .services__item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  @media (min-width: 720px) {
+    .services__item {
+      grid-template-columns: 4rem minmax(0, 1fr);
+    }
+
+    .services__item > div {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: baseline;
+    }
+  }
+</style>

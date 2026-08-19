@@ -1,0 +1,288 @@
+---
+// Tasteful placeholder "interface" designs shown inside the browser/phone
+// mockups until real screenshots are added at the paths in src/data/config.ts.
+// Built entirely from CSS gradients + typography — no images required.
+interface Props {
+  variant: "barber-desktop" | "barber-mobile" | "trades-desktop" | "restaurant-desktop";
+}
+
+const { variant } = Astro.props;
+---
+
+{variant === "barber-desktop" && (
+  <div class="fb fb--barber">
+    <div class="fb-bar">
+      <span class="fb-word">WARNZ<span class="fb-dot">.</span></span>
+      <div class="fb-links"><i></i><i></i><i></i></div>
+    </div>
+    <div class="fb-hero">
+      <div>
+        <p class="fb-eyebrow">SOUTHAMPTON BARBER</p>
+        <p class="fb-headline">Sharp cuts.<br/>No nonsense.</p>
+        <span class="fb-btn">Book now</span>
+      </div>
+      <div class="fb-grid">
+        <i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === "barber-mobile" && (
+  <div class="fb fb--barber fb--mobile">
+    <div class="fb-bar fb-bar--mobile">
+      <span class="fb-word">WARNZ<span class="fb-dot">.</span></span>
+      <i></i>
+    </div>
+    <div class="fb-hero fb-hero--mobile">
+      <p class="fb-eyebrow">SOUTHAMPTON BARBER</p>
+      <p class="fb-headline fb-headline--mobile">Sharp cuts.<br/>No nonsense.</p>
+      <span class="fb-btn">Book now</span>
+      <div class="fb-grid fb-grid--mobile">
+        <i></i><i></i><i></i>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === "trades-desktop" && (
+  <div class="fb fb--trades">
+    <div class="fb-bar fb-bar--light">
+      <span class="fb-word fb-word--dark">SC ELECTRICAL</span>
+      <div class="fb-links fb-links--dark"><i></i><i></i><i></i></div>
+    </div>
+    <div class="fb-hero fb-hero--light">
+      <div>
+        <p class="fb-eyebrow fb-eyebrow--dark">24/7 EMERGENCY CALL-OUTS</p>
+        <p class="fb-headline fb-headline--dark">Southampton's<br/>trusted electrician</p>
+        <span class="fb-btn fb-btn--dark">Get a quote</span>
+      </div>
+      <div class="fb-cards">
+        <i></i><i></i><i></i>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === "restaurant-desktop" && (
+  <div class="fb fb--nook">
+    <div class="fb-bar fb-bar--nook">
+      <span class="fb-word fb-word--serif">Nook</span>
+      <div class="fb-links fb-links--dark"><i></i><i></i><i></i></div>
+    </div>
+    <div class="fb-hero fb-hero--nook">
+      <p class="fb-eyebrow fb-eyebrow--dark">RESTAURANT &amp; BAR</p>
+      <p class="fb-headline fb-headline--serif">Good food,<br/>quietly done well</p>
+      <span class="fb-btn fb-btn--dark">Reserve a table</span>
+    </div>
+  </div>
+)}
+
+<style>
+  .fb {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body);
+  }
+
+  /* Barber Warnz — bold, dark, high contrast */
+  .fb--barber {
+    background: linear-gradient(160deg, #141414, #0a0a0a);
+    color: #f5f3ee;
+  }
+
+  .fb-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.4rem;
+    border-bottom: 1px solid rgb(245 243 238 / 0.1);
+  }
+
+  .fb-bar--mobile {
+    padding: 0.7rem 1rem;
+  }
+
+  .fb-word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    font-size: 0.95rem;
+  }
+
+  .fb-dot {
+    color: var(--colour-lime);
+  }
+
+  .fb-links {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .fb-links i {
+    width: 26px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgb(245 243 238 / 0.25);
+    display: block;
+  }
+
+  .fb-links--dark i {
+    background: rgb(17 17 17 / 0.18);
+  }
+
+  .fb-bar--mobile .fb-links i,
+  .fb-bar--mobile i {
+    width: 18px;
+    height: 2px;
+    background: rgb(245 243 238 / 0.6);
+    border-radius: 2px;
+    box-shadow: 0 6px 0 rgb(245 243 238 / 0.6), 0 -6px 0 rgb(245 243 238 / 0.6);
+  }
+
+  .fb-hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.6rem;
+  }
+
+  .fb-hero--mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  .fb-eyebrow {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--colour-lime);
+    margin: 0 0 0.6rem;
+  }
+
+  .fb-eyebrow--dark {
+    color: #8a8f5c;
+  }
+
+  .fb-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.05;
+    margin: 0 0 1.1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .fb-headline--mobile {
+    font-size: 1.5rem;
+  }
+
+  .fb-headline--dark {
+    color: #111;
+  }
+
+  .fb-headline--serif {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: #2b2620;
+  }
+
+  .fb-btn {
+    display: inline-flex;
+    background: var(--colour-lime);
+    color: #1a2405;
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+  }
+
+  .fb-btn--dark {
+    background: #111;
+    color: #f5f3ee;
+  }
+
+  .fb-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 40%;
+  }
+
+  .fb-grid i {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgb(200 245 96 / 0.18), rgb(245 243 238 / 0.06));
+    border: 1px solid rgb(245 243 238 / 0.08);
+  }
+
+  .fb-grid--mobile {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* South Coast Electrical — clean, trustworthy, light */
+  .fb--trades {
+    background: linear-gradient(155deg, #f5f3ee, #eae7de);
+    color: #111;
+  }
+
+  .fb-bar--light {
+    border-bottom: 1px solid rgb(17 17 17 / 0.08);
+  }
+
+  .fb-word--dark {
+    color: #111;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+
+  .fb-hero--light {
+    align-items: center;
+  }
+
+  .fb-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 34%;
+  }
+
+  .fb-cards i {
+    height: 20%;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid rgb(17 17 17 / 0.08);
+    display: block;
+  }
+
+  /* Nook — warm, editorial */
+  .fb--nook {
+    background: linear-gradient(160deg, #efe4d3, #e4d5bd);
+    color: #2b2620;
+  }
+
+  .fb-bar--nook {
+    border-bottom: 1px solid rgb(43 38 32 / 0.12);
+  }
+
+  .fb-word--serif {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  .fb-hero--nook {
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+</style>

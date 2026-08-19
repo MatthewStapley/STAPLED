@@ -1,0 +1,234 @@
+---
+import BrowserMockup from "../mockups/BrowserMockup.astro";
+import PhoneMockup from "../mockups/PhoneMockup.astro";
+import FallbackScreen from "../mockups/FallbackScreen.astro";
+import { images, barberWarnzUrl, ctas } from "../../data/config";
+---
+
+<section class="work section" id="work">
+  <div class="container">
+    <div class="work__intro reveal">
+      <p class="eyebrow">Portfolio</p>
+      <h2 class="work__heading">Selected work.</h2>
+    </div>
+
+    <!-- Barber Warnz — flagship project -->
+    <article class="work__feature reveal">
+      <div class="work__feature-visual">
+        <div class="work__feature-desktop">
+          <BrowserMockup src={images.barberWarnzDesktop} alt="Barber Warnz website homepage on desktop" url="barberwarnz.co.uk">
+            <Fragment slot="fallback">
+              <FallbackScreen variant="barber-desktop" />
+            </Fragment>
+          </BrowserMockup>
+        </div>
+        <div class="work__feature-mobile">
+          <PhoneMockup src={images.barberWarnzMobile} alt="Barber Warnz website homepage on mobile">
+            <Fragment slot="fallback">
+              <FallbackScreen variant="barber-mobile" />
+            </Fragment>
+          </PhoneMockup>
+        </div>
+      </div>
+
+      <div class="work__feature-copy">
+        <p class="eyebrow">Live client project &bull; Barbering</p>
+        <h3>Barber Warnz</h3>
+        <p class="text-muted">
+          A bold, mobile-first website designed to give an independent
+          barber a stronger online presence, make booking effortless and
+          bring his personality and Instagram content closer to the top of
+          the experience.
+        </p>
+        <a href={barberWarnzUrl} class="link-arrow" target="_blank" rel="noopener noreferrer">
+          Visit live site
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <!-- REPLACE: barberWarnzUrl in src/data/config.ts once the site is live -->
+      </div>
+    </article>
+
+    <!-- Concept projects -->
+    <div class="work__grid">
+      <article class="work__card reveal">
+        <div class="work__card-visual">
+          <BrowserMockup src={images.tradesConceptDesktop} alt="South Coast Electrical concept website on desktop" url="southcoastelectrical.co.uk">
+            <Fragment slot="fallback">
+              <FallbackScreen variant="trades-desktop" />
+            </Fragment>
+          </BrowserMockup>
+        </div>
+        <div class="work__card-copy">
+          <p class="eyebrow">Concept project &bull; Trades</p>
+          <h3>South Coast Electrical <span class="text-muted work__concept-tag">— Concept</span></h3>
+          <p class="text-muted">
+            A clean, trustworthy lead-generation website for a local
+            electrical business, focused on emergency call-outs, services,
+            customer reviews and quick quote requests.
+          </p>
+        </div>
+      </article>
+
+      <article class="work__card reveal">
+        <div class="work__card-visual">
+          <BrowserMockup src={images.restaurantConceptDesktop} alt="Nook restaurant concept website on desktop" url="nookrestaurant.co.uk">
+            <Fragment slot="fallback">
+              <FallbackScreen variant="restaurant-desktop" />
+            </Fragment>
+          </BrowserMockup>
+        </div>
+        <div class="work__card-copy">
+          <p class="eyebrow">Concept project &bull; Restaurant</p>
+          <h3>Nook <span class="text-muted work__concept-tag">— Restaurant Concept</span></h3>
+          <p class="text-muted">
+            A warm, editorial restaurant website focused on atmosphere,
+            menus, reservations and excellent mobile usability.
+          </p>
+        </div>
+      </article>
+
+      <a href={ctas.primary.href} class="work__cta reveal">
+        <div class="work__cta-inner">
+          <p class="work__cta-heading">Your business could be next.</p>
+          <span class="link-arrow">
+            Request a free homepage preview
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work__intro {
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .work__heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-top: 0.75rem;
+  }
+
+  .work__feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: center;
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: 2rem;
+  }
+
+  .work__feature-visual {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+
+  .work__feature-mobile {
+    position: absolute;
+    width: 34%;
+    max-width: 150px;
+    right: -4%;
+    bottom: -1.5rem;
+    filter: drop-shadow(0 20px 30px rgb(17 17 17 / 0.18));
+  }
+
+  .work__feature-copy h3 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin: 0.6rem 0 1rem;
+  }
+
+  .work__feature-copy .btn,
+  .work__feature-copy .link-arrow {
+    margin-top: 1.5rem;
+  }
+
+  .work__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work__card {
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: transform var(--dur-mid) var(--ease-out), box-shadow var(--dur-mid) var(--ease-out);
+  }
+
+  .work__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 50px -30px rgb(17 17 17 / 0.25);
+  }
+
+  .work__card-visual {
+    transition: transform var(--dur-mid) var(--ease-out);
+  }
+
+  .work__card:hover .work__card-visual {
+    transform: scale(1.015);
+  }
+
+  .work__card-copy {
+    margin-top: 1.25rem;
+  }
+
+  .work__card-copy h3 {
+    font-size: 1.15rem;
+    margin: 0.5rem 0 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  .work__concept-tag {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85em;
+  }
+
+  .work__cta {
+    text-decoration: none;
+    border: 1px dashed var(--colour-border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  }
+
+  .work__cta:hover {
+    border-color: var(--colour-ink);
+    background: var(--colour-white);
+  }
+
+  .work__cta-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    align-items: center;
+  }
+
+  .work__cta-heading {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  @media (min-width: 780px) {
+    .work__feature {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+
+    .work__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
+    }
+  }
+</style>

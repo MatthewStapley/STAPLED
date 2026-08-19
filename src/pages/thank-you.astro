@@ -1,0 +1,106 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Wordmark from "../components/Wordmark.astro";
+import Footer from "../components/Footer.astro";
+import { ctas } from "../data/config";
+---
+
+<Layout
+  title="Enquiry received. — Stapled."
+  description="Thanks for getting in touch with Stapled. Your enquiry has been received and Matt will be in touch shortly."
+  path="/thank-you"
+  noindex
+>
+  <main id="main">
+    <section class="thanks" data-dark>
+      <div class="container thanks__inner">
+        <a href="/" class="thanks__brand" aria-label="Stapled. — home">
+          <Wordmark size="md" light />
+        </a>
+
+        <div class="thanks__staple" aria-hidden="true">
+          <svg viewBox="0 0 120 60" fill="none">
+            <path d="M15 40 V18 a12 12 0 0 1 12 -12 h66 a12 12 0 0 1 12 12 v22" stroke="#C8F560" stroke-width="4" stroke-linecap="round"/>
+            <line x1="15" y1="18" x2="15" y2="48" stroke="#C8F560" stroke-width="4" stroke-linecap="round"/>
+            <line x1="105" y1="18" x2="105" y2="48" stroke="#C8F560" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <h1 class="thanks__heading">Enquiry received<span class="thanks__dot">.</span></h1>
+        <p class="thanks__body">
+          Thanks for getting in touch. Your details have been sent to Matt
+          and I'll be in touch shortly.
+        </p>
+
+        <div class="thanks__actions">
+          <a href="/" class="btn btn--lime">Back to homepage</a>
+          <a href={ctas.whatsapp.href} class="link-arrow thanks__link" target="_blank" rel="noopener noreferrer">
+            {ctas.whatsapp.label}
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .thanks {
+    min-height: min(80vh, 640px);
+    display: flex;
+    align-items: center;
+    padding-block: clamp(4rem, 10vw, 7rem);
+  }
+
+  .thanks__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+  }
+
+  .thanks__brand {
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+  }
+
+  .thanks__staple {
+    width: 70px;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .thanks__heading {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .thanks__dot {
+    color: var(--colour-lime);
+  }
+
+  .thanks__body {
+    margin-top: 1.25rem;
+    font-size: 1.1rem;
+    color: rgb(245 243 238 / 0.75);
+    max-width: 46ch;
+  }
+
+  .thanks__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .thanks__link {
+    color: var(--colour-bg);
+    border-color: rgb(245 243 238 / 0.3);
+  }
+
+  .thanks__link:hover {
+    border-color: var(--colour-bg);
+  }
+</style>

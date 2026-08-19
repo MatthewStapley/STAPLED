@@ -1,0 +1,91 @@
+---
+// Realistic mobile-phone frame built entirely from HTML + CSS.
+//
+// HOW TO ADD A REAL SCREENSHOT:
+// Pass `src` pointing at a file in /public/images/. If the file exists it
+// is displayed automatically; otherwise a styled fallback design renders
+// so nothing ever breaks or shows a broken image icon.
+import fs from "node:fs";
+import path from "node:path";
+
+interface Props {
+  src?: string;
+  alt: string;
+  class?: string;
+}
+
+const { src, alt, class: className = "" } = Astro.props;
+
+const fileExists = src
+  ? fs.existsSync(path.join(process.cwd(), "public", src.replace(/^\//, "")))
+  : false;
+---
+
+<div class:list={["phone-mockup", className]}>
+  <div class="phone-mockup__frame">
+    <div class="phone-mockup__notch" aria-hidden="true"></div>
+    <div class="phone-mockup__screen">
+      {fileExists ? (
+        <img src={src} alt={alt} loading="lazy" decoding="async" />
+      ) : (
+        <slot name="fallback">
+          <div class="phone-mockup__placeholder">
+            <p>Screenshot coming soon</p>
+          </div>
+        </slot>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .phone-mockup__frame {
+    background: var(--colour-ink);
+    border-radius: 2.4rem;
+    padding: 0.55rem;
+    box-shadow: 0 30px 60px -25px rgb(17 17 17 / 0.4);
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 9 / 19.5;
+    position: relative;
+  }
+
+  .phone-mockup__notch {
+    position: absolute;
+    top: 0.55rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 34%;
+    height: 22px;
+    background: var(--colour-ink);
+    border-radius: 0 0 14px 14px;
+    z-index: 2;
+  }
+
+  .phone-mockup__screen {
+    background: var(--colour-bg);
+    width: 100%;
+    height: 100%;
+    border-radius: 1.9rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .phone-mockup__screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .phone-mockup__placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: var(--colour-muted);
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 1rem;
+  }
+</style>

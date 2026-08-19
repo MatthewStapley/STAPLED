@@ -1,0 +1,87 @@
+---
+const steps = [
+  {
+    n: "01",
+    title: "Tell me about the business",
+    body: "A quick conversation about the business, its customers, goals and required features.",
+  },
+  {
+    n: "02",
+    title: "See the direction",
+    body: "Stapled. creates an initial visual direction or homepage preview.",
+  },
+  {
+    n: "03",
+    title: "Build and refine",
+    body: "The complete responsive website is built and adjusted using clear feedback.",
+  },
+  {
+    n: "04",
+    title: "Launch and support",
+    body: "The domain is connected, the website goes live and optional ongoing support is available.",
+  },
+];
+---
+
+<section class="process section" id="process">
+  <div class="container">
+    <div class="process__intro reveal">
+      <p class="eyebrow">Process</p>
+      <h2 class="process__heading">Simple, low-stress and easy to follow.</h2>
+    </div>
+
+    <ol class="process__list">
+      {steps.map((step, i) => (
+        <li class="process__item reveal" style={`--reveal-index: ${i}`}>
+          <span class="process__num">{step.n}</span>
+          <h3>{step.title}</h3>
+          <p class="text-muted">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process__intro {
+    margin-bottom: clamp(2.5rem, 6vw, 4rem);
+    max-width: 46ch;
+  }
+
+  .process__heading {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-top: 0.75rem;
+  }
+
+  .process__list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem 2rem;
+  }
+
+  .process__item {
+    position: relative;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--colour-border);
+  }
+
+  .process__num {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--colour-border);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .process__item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 720px) {
+    .process__list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

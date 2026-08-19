@@ -1,0 +1,288 @@
+---
+import { formEndpoint, thankYouUrl, ctas, contact } from "../../data/config";
+
+const quoteEmailHref = `mailto:${contact.email}?subject=${encodeURIComponent(
+  "Quote request — Stapled."
+)}`;
+
+const autoresponseMessage =
+  "Thanks for contacting Stapled. I’ve received your enquiry and will take a look through the information you’ve sent. I’ll be in touch shortly to discuss your business and what we could create. — Matt, Stapled.";
+---
+
+<section class="preview section" id="preview" data-dark>
+  <div class="container preview__inner">
+    <div class="preview__copy reveal">
+      <p class="eyebrow">Free homepage preview</p>
+      <h2 class="preview__heading">See what your new website could look like.</h2>
+      <p class="preview__sub">
+        Tell me a little about your business and I'll put together an
+        initial homepage direction, with no pressure to continue.
+      </p>
+
+      <ul class="preview__expect">
+        <li>A short look at how your homepage could feel and read</li>
+        <li>Direct feedback from Matt, not a sales team</li>
+        <li>No cost and no obligation to continue</li>
+      </ul>
+
+      <div class="preview__secondary">
+        <a href={ctas.whatsapp.href} class="btn btn--ghost-light btn--sm" target="_blank" rel="noopener noreferrer">
+          {ctas.whatsapp.label}
+        </a>
+        <a href={ctas.call.href} class="btn btn--ghost-light btn--sm" target="_blank" rel="noopener noreferrer">
+          {ctas.call.label}
+        </a>
+        <a href={quoteEmailHref} class="btn btn--ghost-light btn--sm">
+          Request a standard quote
+        </a>
+      </div>
+      <!-- REPLACE: WhatsApp number, booking link and email in src/data/config.ts -->
+    </div>
+
+    <form class="preview__form reveal" method="POST" action={formEndpoint}>
+      <!-- FormSubmit configuration — see https://formsubmit.co/ -->
+      <input type="hidden" name="_subject" value="New Stapled. website enquiry" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="true" />
+      <input type="hidden" name="_next" value={thankYouUrl} />
+      <input type="hidden" name="_autoresponse" value={autoresponseMessage} />
+
+      <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+      <div class="preview__honeypot" aria-hidden="true">
+        <label for="_honey">Leave this field blank</label>
+        <input type="text" id="_honey" name="_honey" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="preview__grid">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="business-name">Business name</label>
+          <input type="text" id="business-name" name="business_name" required autocomplete="organization" />
+        </div>
+
+        <div class="field">
+          <label for="business-type">Type of business</label>
+          <input type="text" id="business-type" name="business_type" placeholder="e.g. barber, café, electrician" required />
+        </div>
+
+        <div class="field">
+          <label for="current-website">Current website or social media page</label>
+          <input type="text" id="current-website" name="current_website" placeholder="Optional" />
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="phone-number">Phone number</label>
+          <input type="tel" id="phone-number" name="phone_number" autocomplete="tel" placeholder="Optional" />
+        </div>
+
+        <div class="field field--full">
+          <label for="goal">What would you like the website to achieve?</label>
+          <textarea id="goal" name="goal" rows="4" required></textarea>
+        </div>
+
+        <fieldset class="field field--full">
+          <legend>Preferred contact method</legend>
+          <div class="preview__radios">
+            <label class="radio">
+              <input type="radio" name="contact_method" value="Email" checked />
+              Email
+            </label>
+            <label class="radio">
+              <input type="radio" name="contact_method" value="Phone" />
+              Phone
+            </label>
+            <label class="radio">
+              <input type="radio" name="contact_method" value="WhatsApp" />
+              WhatsApp
+            </label>
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="btn btn--lime preview__submit">
+        Request my free homepage preview
+      </button>
+
+      <p class="preview__disclaimer">
+        Your details will only be used to respond to your enquiry.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .preview__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: start;
+  }
+
+  .preview__heading {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-top: 0.75rem;
+    max-width: 16ch;
+  }
+
+  .preview__sub {
+    margin-top: 1.25rem;
+    font-size: 1.1rem;
+    color: rgb(245 243 238 / 0.75);
+    max-width: 42ch;
+  }
+
+  .preview__expect {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .preview__expect li {
+    padding-left: 1.4rem;
+    position: relative;
+    font-size: 0.95rem;
+    color: rgb(245 243 238 / 0.85);
+  }
+
+  .preview__expect li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--colour-lime);
+  }
+
+  .preview__secondary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .preview__form {
+    background: var(--colour-bg);
+    color: var(--colour-ink);
+    border-radius: var(--radius-lg);
+    min-width: 0;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .preview__honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .preview__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .field label,
+  fieldset legend {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .field input,
+  .field textarea {
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.9rem;
+    font: inherit;
+    color: var(--colour-ink);
+  }
+
+  .field input:focus-visible,
+  .field textarea:focus-visible {
+    outline: 2px solid var(--colour-ink);
+    outline-offset: 1px;
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .preview__radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .radio {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--colour-border);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background: var(--colour-white);
+  }
+
+  .radio input {
+    accent-color: var(--colour-ink);
+  }
+
+  .preview__submit {
+    width: 100%;
+    margin-top: 1.75rem;
+  }
+
+  .preview__disclaimer {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--colour-muted);
+    line-height: 1.5;
+  }
+
+  .preview__disclaimer code {
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    font-size: 0.9em;
+  }
+
+  @media (min-width: 780px) {
+    .preview__inner {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+
+    .preview__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .field--full {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

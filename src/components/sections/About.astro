@@ -1,0 +1,60 @@
+---
+---
+
+<section class="about section" id="about">
+  <div class="container about__inner">
+    <div class="about__visual reveal" aria-hidden="true">
+      <svg viewBox="0 0 200 200" class="about__mark">
+        <rect x="10" y="10" width="180" height="180" rx="28" fill="none" stroke="#D8D5CE" stroke-width="1.5"/>
+        <path d="M55 110 V70 a25 25 0 0 1 25 -25 h40 a25 25 0 0 1 25 25 v40" fill="none" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+        <line x1="55" y1="70" x2="55" y2="130" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+        <line x1="145" y1="70" x2="145" y2="130" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="146" cy="146" r="9" fill="#C8F560"/>
+      </svg>
+    </div>
+
+    <div class="about__copy reveal">
+      <p class="eyebrow">About</p>
+      <h2 class="about__heading">Built personally, from Southampton.</h2>
+      <p class="about__body">
+        Stapled. is a Southampton-based web studio run by Matt. I started
+        Stapled. to help good local businesses look as professional online
+        as they are in real life. Every website is designed personally,
+        with clear communication and none of the usual agency runaround.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  .about__mark {
+    width: 100%;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+
+  .about__heading {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    margin-top: 0.75rem;
+  }
+
+  .about__body {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--colour-muted);
+    max-width: 52ch;
+  }
+
+  @media (min-width: 780px) {
+    .about__inner {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+  }
+</style>

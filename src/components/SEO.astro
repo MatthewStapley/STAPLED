@@ -1,0 +1,75 @@
+---
+import { site } from "../data/config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = "Stapled. — Web Design Southampton | Websites for Local Businesses",
+  description = site.description,
+  path = "/",
+  noindex = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(path, site.url).toString();
+const ogImageUrl = new URL("/og-image.svg", site.url).toString();
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.legalName,
+  description: site.description,
+  url: site.url,
+  areaServed: {
+    "@type": "City",
+    name: "Southampton",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Southampton",
+    addressCountry: "GB",
+  },
+  priceRange: "£400–£800",
+  founder: {
+    "@type": "Person",
+    name: "Matt",
+  },
+  makesOffer: [
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website design and development" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website redesigns" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Google Business Profile setup" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website hosting and maintenance" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Basic branding and logo design" } },
+  ],
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8" />
+<meta name="theme-color" content="#111111" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:locale" content="en_GB" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

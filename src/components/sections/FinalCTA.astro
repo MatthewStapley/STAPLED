@@ -1,0 +1,66 @@
+---
+import { ctas } from "../../data/config";
+---
+
+<section class="final-cta section section--tight" data-dark>
+  <div class="container final-cta__inner reveal">
+    <div class="final-cta__staple" aria-hidden="true">
+      <svg viewBox="0 0 120 60" fill="none">
+        <path d="M15 40 V18 a12 12 0 0 1 12 -12 h66 a12 12 0 0 1 12 12 v22" stroke="#C8F560" stroke-width="4" stroke-linecap="round"/>
+        <line x1="15" y1="18" x2="15" y2="48" stroke="#C8F560" stroke-width="4" stroke-linecap="round"/>
+        <line x1="105" y1="18" x2="105" y2="48" stroke="#C8F560" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <h2 class="final-cta__heading">
+      Your business already does good work.<br />
+      Its website should show it.
+    </h2>
+
+    <div class="final-cta__actions">
+      <a href={ctas.primary.href} class="btn btn--lime">{ctas.primary.label}</a>
+      <a href={ctas.quote.href} class="link-arrow final-cta__link">{ctas.quote.label}</a>
+      <a href={ctas.whatsapp.href} class="link-arrow final-cta__link" target="_blank" rel="noopener noreferrer">
+        {ctas.whatsapp.label}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .final-cta__staple {
+    width: 70px;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .final-cta__heading {
+    font-size: clamp(1.9rem, 4.5vw, 3rem);
+    max-width: 20ch;
+  }
+
+  .final-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .final-cta__link {
+    color: var(--colour-bg);
+    border-color: rgb(245 243 238 / 0.3);
+  }
+
+  .final-cta__link:hover {
+    border-color: var(--colour-bg);
+  }
+</style>

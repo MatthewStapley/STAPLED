@@ -1,0 +1,141 @@
+---
+const before = [
+  "No website, or an outdated one",
+  "Difficult mobile experience",
+  "Important information hard to find",
+  "Weak or inconsistent branding",
+  "Customers don't know what action to take",
+];
+
+const after = [
+  "Professional, modern appearance",
+  "Fast and mobile-friendly",
+  "Clear services and contact options",
+  "Consistent visual identity",
+  "A website the owner feels proud to share",
+];
+---
+
+<section class="ba section" id="transform">
+  <div class="container">
+    <div class="ba__intro reveal">
+      <p class="eyebrow">The difference</p>
+      <h2 class="ba__heading">From overlooked to properly represented.</h2>
+    </div>
+
+    <div class="ba__panel reveal">
+      <div class="ba__side ba__side--before">
+        <p class="ba__label">Before</p>
+        <ul>
+          {before.map((item) => (
+            <li><span class="ba__marker ba__marker--before" aria-hidden="true">&mdash;</span>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="ba__divider" aria-hidden="true">
+        <svg viewBox="0 0 40 120" preserveAspectRatio="none">
+          <path d="M20 0 V20 a8 8 0 0 0 -8 8 v64 a8 8 0 0 0 8 8 v20" fill="none" stroke="#C8F560" stroke-width="2.5"/>
+        </svg>
+      </div>
+
+      <div class="ba__side ba__side--after">
+        <p class="ba__label ba__label--lime">After</p>
+        <ul>
+          {after.map((item) => (
+            <li><span class="ba__marker ba__marker--after" aria-hidden="true">&#10003;</span>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ba__intro {
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    max-width: 46ch;
+  }
+
+  .ba__heading {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-top: 0.75rem;
+  }
+
+  .ba__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--colour-border);
+    position: relative;
+  }
+
+  .ba__side {
+    padding: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .ba__side--before {
+    background: #eae7e0;
+    color: var(--colour-muted);
+  }
+
+  .ba__side--after {
+    background: var(--colour-ink);
+    color: var(--colour-bg);
+  }
+
+  .ba__label {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  .ba__label--lime {
+    color: var(--colour-lime);
+  }
+
+  .ba__side ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ba__side li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.98rem;
+  }
+
+  .ba__marker {
+    flex-shrink: 0;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .ba__marker--before {
+    color: #a8a49a;
+  }
+
+  .ba__marker--after {
+    color: var(--colour-lime);
+  }
+
+  .ba__divider {
+    display: none;
+  }
+
+  @media (min-width: 780px) {
+    .ba__panel {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    }
+
+    .ba__divider {
+      display: block;
+      width: 40px;
+      background: var(--colour-ink);
+    }
+  }
+</style>

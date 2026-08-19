@@ -1,0 +1,99 @@
+---
+import Wordmark from "./Wordmark.astro";
+import { nav, contact, site } from "../data/config";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" data-dark>
+  <div class="container footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Wordmark size="lg" light />
+        <p class="text-muted footer__location">{site.location}</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <ul>
+          {nav.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <ul class="footer__contact">
+        <li>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          <!-- REPLACE: real email address in src/data/config.ts -->
+        </li>
+        <li>
+          <a href={contact.whatsappLink} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <!-- REPLACE: real WhatsApp number in src/data/config.ts -->
+        </li>
+        <li>
+          <a href={contact.instagramLink} target="_blank" rel="noopener noreferrer">{contact.instagramHandle}</a>
+          <!-- REPLACE: real Instagram profile in src/data/config.ts -->
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p>Websites for businesses worth noticing.</p>
+      <p>&copy; {year} Stapled. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+  }
+
+  .footer__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgb(245 243 238 / 0.15);
+  }
+
+  .footer__location {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .footer__nav ul,
+  .footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .footer__nav a,
+  .footer__contact a {
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: rgb(245 243 238 / 0.8);
+  }
+
+  .footer__nav a:hover,
+  .footer__contact a:hover {
+    color: var(--colour-lime);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-top: 1.75rem;
+    font-size: 0.82rem;
+    color: rgb(245 243 238 / 0.55);
+  }
+
+  @media (min-width: 720px) {
+    .footer__top {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+</style>

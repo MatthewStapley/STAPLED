@@ -1,0 +1,331 @@
+/* ---------------------------------------------------------------------------
+   STAPLED. GLOBAL STYLES
+   Colour tokens, typography, resets and shared animation utilities.
+--------------------------------------------------------------------------- */
+
+:root {
+  --colour-bg: #f5f3ee;
+  --colour-ink: #111111;
+  --colour-white: #ffffff;
+  --colour-border: #d8d5ce;
+  --colour-muted: #6e6b65;
+  --colour-lime: #c8f560;
+  --colour-lime-ink: #1a2405;
+
+  --font-display: "Bricolage Grotesque", "Manrope", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+
+  --container-max: 1280px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.2s;
+  --dur-mid: 0.5s;
+  --dur-slow: 0.8s;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--colour-bg);
+  color: var(--colour-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  background: var(--colour-ink);
+  color: var(--colour-bg);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  transition: top var(--dur-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Focus states — always visible, never suppressed */
+:focus-visible {
+  outline: 2px solid var(--colour-ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.lime :focus-visible,
+[data-dark] :focus-visible {
+  outline-color: var(--colour-lime);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(4rem, 9vw, 7.5rem);
+}
+
+.section--tight {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--colour-muted);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 2px;
+  background: var(--colour-lime);
+  flex-shrink: 0;
+}
+
+.accent {
+  color: var(--colour-lime-ink);
+  background: var(--colour-lime);
+  border-radius: 0.2em;
+  padding-inline: 0.15em;
+}
+
+.text-muted {
+  color: var(--colour-muted);
+}
+
+/* Buttons ------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.95rem 1.75rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+  text-align: center;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background: var(--colour-ink);
+  color: var(--colour-bg);
+}
+
+.btn--primary:hover {
+  background: #000;
+  box-shadow: 0 10px 30px -12px rgb(17 17 17 / 0.45);
+}
+
+.btn--lime {
+  background: var(--colour-lime);
+  color: var(--colour-lime-ink);
+}
+
+.btn--lime:hover {
+  box-shadow: 0 10px 30px -10px rgb(200 245 96 / 0.55);
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--colour-border);
+  color: var(--colour-ink);
+}
+
+.btn--outline:hover {
+  border-color: var(--colour-ink);
+}
+
+.btn--ghost-light {
+  background: transparent;
+  border-color: rgb(245 243 238 / 0.3);
+  color: var(--colour-bg);
+}
+
+.btn--ghost-light:hover {
+  border-color: var(--colour-bg);
+}
+
+.btn--sm {
+  padding: 0.7rem 1.35rem;
+  font-size: 0.875rem;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--colour-border);
+  padding-bottom: 0.15em;
+  transition: border-color var(--dur-fast) var(--ease-out), gap var(--dur-fast) var(--ease-out);
+}
+
+.link-arrow:hover {
+  border-color: var(--colour-ink);
+  gap: 0.6em;
+}
+
+.link-arrow svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+/* Scroll reveal --------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-group > * {
+  transition-delay: calc(var(--reveal-index, 0) * 80ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark section helper ---------------------------------------------------- */
+
+[data-dark] {
+  background: var(--colour-ink);
+  color: var(--colour-bg);
+}
+
+[data-dark] .text-muted {
+  color: rgb(245 243 238 / 0.6);
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: clamp(3rem, 12vw, 4.5rem);
+  }
+}
