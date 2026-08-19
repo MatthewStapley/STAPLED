@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import Wordmark from "../components/Wordmark.astro";
 import Footer from "../components/Footer.astro";
-import { ctas } from "../data/config";
 ---
 
 <Layout
@@ -34,9 +33,6 @@ import { ctas } from "../data/config";
 
         <div class="thanks__actions">
           <a href="/" class="btn btn--lime">Back to homepage</a>
-          <a href={ctas.whatsapp.href} class="link-arrow thanks__link" target="_blank" rel="noopener noreferrer">
-            {ctas.whatsapp.label}
-          </a>
         </div>
       </div>
     </section>
@@ -93,14 +89,5 @@ import { ctas } from "../data/config";
     align-items: center;
     gap: 1.75rem;
     margin-top: 2.5rem;
-  }
-
-  .thanks__link {
-    color: var(--colour-bg);
-    border-color: rgb(245 243 238 / 0.3);
-  }
-
-  .thanks__link:hover {
-    border-color: var(--colour-bg);
   }
 </style>

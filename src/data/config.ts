@@ -19,17 +19,13 @@ export const site = {
 };
 
 // REPLACE: real contact details once available.
+// The enquiry form is the only contact route on the site — keep this to
+// details actually used elsewhere (email links, Instagram).
 export const contact = {
   email: "hello@stapled.co.uk", // REPLACE with real inbox
   phone: "", // REPLACE — optional, leave blank to hide phone links
-  whatsappNumber: "447000000000", // REPLACE — digits only, international format, no +
-  get whatsappLink() {
-    return `https://wa.me/${this.whatsappNumber}`;
-  },
   instagramHandle: "@stapled.co", // REPLACE
   instagramLink: "https://instagram.com/stapled.co", // REPLACE
-  // REPLACE: real booking link (e.g. Calendly / Cal.com)
-  bookingLink: "https://cal.com/stapled/quick-call", // REPLACE placeholder booking link
 };
 
 // Enquiry form delivery, via FormSubmit (https://formsubmit.co).
@@ -65,6 +61,8 @@ export const nav = [
   { label: "Contact", href: "/#preview" },
 ];
 
+// Every CTA on the site points at the enquiry form — it's the only
+// contact route.
 export const ctas = {
   primary: {
     label: "Request a free homepage preview",
@@ -73,18 +71,6 @@ export const ctas = {
   quote: {
     label: "Get a free quote",
     href: "#preview",
-  },
-  whatsapp: {
-    label: "Message on WhatsApp",
-    get href() {
-      return contact.whatsappLink;
-    },
-  },
-  call: {
-    label: "Book a quick call",
-    get href() {
-      return contact.bookingLink;
-    },
   },
   work: {
     label: "View recent work",

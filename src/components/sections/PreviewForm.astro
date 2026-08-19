@@ -1,9 +1,5 @@
 ---
-import { formEndpoint, thankYouUrl, ctas, contact } from "../../data/config";
-
-const quoteEmailHref = `mailto:${contact.email}?subject=${encodeURIComponent(
-  "Quote request — Stapled."
-)}`;
+import { formEndpoint, thankYouUrl } from "../../data/config";
 
 const autoresponseMessage =
   "Thanks for contacting Stapled. I’ve received your enquiry and will take a look through the information you’ve sent. I’ll be in touch shortly to discuss your business and what we could create. — Matt, Stapled.";
@@ -24,19 +20,6 @@ const autoresponseMessage =
         <li>Direct feedback from Matt, not a sales team</li>
         <li>No cost and no obligation to continue</li>
       </ul>
-
-      <div class="preview__secondary">
-        <a href={ctas.whatsapp.href} class="btn btn--ghost-light btn--sm" target="_blank" rel="noopener noreferrer">
-          {ctas.whatsapp.label}
-        </a>
-        <a href={ctas.call.href} class="btn btn--ghost-light btn--sm" target="_blank" rel="noopener noreferrer">
-          {ctas.call.label}
-        </a>
-        <a href={quoteEmailHref} class="btn btn--ghost-light btn--sm">
-          Request a standard quote
-        </a>
-      </div>
-      <!-- REPLACE: WhatsApp number, booking link and email in src/data/config.ts -->
     </div>
 
     <form class="preview__form reveal" method="POST" action={formEndpoint}>
@@ -100,10 +83,6 @@ const autoresponseMessage =
               <input type="radio" name="contact_method" value="Phone" />
               Phone
             </label>
-            <label class="radio">
-              <input type="radio" name="contact_method" value="WhatsApp" />
-              WhatsApp
-            </label>
           </div>
         </fieldset>
       </div>
@@ -163,13 +142,6 @@ const autoresponseMessage =
     height: 8px;
     border-radius: 2px;
     background: var(--colour-lime);
-  }
-
-  .preview__secondary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 2.25rem;
   }
 
   .preview__form {
