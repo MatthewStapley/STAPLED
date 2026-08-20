@@ -37,8 +37,7 @@ export const formEndpoint = "https://formsubmit.co/stapledweb@gmail.com";
 // Where FormSubmit redirects the visitor after a successful submission.
 export const thankYouUrl = `${site.url}/thank-you`;
 
-// REPLACE: live URL once Barber Warnz is published.
-export const barberWarnzUrl = "https://barberwarnz.example.com"; // REPLACE with live site link
+export const barberWarnzUrl = "https://barberwarnz.co.uk";
 
 // Future portfolio screenshots. Drop real files at these paths (same
 // filenames) and the styled fallback mockups will automatically be
