@@ -223,12 +223,29 @@ import { nav, ctas } from "../data/config";
   setScrolled();
   window.addEventListener("scroll", setScrolled, { passive: true });
 
-  const closeMenu = () => {
+  // Elements visually covered by the full-screen mobile menu but not
+  // removed from the DOM — inert them while the menu is open so keyboard
+  // and screen-reader users can't tab into content they can't see.
+  const inertTargets = [
+    document.getElementById("main"),
+    document.querySelector("footer"),
+    document.querySelector(".skip-link"),
+  ].filter((el) => el !== null);
+
+  const setBackgroundInert = (value) => {
+    inertTargets.forEach((el) => {
+      el.inert = value;
+    });
+  };
+
+  const closeMenu = (restoreFocus = true) => {
     if (!toggle || !menu) return;
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "Open menu");
     menu.hidden = true;
     document.body.style.removeProperty("overflow");
+    setBackgroundInert(false);
+    if (restoreFocus) toggle.focus();
   };
 
   const openMenu = () => {
@@ -237,6 +254,8 @@ import { nav, ctas } from "../data/config";
     toggle.setAttribute("aria-label", "Close menu");
     menu.hidden = false;
     document.body.style.overflow = "hidden";
+    setBackgroundInert(true);
+    menu.querySelector(".mobile-menu__link")?.focus();
   };
 
   toggle?.addEventListener("click", () => {
@@ -245,7 +264,9 @@ import { nav, ctas } from "../data/config";
   });
 
   menu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMenu);
+    // A link click navigates/scrolls the page itself, so let the browser
+    // manage focus instead of yanking it back to the toggle button.
+    link.addEventListener("click", () => closeMenu(false));
   });
 
   document.addEventListener("keydown", (e) => {

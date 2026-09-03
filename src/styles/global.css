@@ -8,6 +8,7 @@
   --colour-ink: #111111;
   --colour-white: #ffffff;
   --colour-border: #d8d5ce;
+  --colour-border-strong: #8a867d;
   --colour-muted: #6e6b65;
   --colour-lime: #c8f560;
   --colour-lime-ink: #1a2405;
@@ -231,7 +232,7 @@ ol {
 
 .btn--outline {
   background: transparent;
-  border-color: var(--colour-border);
+  border-color: var(--colour-border-strong);
   color: var(--colour-ink);
 }
 
