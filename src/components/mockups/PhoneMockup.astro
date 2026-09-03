@@ -12,9 +12,11 @@ interface Props {
   src?: string;
   alt: string;
   class?: string;
+  /** Set on the above-the-fold hero instance only; every other usage stays lazy. */
+  priority?: boolean;
 }
 
-const { src, alt, class: className = "" } = Astro.props;
+const { src, alt, class: className = "", priority = false } = Astro.props;
 
 const fileExists = src
   ? fs.existsSync(path.join(process.cwd(), "public", src.replace(/^\//, "")))
@@ -26,7 +28,13 @@ const fileExists = src
     <div class="phone-mockup__notch" aria-hidden="true"></div>
     <div class="phone-mockup__screen">
       {fileExists ? (
-        <img src={src} alt={alt} loading="lazy" decoding="async" />
+        <img
+          src={src}
+          alt={alt}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchpriority={priority ? "high" : undefined}
+        />
       ) : (
         <slot name="fallback">
           <div class="phone-mockup__placeholder">

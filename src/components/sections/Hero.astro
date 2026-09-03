@@ -39,7 +39,7 @@ import { ctas, images } from "../../data/config";
       </div>
 
       <div class="hero__desktop">
-        <BrowserMockup src={images.barberWarnzDesktop} alt="Barber Warnz website preview on desktop" url="barberwarnz.co.uk">
+        <BrowserMockup src={images.barberWarnzDesktop} alt="Barber Warnz website preview on desktop" url="barberwarnz.co.uk" priority>
           <Fragment slot="fallback">
             <FallbackScreen variant="barber-desktop" />
           </Fragment>
@@ -47,7 +47,7 @@ import { ctas, images } from "../../data/config";
       </div>
 
       <div class="hero__mobile">
-        <PhoneMockup src={images.barberWarnzMobile} alt="Barber Warnz website preview on mobile">
+        <PhoneMockup src={images.barberWarnzMobile} alt="Barber Warnz website preview on mobile" priority>
           <Fragment slot="fallback">
             <FallbackScreen variant="barber-mobile" />
           </Fragment>

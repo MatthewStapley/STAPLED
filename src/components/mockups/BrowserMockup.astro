@@ -14,9 +14,11 @@ interface Props {
   alt: string;
   url?: string;
   class?: string;
+  /** Set on the above-the-fold hero instance only; every other usage stays lazy. */
+  priority?: boolean;
 }
 
-const { src, alt, url = "stapled.co.uk", class: className = "" } = Astro.props;
+const { src, alt, url = "stapled.co.uk", class: className = "", priority = false } = Astro.props;
 
 const fileExists = src
   ? fs.existsSync(path.join(process.cwd(), "public", src.replace(/^\//, "")))
@@ -37,7 +39,13 @@ const fileExists = src
   </div>
   <div class="browser-mockup__viewport">
     {fileExists ? (
-      <img src={src} alt={alt} loading="lazy" decoding="async" />
+      <img
+        src={src}
+        alt={alt}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchpriority={priority ? "high" : undefined}
+      />
     ) : (
       <slot name="fallback">
         <div class="browser-mockup__placeholder">
