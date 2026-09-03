@@ -263,18 +263,22 @@ ol {
   text-decoration: none;
   border-bottom: 1px solid var(--colour-border);
   padding-bottom: 0.15em;
-  transition: border-color var(--dur-fast) var(--ease-out), gap var(--dur-fast) var(--ease-out);
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
 
 .link-arrow:hover {
   border-color: var(--colour-ink);
-  gap: 0.6em;
 }
 
 .link-arrow svg {
   width: 1em;
   height: 1em;
   flex-shrink: 0;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.link-arrow:hover svg {
+  transform: translateX(0.2em);
 }
 
 /* Scroll reveal --------------------------------------------------------- */
