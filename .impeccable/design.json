@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-03T00:00:00.000Z",
+  "title": "Design System: Stapled.",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Signal Lime",
+        "canonical": "#c8f560",
+        "tonalRamp": ["#1a2405", "#2d3d0a", "#455c10", "#628218", "#87b423", "#aad948", "#c8f560", "#e7fcb8"]
+      },
+      "primary-ink": {
+        "role": "primary-on-color",
+        "displayName": "Deep Lime Ink",
+        "canonical": "#1a2405",
+        "tonalRamp": ["#0a0d02", "#1a2405", "#2d3d0a", "#455c10", "#628218", "#87b423", "#aad948", "#c8f560"]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Near-Black Ink",
+        "canonical": "#111111",
+        "tonalRamp": ["#000000", "#111111", "#262626", "#3d3d3d", "#5c5c5c", "#7d7d7d", "#a3a3a3", "#cfcfcf"]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f5f3ee",
+        "tonalRamp": ["#3a382f", "#57544a", "#7a766a", "#a19c8e", "#c4bfae", "#ded9c9", "#f5f3ee", "#fbfaf7"]
+      },
+      "neutral-white": {
+        "role": "neutral",
+        "displayName": "Card White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#3d3d3d", "#5c5c5c", "#7d7d7d", "#a3a3a3", "#cfcfcf", "#e8e8e8", "#f7f7f7", "#ffffff"]
+      },
+      "neutral-border": {
+        "role": "neutral",
+        "displayName": "Soft Warm Grey",
+        "canonical": "#d8d5ce",
+        "tonalRamp": ["#37352f", "#524f46", "#726e62", "#948f80", "#b6b1a2", "#cfccc3", "#d8d5ce", "#ece9e2"]
+      },
+      "neutral-muted": {
+        "role": "neutral",
+        "displayName": "Warm Stone",
+        "canonical": "#6e6b65",
+        "tonalRamp": ["#1e1d1a", "#302f2b", "#48463f", "#615f56", "#6e6b65", "#8f8c84", "#b3afa5", "#d6d3ca"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The single hero H1 only." },
+      "headline": { "displayName": "Headline", "purpose": "Every section H2." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy, capped ~42-52ch." },
+      "label": { "displayName": "Label / Eyebrow", "purpose": "Uppercase tag preceding every section heading, paired with the lime dot." }
+    },
+    "shadows": [
+      { "name": "mockup-float-desktop", "value": "0 40px 80px -30px rgb(17 17 17 / 0.25)", "purpose": "Browser-window portfolio mockups." },
+      { "name": "mockup-float-mobile", "value": "0 30px 60px -25px rgb(17 17 17 / 0.4)", "purpose": "Phone-frame portfolio mockups." },
+      { "name": "card-hover", "value": "0 30px 50px -30px rgb(17 17 17 / 0.25)", "purpose": "Work/portfolio cards on hover, paired with a -4px lift." },
+      { "name": "button-primary-hover", "value": "0 10px 30px -12px rgb(17 17 17 / 0.45)", "purpose": "Ink buttons on hover." },
+      { "name": "button-lime-hover", "value": "0 10px 30px -10px rgb(200 245 96 / 0.55)", "purpose": "Lime buttons on hover — a tinted glow, not a neutral shadow." },
+      { "name": "nav-scrolled", "value": "0 8px 30px -20px rgb(17 17 17 / 0.25)", "purpose": "Sticky nav once the page has scrolled." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for every transition in the system." },
+      { "name": "dur-fast", "value": "0.2s", "purpose": "Hover/press feedback (buttons, links, chevrons)." },
+      { "name": "dur-mid", "value": "0.5s", "purpose": "Nav background transitions, mobile menu open." },
+      { "name": "dur-slow", "value": "0.8s", "purpose": "Scroll-reveal fade/rise on section content." },
+      { "name": "reveal-on-scroll", "value": "opacity 0->1, translateY(18px)->0, staggered by --reveal-index * 80ms via IntersectionObserver", "purpose": "The page's signature entrance pattern; disabled entirely under prefers-reduced-motion." },
+      { "name": "float-hero", "value": "translateY(0/-8px to -10px), 7s ease-in-out infinite, disabled under prefers-reduced-motion", "purpose": "Gentle idle float on the hero's browser/phone mockups." }
+    ],
+    "breakpoints": [
+      { "name": "xs-max", "value": "520px" },
+      { "name": "sm-max", "value": "640px" },
+      { "name": "md-min", "value": "720px" },
+      { "name": "lg-min", "value": "780px" },
+      { "name": "nav-collapse", "value": "860px" },
+      { "name": "xl-min", "value": "960px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink-background pill button; the default non-accent action.",
+      "html": "<button class=\"ds-btn-primary\">Request a free homepage preview</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:0.6em; padding:0.95rem 1.75rem; border-radius:999px; font-family:var(--font-body); font-weight:600; font-size:0.95rem; background:var(--colour-ink); color:var(--colour-bg); border:1px solid transparent; cursor:pointer; transition:transform 0.2s cubic-bezier(0.16,1,0.3,1), background 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-btn-primary:hover { background:#000; transform:translateY(-2px); box-shadow:0 10px 30px -12px rgb(17 17 17 / 0.45); } .ds-btn-primary:active { transform:translateY(0); } .ds-btn-primary:focus-visible { outline:2px solid var(--colour-ink); outline-offset:3px; }"
+    },
+    {
+      "name": "Lime CTA Button",
+      "kind": "button",
+      "refersTo": "button-lime",
+      "description": "The signature, highest-commitment CTA — lime fill, deep-lime-ink text.",
+      "html": "<button class=\"ds-btn-lime\">Get a free quote</button>",
+      "css": ".ds-btn-lime { display:inline-flex; align-items:center; justify-content:center; gap:0.6em; padding:0.95rem 1.75rem; border-radius:999px; font-family:var(--font-body); font-weight:600; font-size:0.95rem; background:var(--colour-lime); color:var(--colour-lime-ink); border:1px solid transparent; cursor:pointer; transition:transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-btn-lime:hover { transform:translateY(-2px); box-shadow:0 10px 30px -10px rgb(200 245 96 / 0.55); } .ds-btn-lime:active { transform:translateY(0); } .ds-btn-lime:focus-visible { outline:2px solid var(--colour-lime); outline-offset:3px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action next to a primary/lime button.",
+      "html": "<button class=\"ds-btn-outline\">View recent work</button>",
+      "css": ".ds-btn-outline { display:inline-flex; align-items:center; justify-content:center; gap:0.6em; padding:0.95rem 1.75rem; border-radius:999px; font-family:var(--font-body); font-weight:600; font-size:0.95rem; background:transparent; color:var(--colour-ink); border:1px solid var(--colour-border); cursor:pointer; transition:transform 0.2s cubic-bezier(0.16,1,0.3,1), border-color 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-btn-outline:hover { border-color:var(--colour-ink); transform:translateY(-2px); } .ds-btn-outline:focus-visible { outline:2px solid var(--colour-ink); outline-offset:3px; }"
+    },
+    {
+      "name": "Wordmark",
+      "kind": "custom",
+      "description": "Staple-bracket icon + \"Stapled\" wordmark; the trailing dot is always lime, on any background.",
+      "html": "<span class=\"ds-wordmark\"><span class=\"ds-wordmark__mark\" aria-hidden=\"true\"><svg viewBox=\"0 0 28 28\" width=\"22\" height=\"22\"><path d=\"M6 12 V7.5 a2.5 2.5 0 0 1 2.5 -2.5 h11 a2.5 2.5 0 0 1 2.5 2.5 V12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><line x1=\"6\" y1=\"7.5\" x2=\"6\" y2=\"15.5\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><line x1=\"22\" y1=\"7.5\" x2=\"22\" y2=\"15.5\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\"/></svg></span><span class=\"ds-wordmark__text\">Stapled<span class=\"ds-wordmark__dot\">.</span></span></span>",
+      "css": ".ds-wordmark { display:inline-flex; align-items:center; gap:0.4em; font-family:var(--font-display); font-weight:700; font-size:1.375rem; letter-spacing:-0.01em; color:var(--colour-ink); line-height:1; } .ds-wordmark__mark { display:inline-flex; color:var(--colour-muted); opacity:0.85; } .ds-wordmark__dot { color:var(--colour-lime); }"
+    },
+    {
+      "name": "Eyebrow Label",
+      "kind": "custom",
+      "description": "Uppercase section-intro tag with a lime dot prefix; precedes every section heading.",
+      "html": "<p class=\"ds-eyebrow\">Services</p>",
+      "css": ".ds-eyebrow { display:inline-flex; align-items:center; gap:0.5em; font-family:var(--font-body); font-size:0.8125rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--colour-muted); } .ds-eyebrow::before { content:\"\"; width:0.5em; height:0.5em; border-radius:2px; background:var(--colour-lime); flex-shrink:0; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "White, hairline-bordered content container; flat at rest, lifts on hover.",
+      "html": "<div class=\"ds-card\"><h3>South Coast Electrical</h3><p>A clean, trustworthy lead-generation website for a local electrical business.</p></div>",
+      "css": ".ds-card { background:var(--colour-white); border:1px solid var(--colour-border); border-radius:24px; padding:1.5rem; transition:transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1); } .ds-card:hover { transform:translateY(-4px); box-shadow:0 30px 50px -30px rgb(17 17 17 / 0.25); } .ds-card h3 { font-family:var(--font-display); font-weight:600; font-size:1.15rem; margin:0 0 0.6rem; color:var(--colour-ink); } .ds-card p { margin:0; color:var(--colour-muted); font-size:0.95rem; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labelled text input; flat with a hairline border, plain ink focus outline.",
+      "html": "<label class=\"ds-field\"><span>Email address</span><input type=\"email\" required /></label>",
+      "css": ".ds-field { display:flex; flex-direction:column; gap:0.5rem; font-family:var(--font-body); } .ds-field span { font-size:0.85rem; font-weight:600; color:var(--colour-ink); } .ds-field input { background:var(--colour-white); border:1px solid var(--colour-border); border-radius:8px; padding:0.75rem 0.9rem; font:inherit; color:var(--colour-ink); } .ds-field input:focus-visible { outline:2px solid var(--colour-ink); outline-offset:1px; }"
+    },
+    {
+      "name": "Pill Chip",
+      "kind": "chip",
+      "description": "Unfilled, hairline-bordered pill for informational tags and form radio choices.",
+      "html": "<span class=\"ds-chip\">Number of pages</span>",
+      "css": ".ds-chip { display:inline-flex; align-items:center; border:1px solid var(--colour-border); border-radius:999px; padding:0.5rem 1.1rem; font-family:var(--font-body); font-size:0.85rem; color:var(--colour-ink); background:var(--colour-white); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Staple Mark",
+    "overview": "The staple is both the literal brand mark and the governing metaphor: a small, precise, structural fastener that joins two things together with intention — here, a good local business and a website that actually represents it. Nothing about the system is loud by default. It sits on warm paper (#f5f3ee) with near-black ink type (#111111), flat surfaces, and thin hairline borders — honest and unpolished-corporate rather than glossy-agency. Signal lime (#c8f560) is the one bright, deliberate mark: it appears as a dot, an underline, a single CTA, a numeral badge — never as a wash of color across a surface. The voice matching this system is warm, direct and unpretentious, written in Matt's own first person, never a corporate \"we\".\n\nThe system deliberately keeps a distance from three things: the generic template/stock-agency look (default corporate blue, stock-photo hero banners, cookie-cutter DIY-builder polish) that Stapled. is explicitly positioned against; anything overly playful or whimsical (mascots, novelty display fonts, cartoonish illustration) that would undercut credibility with tradespeople and professional local clients; and dense, dashboard-like enterprise UI, even in utility sections like the enquiry form.",
+    "keyCharacteristics": [
+      "A single accent color (lime) used as punctuation, never as a fill",
+      "Flat, hairline-bordered surfaces at rest; soft shadow reserved for floating device mockups and hover feedback",
+      "Pill radius (999px) for anything tappable, soft 24px rectangles for content containers, no sharp corners",
+      "A recurring \"eyebrow\" label (uppercase + lime dot) introduces every section",
+      "Full-bleed light/dark section banding down the page, not a site-wide dark mode"
+    ],
+    "rules": [
+      { "name": "The One Staple Rule", "body": "Lime marks a single deliberate point per view — a dot, one CTA, one underline sweep, one numeral badge — never a background wash or large fill. If a section needs more visual weight, reach for the ink/paper contrast, not more lime.", "section": "colors" },
+      { "name": "The Display/Body Split Rule", "body": "Bricolage Grotesque is reserved for headings, large numerals, and the wordmark. Inter handles everything else — nav, buttons, labels, body copy. The two are never used interchangeably.", "section": "typography" },
+      { "name": "The Floating-Proof Rule", "body": "Shadow appears only on things literally presented as floating above the page (the device mockups) or as a direct response to interaction (hover, press). A resting card, section, or form panel never carries a shadow — a hairline border is enough.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep lime as a single deliberate mark per view — a dot, an underline, one CTA, a numeral badge — never a large fill or background wash (The One Staple Rule).",
+      "Do pair every section heading with an eyebrow label (uppercase, small lime-dot prefix) — the consistent section-intro device used across the entire page.",
+      "Do use pill radius (999px) for anything actionable or tappable, and 24px soft rectangles for content containers; never introduce a sharp 0px corner.",
+      "Do reserve soft box-shadows for floating device mockups and interactive hover/press states; keep resting surfaces flat with a hairline border instead.",
+      "Do keep the wordmark's trailing dot lime in every placement, on light or dark backgrounds.",
+      "Do write copy in first person, founder-voiced (\"I\", \"Matt\"), matching the warm, direct, unpretentious tone — never a corporate \"we\".",
+      "Do show the styled text fallback (never a broken image or empty box) whenever a portfolio screenshot file doesn't exist yet."
+    ],
+    "donts": [
+      "Don't reach for a generic template/stock-agency look — no default corporate blue, no stock-photo hero banners, no cookie-cutter DIY-website-builder polish. This is the site's whole pitch against \"look-the-same\" competitors.",
+      "Don't add whimsical or cartoonish elements — mascots, novelty display fonts, playful illustration — anywhere in the system; credibility with tradespeople and professional clients depends on staying grounded.",
+      "Don't add dashboard-like density or enterprise-software chrome anywhere, including in utility sections like the enquiry form — keep the pacing spacious and marketing-page-like throughout.",
+      "Don't add an ad hoc [data-dark] section outside Pricing, the enquiry form, Final CTA, and the Footer without a real reason — the light/dark banding is a deliberate page-level rhythm, not a per-section styling choice.",
+      "Don't fill a lime numeral badge, chip, or tag with anything other than deep-lime-ink text — it's the one pairing tuned for contrast on the accent."
+    ]
+  }
+}
