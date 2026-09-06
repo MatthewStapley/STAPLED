@@ -1,0 +1,43 @@
+---
+// Small "Concept design" tag used on Interactive Concepts homepage cards.
+// Kept separate from the work__concept-tag text used in Work.astro because
+// Interactive Concepts cards link through to a full standalone page and
+// need a clearer, more visible label than a plain text suffix.
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<span class:list={["concept-badge", className]}>
+  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <circle cx="8" cy="8" r="6.25" stroke="currentColor" stroke-width="1.5" />
+    <path d="M8 5v3.2l2 1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+  Concept design
+</span>
+
+<style>
+  .concept-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--colour-ink);
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border-strong);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem 0.3rem 0.55rem;
+  }
+
+  .concept-badge svg {
+    width: 0.9em;
+    height: 0.9em;
+    flex-shrink: 0;
+  }
+</style>

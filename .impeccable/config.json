@@ -1,0 +1,62 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "space grotesk",
+        "files": [
+          "src/pages/concepts/crema-current.astro"
+        ],
+        "createdAt": "2026-09-06T00:59:35.731Z",
+        "reason": "Crema Current is a fictional portfolio concept with its own deliberate brand system (Taste Skill direction), scoped separately from Stapled's own DESIGN.md typography by user instruction"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "work sans",
+        "files": [
+          "src/pages/concepts/crema-current.astro"
+        ],
+        "createdAt": "2026-09-06T00:59:35.772Z",
+        "reason": "Crema Current is a fictional portfolio concept with its own deliberate brand system (Taste Skill direction), scoped separately from Stapled's own DESIGN.md typography by user instruction"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          "src/layouts/Layout.astro"
+        ],
+        "createdAt": "2026-09-06T01:06:36.995Z",
+        "reason": "Inter is Stapled's own documented body typeface in DESIGN.md, used site-wide since before this session"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          "src/components/ConceptRibbon.astro"
+        ],
+        "createdAt": "2026-09-06T01:06:37.035Z",
+        "reason": "Ribbon is Stapled's own chrome wrapping the concept page, correctly reusing Stapled's documented Inter body font, not Crema Current's brand"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "files": [
+          "src/components/mockups/FallbackScreen.astro"
+        ],
+        "createdAt": "2026-09-06T01:06:37.075Z",
+        "reason": "Crema Current fallback graphic intentionally mirrors its own distinct brand type system (Taste Skill direction), separate from Stapled's DESIGN.md"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "files": [
+          "src/pages/concepts/crema-current.astro"
+        ],
+        "createdAt": "2026-09-06T01:06:37.117Z",
+        "reason": "Crema Current's own deliberate brand type system (Taste Skill direction), scoped separately from Stapled's DESIGN.md typography by user instruction"
+      }
+    ]
+  }
+}

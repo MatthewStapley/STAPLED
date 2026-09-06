@@ -1,0 +1,683 @@
+---
+// Interactive Concepts: Crema Current — a fictional independent coffee
+// bar. This page is a full standalone demonstration of a distinct brand
+// system (its own palette, type and shape language), separate from
+// Stapled's own DESIGN.md, to show range in the homepage portfolio.
+//
+// The hero is an original layered SVG (espresso machine, portafilter,
+// stream, cup, clipped coffee fill, crema, steam, shadow — see the
+// cc-scene__* ids/classes below). The cup itself settles in on load via
+// a plain CSS keyframe; the pour (stream growing, cup filling, crema and
+// steam arriving) is tied to how far the visitor scrolls down through
+// the hero section, via the small script at the end of this file. It's
+// vanilla JS rather than a CSS scroll-timeline because the brief calls
+// for monotonic, forward-only progress (no scrubbing back on scroll-up),
+// which native CSS scroll-driven animations can't express — the script
+// only ever writes transform/opacity/stroke-dashoffset, batches reads
+// through requestAnimationFrame, and detaches its scroll listener once
+// the pour completes.
+import Layout from "../../layouts/Layout.astro";
+import ConceptRibbon from "../../components/ConceptRibbon.astro";
+import { ctas } from "../../data/config";
+---
+
+<Layout
+  title="Crema Current — a coffee shop concept by Stapled."
+  description="Crema Current is a fictional coffee bar concept, designed by Stapled to show what a bolder, more editorial small-business website could look like. Not a real business."
+  path="/concepts/crema-current"
+  noindex
+>
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <ConceptRibbon backHref="/" />
+
+  <main id="main" class="cc">
+    <section class="cc-hero">
+      <div class="cc-container cc-hero__inner">
+        <div class="cc-hero__copy reveal">
+          <p class="cc-hero__brand">Crema Current</p>
+          <h1 class="cc-hero__headline">Coffee, built around the pour.</h1>
+          <p class="cc-hero__sub">
+            A concept for an independent coffee bar, designed to show a
+            bolder direction than the everyday small-business site.
+          </p>
+          <a href={ctas.primary.href} class="cc-btn cc-btn--primary">{ctas.primary.label}</a>
+        </div>
+
+        <div class="cc-hero__visual reveal" style="--reveal-index: 1">
+          <div class="cc-hero__mark" aria-hidden="true">
+            <svg viewBox="0 0 300 360" fill="none">
+              <defs>
+                <clipPath id="cc-cup-interior">
+                  <path d="M114,206 C114,202 118,199 123,199 L177,199 C182,199 186,202 186,206 L176,290 C176,296 172,300 166,300 L134,300 C128,300 124,296 124,290 Z" />
+                </clipPath>
+              </defs>
+
+              <!-- Cup shadow -->
+              <ellipse id="cc-scene-shadow" class="cc-scene__shadow" cx="150" cy="305" rx="46" ry="9" fill="var(--cc-shadow)" />
+
+              <!-- Espresso machine body -->
+              <g id="cc-scene-machine" class="cc-scene__machine">
+                <rect x="90" y="8" width="120" height="58" rx="16" fill="var(--cc-machine)" />
+                <rect x="118" y="0" width="64" height="12" rx="6" fill="var(--cc-machine)" />
+                <line x1="100" y1="22" x2="200" y2="22" stroke="var(--cc-copper-dim)" stroke-width="1" />
+                <circle cx="108" cy="36" r="3" fill="var(--cc-copper)" />
+                <circle cx="192" cy="36" r="3" fill="var(--cc-copper)" />
+              </g>
+
+              <!-- Portafilter and handle -->
+              <g id="cc-scene-portafilter" class="cc-scene__portafilter">
+                <path d="M138,66 L162,66 L157,90 L143,90 Z" fill="var(--cc-machine)" />
+                <rect x="161" y="71" width="58" height="9" rx="4.5" fill="var(--cc-handle)" />
+                <circle cx="224" cy="75.5" r="6.5" fill="var(--cc-handle)" />
+                <rect x="145" y="90" width="10" height="9" rx="2" fill="var(--cc-copper)" />
+              </g>
+
+              <!-- Coffee stream, grows downward from the portafilter spout.
+                   Uses the copper tone rather than the near-black pooled
+                   coffee colour: a thin falling stream catches light and
+                   reads as warm amber, and it needs the extra contrast
+                   against the dark hero background. -->
+              <path
+                id="cc-scene-stream"
+                class="cc-scene__stream"
+                d="M145,99 C144,130 149,165 150,200 L155,200 C156,165 161,130 155,99 Z"
+                fill="var(--cc-copper)"
+              />
+
+              <!-- Cup body and interior -->
+              <g id="cc-scene-cup" class="cc-scene__cup">
+                <path d="M192,222 q24,6 24,28 q0,22 -24,28" stroke="var(--cc-text)" stroke-width="9" fill="none" stroke-linecap="round" />
+                <path d="M108,205 L192,205 L181,292 Q181,302 171,302 L129,302 Q119,302 119,292 Z" fill="var(--cc-text)" />
+                <ellipse cx="150" cy="205" rx="42" ry="8" fill="var(--cc-cup-shade)" />
+              </g>
+
+              <!-- Coffee fill, clipped inside the cup interior, rises from the base -->
+              <rect
+                id="cc-scene-fill"
+                class="cc-scene__fill"
+                x="112"
+                y="195"
+                width="76"
+                height="112"
+                fill="var(--cc-coffee)"
+                clip-path="url(#cc-cup-interior)"
+              />
+
+              <!-- Crema surface, appears once the cup is nearly full -->
+              <ellipse id="cc-scene-crema" class="cc-scene__crema" cx="150" cy="205" rx="38" ry="6" fill="var(--cc-accent)" />
+
+              <!-- Steam, draws in and fades at the completed state -->
+              <g id="cc-scene-steam" class="cc-scene__steam">
+                <path class="cc-scene__steam-path" pathLength="1" d="M136,196 C130,178 146,172 140,152 C134,132 150,126 144,106" stroke="var(--cc-text)" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path class="cc-scene__steam-path" pathLength="1" d="M164,196 C170,180 156,174 162,154 C168,134 154,128 160,108" stroke="var(--cc-text)" stroke-width="3" stroke-linecap="round" fill="none" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cc-menu">
+      <div class="cc-container">
+        <h2 class="cc-heading reveal">On the counter.</h2>
+        <p class="cc-menu__intro text-muted reveal">
+          A short, focused menu, built around the pour rather than a long
+          list of options.
+        </p>
+
+        <div class="cc-menu__columns reveal">
+          <ul class="cc-menu__list">
+            <li class="cc-menu__item">
+              <div>
+                <p class="cc-menu__name">Current Espresso</p>
+                <p class="cc-menu__desc">Double shot, balanced and bright.</p>
+              </div>
+              <span class="cc-menu__price">£3.00</span>
+            </li>
+            <li class="cc-menu__item">
+              <div>
+                <p class="cc-menu__name">Bone White</p>
+                <p class="cc-menu__desc">Espresso and steamed milk, six ounces.</p>
+              </div>
+              <span class="cc-menu__price">£3.60</span>
+            </li>
+          </ul>
+          <ul class="cc-menu__list">
+            <li class="cc-menu__item">
+              <div>
+                <p class="cc-menu__name">Slow Filter</p>
+                <p class="cc-menu__desc">Single origin, brewed to order.</p>
+              </div>
+              <span class="cc-menu__price">£3.80</span>
+            </li>
+            <li class="cc-menu__item">
+              <div>
+                <p class="cc-menu__name">Iced Current</p>
+                <p class="cc-menu__desc">Cold brew concentrate, served long.</p>
+              </div>
+              <span class="cc-menu__price">£3.90</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cc-story">
+      <div class="cc-container cc-story__inner">
+        <div class="cc-story__visual reveal" aria-hidden="true">
+          <span class="cc-story__ring cc-story__ring--1"></span>
+          <span class="cc-story__ring cc-story__ring--2"></span>
+          <span class="cc-story__ring cc-story__ring--3"></span>
+        </div>
+        <div class="cc-story__copy reveal" style="--reveal-index: 1">
+          <h2 class="cc-heading">Built around the pour.</h2>
+          <p>
+            Crema Current is a concept for a coffee bar where the ritual of
+            pouring matters as much as the coffee itself. The idea behind
+            the site is to slow a visitor down for a moment, the same way
+            a good counter does.
+          </p>
+          <p>
+            One focused menu, one clear signature colour, and a layout
+            built to feel considered rather than templated.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cc-cta">
+      <div class="cc-container cc-cta__inner reveal">
+        <h2 class="cc-heading">Like this direction for your business?</h2>
+        <p class="cc-cta__body">
+          This is one example of what Stapled could build for you. Every
+          project starts with a conversation about your business, not a
+          template.
+        </p>
+        <a href={ctas.primary.href} class="cc-btn cc-btn--primary">{ctas.primary.label}</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="cc-footer">
+    <div class="cc-container cc-footer__inner">
+      <p>Crema Current is a concept design by Stapled, a web design studio for Southampton businesses.</p>
+      <a href="/" class="cc-footer__link">stapled.co.uk</a>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* Crema Current's own brand system, scoped to this page. Deliberately
+     distinct from Stapled's DESIGN.md (dark-first, amber accent, Space
+     Grotesk/Work Sans, tighter radii) to show a different visual range
+     within the same portfolio. */
+  .cc {
+    --cc-bg: #0f1d17;
+    --cc-panel: #16261f;
+    --cc-panel-2: #1b3128;
+    --cc-text: #f3ecdc;
+    --cc-muted: rgb(243 236 220 / 0.68);
+    --cc-accent: #e2a545;
+    --cc-accent-ink: #1f1506;
+    --cc-border: rgb(243 236 220 / 0.14);
+    --cc-radius: 14px;
+    --cc-radius-sm: 8px;
+    --cc-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --cc-machine: #201007;
+    --cc-copper: #b9814f;
+    --cc-copper-dim: rgb(185 129 79 / 0.5);
+    --cc-handle: #4a2c1a;
+    --cc-coffee: #2b160c;
+    --cc-cup-shade: #e2d5ba;
+    --cc-shadow: rgb(10 18 14 / 0.45);
+    --cc-font-display: "Space Grotesk", "Bricolage Grotesque", system-ui, sans-serif;
+    --cc-font-body: "Work Sans", "Inter", system-ui, sans-serif;
+
+    background: var(--cc-bg);
+    color: var(--cc-text);
+    font-family: var(--cc-font-body);
+  }
+
+  .cc-container {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .cc-heading {
+    font-family: var(--cc-font-display);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.4vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--cc-text);
+  }
+
+  .cc p {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .cc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 1.6rem;
+    border-radius: var(--cc-radius-sm);
+    font-family: var(--cc-font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cc-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .cc-btn--primary {
+    background: var(--cc-accent);
+    color: var(--cc-accent-ink);
+  }
+
+  .cc-btn--primary:hover {
+    box-shadow: 0 10px 30px -10px rgb(226 165 69 / 0.5);
+  }
+
+  /* Hero */
+  .cc-hero {
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+  }
+
+  .cc-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  .cc-hero__brand {
+    font-family: var(--cc-font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cc-accent);
+    margin: 0 0 1.5rem;
+  }
+
+  .cc-hero__headline {
+    font-family: var(--cc-font-display);
+    font-weight: 600;
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 14ch;
+    color: var(--cc-text);
+  }
+
+  .cc-hero__sub {
+    margin-top: 1.25rem;
+    font-size: 1.05rem;
+    color: var(--cc-muted);
+    max-width: 42ch;
+  }
+
+  .cc-hero__copy .cc-btn {
+    margin-top: 2rem;
+  }
+
+  .cc-hero__visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cc-hero__mark {
+    width: min(78vw, 300px);
+    aspect-ratio: 300 / 360;
+  }
+
+  /* Coffee-pour scene. The cup settles in on load (a fixed, short CSS
+     keyframe, independent of scroll). Everything else — stream, fill,
+     crema, steam — starts from its "empty" resting state below, and is
+     driven forward by the scroll-progress script at the end of this
+     file, which writes transform/opacity/stroke-dashoffset directly. */
+  .cc-scene__machine,
+  .cc-scene__portafilter {
+    opacity: 1;
+  }
+
+  .cc-scene__shadow,
+  .cc-scene__cup {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cc-scene__shadow,
+    .cc-scene__cup {
+      animation: cc-settle 600ms var(--cc-ease-out) forwards;
+    }
+
+    .cc-scene__cup {
+      animation-delay: 120ms;
+    }
+  }
+
+  @keyframes cc-settle {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .cc-scene__stream {
+    transform-origin: 150px 99px;
+    transform: scaleY(0);
+  }
+
+  .cc-scene__fill {
+    transform-origin: 150px 307px;
+    transform: scaleY(0);
+  }
+
+  .cc-scene__crema {
+    opacity: 0;
+  }
+
+  .cc-scene__steam {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .cc-scene__steam-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cc-scene__shadow,
+    .cc-scene__cup {
+      opacity: 1;
+      transform: none;
+    }
+
+    .cc-scene__stream,
+    .cc-scene__fill {
+      transform: scaleY(1);
+    }
+
+    .cc-scene__crema,
+    .cc-scene__steam {
+      opacity: 1;
+      transform: none;
+    }
+
+    .cc-scene__steam-path {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Menu */
+  .cc-menu {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    border-top: 1px solid var(--cc-border);
+  }
+
+  .cc-menu__intro {
+    margin-top: 0.85rem;
+    max-width: 46ch;
+    font-size: 1.05rem;
+    color: var(--cc-muted);
+  }
+
+  .cc-menu__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 3rem;
+    margin-top: 2.5rem;
+  }
+
+  .cc-menu__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cc-menu__item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.1rem;
+    border-top: 1px solid var(--cc-border);
+  }
+
+  .cc-menu__list li:first-child {
+    border-top: none;
+  }
+
+  .cc-menu__name {
+    font-family: var(--cc-font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .cc-menu__desc {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--cc-muted);
+  }
+
+  .cc-menu__price {
+    font-family: var(--cc-font-display);
+    font-weight: 600;
+    color: var(--cc-accent);
+    flex-shrink: 0;
+  }
+
+  /* Story */
+  .cc-story {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    background: var(--cc-panel);
+  }
+
+  .cc-story__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  .cc-story__visual {
+    position: relative;
+    width: min(60vw, 220px);
+    aspect-ratio: 1;
+    justify-self: center;
+  }
+
+  .cc-story__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--cc-border);
+  }
+
+  .cc-story__ring--2 {
+    inset: 16%;
+    border-color: rgb(226 165 69 / 0.35);
+  }
+
+  .cc-story__ring--3 {
+    inset: 34%;
+    border-color: rgb(226 165 69 / 0.7);
+  }
+
+  .cc-story__copy p {
+    margin-top: 1.1rem;
+    color: var(--cc-muted);
+    max-width: 48ch;
+  }
+
+  /* Final CTA */
+  .cc-cta {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .cc-cta__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+  }
+
+  .cc-cta__body {
+    margin-top: 1rem;
+    color: var(--cc-muted);
+  }
+
+  .cc-cta .cc-btn {
+    margin-top: 2rem;
+  }
+
+  /* Footer strip */
+  .cc-footer {
+    background: var(--cc-panel);
+    border-top: 1px solid var(--cc-border);
+    padding-block: 1.75rem;
+  }
+
+  .cc-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--cc-muted);
+  }
+
+  .cc-footer__link {
+    color: var(--cc-text);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid var(--cc-border);
+  }
+
+  .cc-footer__link:hover {
+    border-color: var(--cc-text);
+  }
+
+  @media (min-width: 780px) {
+    .cc-hero__inner {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+
+    .cc-menu__columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cc-story__inner {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+
+    .cc-story__visual {
+      justify-self: start;
+    }
+  }
+</style>
+
+<script>
+  // Coffee-pour hero animation. Progress is how far the visitor has
+  // scrolled down through the hero section (0 at the top of the page, 1
+  // once they've scrolled roughly through the hero's own height) — not
+  // the element's position in the viewport, since the hero sits above
+  // the fold and is already visible at load. Progress only ever
+  // increases (a scroll back up does not undo the pour) and the scroll
+  // listener is removed once the pour completes, so it plays once.
+  //
+  // Reduced motion skips this entirely; the CSS in this page's <style>
+  // already renders the completed cup with no animation in that case.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reduceMotion) {
+    const heroSection = document.querySelector(".cc-hero");
+    const stream = document.querySelector(".cc-scene__stream");
+    const fill = document.querySelector(".cc-scene__fill");
+    const crema = document.querySelector(".cc-scene__crema");
+    const steam = document.querySelector(".cc-scene__steam");
+    const steamPaths = steam ? steam.querySelectorAll(".cc-scene__steam-path") : [];
+
+    if (heroSection && stream && fill && crema && steam) {
+      const isCompact = window.matchMedia("(max-width: 640px)").matches;
+      const clamp01 = (n) => Math.min(1, Math.max(0, n));
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+      // On mobile the whole sequence resolves over a shorter scroll
+      // distance, and steam skips its own stroke-draw pass (fixed fully
+      // drawn, just fades with the group) to keep the per-frame work down.
+      const range = heroSection.getBoundingClientRect().height * (isCompact ? 0.65 : 0.85);
+
+      let maxProgress = 0;
+      let ticking = false;
+
+      const apply = (progress) => {
+        const streamEnd = isCompact ? 0.5 : 0.4;
+        const fillStart = isCompact ? 0.3 : 0.25;
+        const fillEnd = isCompact ? 0.9 : 0.85;
+        const cremaStart = 0.8;
+        const cremaEnd = 0.95;
+        const steamStart = 0.9;
+
+        const streamP = easeOutCubic(clamp01(progress / streamEnd));
+        stream.style.transform = `scaleY(${streamP})`;
+
+        const fillP = easeOutCubic(clamp01((progress - fillStart) / (fillEnd - fillStart)));
+        fill.style.transform = `scaleY(${fillP})`;
+
+        const cremaP = easeOutCubic(clamp01((progress - cremaStart) / (cremaEnd - cremaStart)));
+        crema.style.opacity = String(cremaP);
+
+        const steamP = easeOutCubic(clamp01((progress - steamStart) / (1 - steamStart)));
+        steam.style.opacity = String(steamP);
+        steam.style.transform = `translateY(${6 * (1 - steamP)}px)`;
+        steamPaths.forEach((path) => {
+          path.style.strokeDashoffset = isCompact ? "0" : String(1 - steamP);
+        });
+      };
+
+      const update = () => {
+        const progress = clamp01(window.scrollY / range);
+        if (progress > maxProgress) {
+          maxProgress = progress;
+          apply(maxProgress);
+        }
+        if (maxProgress >= 1) {
+          window.removeEventListener("scroll", onScroll);
+        }
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      };
+
+      apply(0);
+      update();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
+  }
+</script>

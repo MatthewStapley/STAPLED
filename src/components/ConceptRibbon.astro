@@ -1,0 +1,76 @@
+---
+// Persistent disclosure bar for every Interactive Concepts full page.
+// Deliberately plain and always visible (not a dismissible banner) so a
+// concept page can never be mistaken for a real business, even if it's
+// shared or landed on directly without the homepage context.
+interface Props {
+  backHref?: string;
+}
+
+const { backHref = "/" } = Astro.props;
+---
+
+<div class="concept-ribbon">
+  <p class="concept-ribbon__text">
+    Fictional concept by Stapled. Not a real business.
+  </p>
+  <a href={backHref} class="concept-ribbon__back">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Stapled
+  </a>
+</div>
+
+<style>
+  .concept-ribbon {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem 1.25rem;
+    padding: 0.65rem 1rem;
+    background: #111111;
+    color: #f5f3ee;
+    text-align: center;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+  }
+
+  .concept-ribbon__text {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: rgb(245 243 238 / 0.85);
+  }
+
+  .concept-ribbon__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #f5f3ee;
+    text-decoration: none;
+    border-bottom: 1px solid rgb(245 243 238 / 0.4);
+    padding-bottom: 0.1em;
+    white-space: nowrap;
+  }
+
+  .concept-ribbon__back:hover {
+    border-color: #f5f3ee;
+  }
+
+  .concept-ribbon__back svg {
+    width: 0.95em;
+    height: 0.95em;
+  }
+
+  @media (max-width: 480px) {
+    .concept-ribbon {
+      justify-content: flex-start;
+      text-align: left;
+      padding: 0.6rem 0.9rem;
+    }
+  }
+</style>

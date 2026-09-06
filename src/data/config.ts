@@ -47,7 +47,27 @@ export const images = {
   barberWarnzMobile: "/images/barber-warnz-mobile.webp",
   tradesConceptDesktop: "/images/trades-concept-desktop.webp",
   restaurantConceptDesktop: "/images/restaurant-concept-desktop.webp",
+  cremaCurrentDesktop: "/images/crema-current-desktop.webp",
 };
+
+// Interactive Concepts — full standalone concept pages (unlike the
+// visual-only cards in Work.astro), each showing a distinct brand built
+// for a different local trade. Fictional businesses only, invented for
+// this portfolio section: never a real company's name.
+//
+// To add another concept later: add an entry here, a fallback variant in
+// FallbackScreen.astro, and a new page under src/pages/concepts/. Nothing
+// else in InteractiveConcepts.astro needs to change.
+export const interactiveConcepts = [
+  {
+    slug: "crema-current",
+    name: "Crema Current",
+    category: "Coffee shop concept",
+    tagline:
+      "A premium independent coffee brand concept, built to show a bolder, more editorial direction than a typical small-business site.",
+    image: images.cremaCurrentDesktop,
+  },
+];
 
 // Homepage-relative anchors. Using a leading "/" (rather than a bare "#…")
 // means these still resolve correctly from other pages (e.g. /thank-you),

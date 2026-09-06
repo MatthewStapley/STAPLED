@@ -3,7 +3,7 @@
 // mockups until real screenshots are added at the paths in src/data/config.ts.
 // Built entirely from CSS gradients + typography — no images required.
 interface Props {
-  variant: "barber-desktop" | "barber-mobile" | "trades-desktop" | "restaurant-desktop";
+  variant: "barber-desktop" | "barber-mobile" | "trades-desktop" | "restaurant-desktop" | "crema-current-desktop";
 }
 
 const { variant } = Astro.props;
@@ -74,6 +74,19 @@ const { variant } = Astro.props;
       <p class="fb-eyebrow fb-eyebrow--dark">RESTAURANT &amp; BAR</p>
       <p class="fb-headline fb-headline--serif">Good food,<br/>quietly done well</p>
       <span class="fb-btn fb-btn--dark">Reserve a table</span>
+    </div>
+  </div>
+)}
+
+{variant === "crema-current-desktop" && (
+  <div class="fb fb--crema">
+    <div class="fb-bar fb-bar--crema">
+      <span class="fb-word fb-word--crema">CREMA CURRENT</span>
+      <div class="fb-links"><i></i><i></i><i></i></div>
+    </div>
+    <div class="fb-hero fb-hero--crema">
+      <p class="fb-headline fb-headline--crema">Coffee,<br/>poured with intention</p>
+      <span class="fb-btn fb-btn--crema">Explore the concept</span>
     </div>
   </div>
 )}
@@ -284,5 +297,39 @@ const { variant } = Astro.props;
     justify-content: center;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* Crema Current — dark, editorial, single amber accent */
+  .fb--crema {
+    background: linear-gradient(160deg, #14251d, #0f1d17);
+    color: #f3ecdc;
+  }
+
+  .fb-bar--crema {
+    border-bottom: 1px solid rgb(243 236 220 / 0.12);
+  }
+
+  .fb-word--crema {
+    font-family: "Space Grotesk", var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    font-size: 0.82rem;
+  }
+
+  .fb-hero--crema {
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fb-headline--crema {
+    font-family: "Space Grotesk", var(--font-display);
+    font-weight: 500;
+    color: #f3ecdc;
+  }
+
+  .fb-btn--crema {
+    background: #e2a545;
+    color: #1f1506;
   }
 </style>
