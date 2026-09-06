@@ -16,9 +16,17 @@
 // only ever writes transform/opacity/stroke-dashoffset, batches reads
 // through requestAnimationFrame, and detaches its scroll listener once
 // the pour completes.
+import fs from "node:fs";
+import path from "node:path";
 import Layout from "../../layouts/Layout.astro";
 import ConceptRibbon from "../../components/ConceptRibbon.astro";
-import { ctas } from "../../data/config";
+import { ctas, images } from "../../data/config";
+
+// Same existence check BrowserMockup.astro uses: show the real photo once
+// it exists at that path, a styled (not stock) placeholder until then.
+const atmosphereImageExists = fs.existsSync(
+  path.join(process.cwd(), "public", images.cremaCurrentAtmosphere.replace(/^\//, ""))
+);
 ---
 
 <Layout
@@ -56,15 +64,35 @@ import { ctas } from "../../data/config";
                 <clipPath id="cc-cup-interior">
                   <path d="M114,206 C114,202 118,199 123,199 L177,199 C182,199 186,202 186,206 L176,290 C176,296 172,300 166,300 L134,300 C128,300 124,296 124,290 Z" />
                 </clipPath>
+
+                <!-- Restrained depth cues: gradients on the machine, cup and
+                     liquid, plus a soft blur on the cup shadow. Additive only
+                     — no path or coordinate changes, so the pour script's
+                     transform-origins above are unaffected. -->
+                <linearGradient id="cc-grad-machine" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2c1810" />
+                  <stop offset="100%" stop-color="#160a05" />
+                </linearGradient>
+                <linearGradient id="cc-grad-cup" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fbf6ea" />
+                  <stop offset="100%" stop-color="var(--cc-cup-shade)" />
+                </linearGradient>
+                <linearGradient id="cc-grad-coffee" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3d2113" />
+                  <stop offset="100%" stop-color="var(--cc-coffee)" />
+                </linearGradient>
+                <filter id="cc-shadow-blur" x="-60%" y="-150%" width="220%" height="400%">
+                  <feGaussianBlur stdDeviation="3.5" />
+                </filter>
               </defs>
 
               <!-- Cup shadow -->
-              <ellipse id="cc-scene-shadow" class="cc-scene__shadow" cx="150" cy="305" rx="46" ry="9" fill="var(--cc-shadow)" />
+              <ellipse id="cc-scene-shadow" class="cc-scene__shadow" cx="150" cy="305" rx="46" ry="9" fill="var(--cc-shadow)" filter="url(#cc-shadow-blur)" />
 
               <!-- Espresso machine body -->
               <g id="cc-scene-machine" class="cc-scene__machine">
-                <rect x="90" y="8" width="120" height="58" rx="16" fill="var(--cc-machine)" />
-                <rect x="118" y="0" width="64" height="12" rx="6" fill="var(--cc-machine)" />
+                <rect x="90" y="8" width="120" height="58" rx="16" fill="url(#cc-grad-machine)" />
+                <rect x="118" y="0" width="64" height="12" rx="6" fill="url(#cc-grad-machine)" />
                 <line x1="100" y1="22" x2="200" y2="22" stroke="var(--cc-copper-dim)" stroke-width="1" />
                 <circle cx="108" cy="36" r="3" fill="var(--cc-copper)" />
                 <circle cx="192" cy="36" r="3" fill="var(--cc-copper)" />
@@ -72,8 +100,9 @@ import { ctas } from "../../data/config";
 
               <!-- Portafilter and handle -->
               <g id="cc-scene-portafilter" class="cc-scene__portafilter">
-                <path d="M138,66 L162,66 L157,90 L143,90 Z" fill="var(--cc-machine)" />
+                <path d="M138,66 L162,66 L157,90 L143,90 Z" fill="url(#cc-grad-machine)" />
                 <rect x="161" y="71" width="58" height="9" rx="4.5" fill="var(--cc-handle)" />
+                <line x1="163" y1="73.5" x2="216" y2="73.5" stroke="rgb(255 255 255 / 0.18)" stroke-width="1" stroke-linecap="round" />
                 <circle cx="224" cy="75.5" r="6.5" fill="var(--cc-handle)" />
                 <rect x="145" y="90" width="10" height="9" rx="2" fill="var(--cc-copper)" />
               </g>
@@ -92,8 +121,9 @@ import { ctas } from "../../data/config";
 
               <!-- Cup body and interior -->
               <g id="cc-scene-cup" class="cc-scene__cup">
-                <path d="M192,222 q24,6 24,28 q0,22 -24,28" stroke="var(--cc-text)" stroke-width="9" fill="none" stroke-linecap="round" />
-                <path d="M108,205 L192,205 L181,292 Q181,302 171,302 L129,302 Q119,302 119,292 Z" fill="var(--cc-text)" />
+                <path d="M192,222 q24,6 24,28 q0,22 -24,28" stroke="url(#cc-grad-cup)" stroke-width="9" fill="none" stroke-linecap="round" />
+                <path d="M108,205 L192,205 L181,292 Q181,302 171,302 L129,302 Q119,302 119,292 Z" fill="url(#cc-grad-cup)" />
+                <path d="M118,214 C117,240 116,266 122,290" stroke="rgb(255 255 255 / 0.4)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6" />
                 <ellipse cx="150" cy="205" rx="42" ry="8" fill="var(--cc-cup-shade)" />
               </g>
 
@@ -105,7 +135,7 @@ import { ctas } from "../../data/config";
                 y="195"
                 width="76"
                 height="112"
-                fill="var(--cc-coffee)"
+                fill="url(#cc-grad-coffee)"
                 clip-path="url(#cc-cup-interior)"
               />
 
@@ -120,6 +150,32 @@ import { ctas } from "../../data/config";
             </svg>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Cinematic bridge from the illustrated hero to a realistic brand
+         photo. Deliberately not full-bleed (generous side margins) and
+         pulled up slightly over the hero's bottom edge, so it reads as a
+         considered transition rather than the next section just starting. -->
+    <section class="cc-atmosphere">
+      <div class="cc-atmosphere__frame reveal">
+        {atmosphereImageExists ? (
+          <img
+            src={images.cremaCurrentAtmosphere}
+            alt="A dark ceramic espresso cup with a thick crema layer and rising steam, on a dark veined stone counter with warm, low side lighting."
+            class="cc-atmosphere__img"
+            width="1672"
+            height="941"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div class="cc-atmosphere__placeholder" role="img" aria-label="Editorial coffee photography placeholder">
+            <span class="cc-atmosphere__placeholder-note">Editorial image coming soon</span>
+          </div>
+        )}
+        <div class="cc-atmosphere__scrim" aria-hidden="true"></div>
+        <p class="cc-atmosphere__caption">Coffee worth slowing down for.</p>
       </div>
     </section>
 
@@ -427,6 +483,104 @@ import { ctas } from "../../data/config";
     }
   }
 
+  /* Cinematic image bridge */
+  .cc-atmosphere {
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .cc-atmosphere__frame {
+    position: relative;
+    margin: -32px clamp(1.25rem, 6vw, 5rem) 0;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--cc-radius);
+    overflow: hidden;
+    background: var(--cc-panel-2);
+    box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.55);
+  }
+
+  .cc-atmosphere__frame.reveal {
+    transform: scale(1.06);
+    transition: opacity 900ms var(--cc-ease-out), transform 900ms var(--cc-ease-out);
+  }
+
+  .cc-atmosphere__frame.reveal.is-visible {
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cc-atmosphere__frame.reveal {
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .cc-atmosphere__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* The cup and steam sit in the right third of the source photo, with
+       genuine clean negative space across the rest — bias the crop right
+       so that space (where the caption sits) survives at every width. */
+    object-position: 64% 50%;
+  }
+
+  /* Styled stand-in (not a stock photo) until a real image exists at
+     images.cremaCurrentAtmosphere — a warm, dark gradient in the page's
+     own palette so the section still reads intentionally in the meantime. */
+  .cc-atmosphere__placeholder {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 78% 20%, rgb(185 129 79 / 0.28), transparent 45%),
+      linear-gradient(160deg, #241a12 0%, #150d08 55%, #0d0805 100%);
+  }
+
+  .cc-atmosphere__placeholder-note {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    font-size: 0.72rem;
+    color: rgb(243 236 220 / 0.5);
+  }
+
+  /* Restrained and localised to the bottom-left corner, where the caption
+     sits — not a full-width wash, so the cup, steam and warm highlights
+     on the right stay untouched. */
+  .cc-atmosphere__scrim {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 90% at 0% 100%, rgb(8 6 4 / 0.75) 0%, rgb(8 6 4 / 0.35) 35%, rgb(8 6 4 / 0) 62%);
+  }
+
+  .cc-atmosphere__caption {
+    position: absolute;
+    left: clamp(1.5rem, 4vw, 2.75rem);
+    bottom: clamp(1.25rem, 3.5vw, 2.25rem);
+    max-width: 18ch;
+    font-family: var(--cc-font-display);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+    line-height: 1.15;
+    color: var(--cc-text);
+    margin: 0;
+  }
+
+  /* A 16:9 crop gets quite short on narrow phones and starts to feel like
+     a strip rather than a considered photo. Taller on mobile instead, with
+     the crop biased further right so the cup and steam stay fully framed
+     as more of the vertical frame is used. */
+  @media (max-width: 640px) {
+    .cc-atmosphere__frame {
+      aspect-ratio: 4 / 3;
+    }
+
+    .cc-atmosphere__img {
+      object-position: 74% 46%;
+    }
+  }
+
   /* Menu */
   .cc-menu {
     padding-block: clamp(3rem, 7vw, 5rem);
@@ -580,7 +734,20 @@ import { ctas } from "../../data/config";
 
   @media (min-width: 780px) {
     .cc-hero__inner {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(3rem, 6vw, 5rem);
+    }
+
+    /* ~35% larger than the mobile cap (300px), so the scene reads as the
+       hero's second half rather than a small icon floating in its column.
+       The even 1fr/1fr split plus the wider gap above is what keeps this
+       from crowding the headline and CTA now that it's bigger. */
+    .cc-hero__mark {
+      width: min(48vw, 405px);
+    }
+
+    .cc-atmosphere__frame {
+      margin-top: -56px;
     }
 
     .cc-menu__columns {

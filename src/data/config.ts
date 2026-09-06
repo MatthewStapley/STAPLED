@@ -48,6 +48,11 @@ export const images = {
   tradesConceptDesktop: "/images/trades-concept-desktop.webp",
   restaurantConceptDesktop: "/images/restaurant-concept-desktop.webp",
   cremaCurrentDesktop: "/images/crema-current-desktop.webp",
+  // Wide editorial photo for the cinematic section directly after the
+  // Crema Current hero. Delivered as .webp (converted from the original
+  // crema-current-editorial.png, also kept in public/images, for ~18x
+  // smaller payload at no visible quality loss). 1672x941 source, 16:9.
+  cremaCurrentAtmosphere: "/images/crema-current-editorial.webp",
 };
 
 // Interactive Concepts — full standalone concept pages (unlike the
