@@ -2,7 +2,7 @@
 import BrowserMockup from "../mockups/BrowserMockup.astro";
 import PhoneMockup from "../mockups/PhoneMockup.astro";
 import FallbackScreen from "../mockups/FallbackScreen.astro";
-import { images, barberWarnzUrl, ctas } from "../../data/config";
+import { images, barberWarnzUrl, leroyDrivingInstructorUrl, ctas } from "../../data/config";
 ---
 
 <section class="work section" id="work">
@@ -12,7 +12,46 @@ import { images, barberWarnzUrl, ctas } from "../../data/config";
       <h2 class="work__heading">Selected work.</h2>
     </div>
 
-    <!-- Barber Warnz — flagship project -->
+    <!-- Real client projects -->
+    <article class="work__feature reveal">
+      <div class="work__feature-visual">
+        <div class="work__feature-desktop">
+          <BrowserMockup src={images.leroyDesktop} alt="Leroy Driving Instructor website homepage on desktop" url="leroydrivinginstructor.co.uk">
+            <Fragment slot="fallback">
+              <FallbackScreen variant="leroy-desktop" />
+            </Fragment>
+          </BrowserMockup>
+        </div>
+        <div class="work__feature-mobile">
+          <PhoneMockup src={images.leroyMobile} alt="Leroy Driving Instructor website homepage on mobile">
+            <Fragment slot="fallback">
+              <FallbackScreen variant="leroy-mobile" />
+            </Fragment>
+          </PhoneMockup>
+        </div>
+      </div>
+
+      <div class="work__feature-copy">
+        <p class="eyebrow">Live client project &bull; Brighton &amp; Hove</p>
+        <h3>Leroy Driving Instructor</h3>
+        <p class="text-muted">
+          A conversion-focused website for an independent driving
+          instructor, designed to generate more telephone and WhatsApp
+          enquiries while showcasing genuine Google reviews and pupil
+          success stories.
+        </p>
+        <div class="work__feature-actions">
+          <a href={leroyDrivingInstructorUrl} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
+            View Live Website
+          </a>
+          <a href="/work/leroy-driving-instructor" class="link-arrow">
+            Read the case study
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
     <article class="work__feature reveal">
       <div class="work__feature-visual">
         <div class="work__feature-desktop">
@@ -143,6 +182,19 @@ import { images, barberWarnzUrl, ctas } from "../../data/config";
   .work__feature-copy .btn,
   .work__feature-copy .link-arrow {
     margin-top: 1.5rem;
+  }
+
+  .work__feature-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .work__feature-actions .btn,
+  .work__feature-actions .link-arrow {
+    margin-top: 0;
   }
 
   .work__grid {

@@ -41,7 +41,8 @@ Personal, direct-from-the-designer service at fixed, accessible small-business p
 
 ## Evidence on Hand
 
-- **Barber Warnz** (barberwarnz.co.uk) is the one real, live client project. It is the flagship portfolio piece and uses real site screenshots (desktop and mobile).
+- **Barber Warnz** (barberwarnz.co.uk) is a real, live client project and the flagship portfolio piece, using real site screenshots (desktop and mobile).
+- **Leroy Driving Instructor** (leroydrivinginstructor.co.uk) is a second real, live client project, added 2026-09-11, with its own real site screenshots and a dedicated case-study page at `/work/leroy-driving-instructor`. Note it's based in Brighton & Hove rather than Southampton — the first portfolio piece outside Stapled's core Southampton market.
 - **South Coast Electrical** and **Nook** are portfolio pieces explicitly labelled "Concept" in the UI. They are **not real clients** — no paid work was done and no relationship exists. Per the user (2026-09-03): these use the names of real, existing local businesses, but those businesses have not agreed to, seen, or been informed of this use. This is a real risk (implying an affiliation or client relationship that doesn't exist, or being mistaken for real work) that the user should resolve — by seeking the businesses' consent, or by renaming these to unambiguously fictional businesses — flagged separately outside this document. Future design or copy work must not add anything that makes the "concept" framing read as more real (e.g. no invented quotes, testimonials, or "as seen at" claims tied to these two names).
 - No testimonials, reviews, star ratings, or client-count/results claims exist yet. None should be fabricated; if/when real ones exist, add them here first.
 

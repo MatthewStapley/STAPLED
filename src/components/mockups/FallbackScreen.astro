@@ -3,7 +3,14 @@
 // mockups until real screenshots are added at the paths in src/data/config.ts.
 // Built entirely from CSS gradients + typography — no images required.
 interface Props {
-  variant: "barber-desktop" | "barber-mobile" | "trades-desktop" | "restaurant-desktop" | "crema-current-desktop";
+  variant:
+    | "barber-desktop"
+    | "barber-mobile"
+    | "leroy-desktop"
+    | "leroy-mobile"
+    | "trades-desktop"
+    | "restaurant-desktop"
+    | "crema-current-desktop";
 }
 
 const { variant } = Astro.props;
@@ -41,6 +48,37 @@ const { variant } = Astro.props;
       <div class="fb-grid fb-grid--mobile">
         <i></i><i></i><i></i>
       </div>
+    </div>
+  </div>
+)}
+
+{variant === "leroy-desktop" && (
+  <div class="fb fb--leroy">
+    <div class="fb-bar">
+      <span class="fb-word">LEROY</span>
+      <div class="fb-links"><i></i><i></i><i></i></div>
+    </div>
+    <div class="fb-hero">
+      <div>
+        <p class="fb-eyebrow fb-eyebrow--leroy">BRIGHTON &amp; HOVE</p>
+        <p class="fb-headline">Driving Instructor<br/>in Brighton &amp; Hove</p>
+        <span class="fb-btn fb-btn--leroy">Call Leroy</span>
+      </div>
+      <div class="fb-photo" aria-hidden="true"></div>
+    </div>
+  </div>
+)}
+
+{variant === "leroy-mobile" && (
+  <div class="fb fb--leroy fb--mobile">
+    <div class="fb-bar fb-bar--mobile">
+      <span class="fb-word">LEROY</span>
+      <i></i>
+    </div>
+    <div class="fb-hero fb-hero--mobile">
+      <p class="fb-eyebrow fb-eyebrow--leroy">BRIGHTON &amp; HOVE</p>
+      <p class="fb-headline fb-headline--mobile">Driving Instructor<br/>in Brighton &amp; Hove</p>
+      <span class="fb-btn fb-btn--leroy">Call Leroy</span>
     </div>
   </div>
 )}
@@ -238,6 +276,29 @@ const { variant } = Astro.props;
   .fb-grid--mobile {
     width: 100%;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Leroy Driving Instructor — dark, high-contrast, single amber-yellow accent */
+  .fb--leroy {
+    background: linear-gradient(160deg, #171717, #0a0a0a);
+    color: #f5f3ee;
+  }
+
+  .fb-eyebrow--leroy {
+    color: #f0c419;
+  }
+
+  .fb-btn--leroy {
+    background: #f0c419;
+    color: #1a1400;
+  }
+
+  .fb-photo {
+    width: 40%;
+    aspect-ratio: 3 / 4;
+    border-radius: 12px;
+    background: linear-gradient(160deg, rgb(240 196 25 / 0.2), rgb(245 243 238 / 0.06));
+    border: 1px solid rgb(245 243 238 / 0.08);
   }
 
   /* South Coast Electrical — clean, trustworthy, light */

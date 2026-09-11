@@ -38,6 +38,7 @@ export const formEndpoint = "https://formsubmit.co/stapledweb@gmail.com";
 export const thankYouUrl = `${site.url}/thank-you`;
 
 export const barberWarnzUrl = "https://barberwarnz.co.uk";
+export const leroyDrivingInstructorUrl = "https://leroydrivinginstructor.co.uk";
 
 // Future portfolio screenshots. Drop real files at these paths (same
 // filenames) and the styled fallback mockups will automatically be
@@ -45,6 +46,8 @@ export const barberWarnzUrl = "https://barberwarnz.co.uk";
 export const images = {
   barberWarnzDesktop: "/images/barber-warnz-desktop.webp",
   barberWarnzMobile: "/images/barber-warnz-mobile.webp",
+  leroyDesktop: "/images/leroy-driving-instructor-desktop.webp",
+  leroyMobile: "/images/leroy-driving-instructor-mobile.webp",
   tradesConceptDesktop: "/images/trades-concept-desktop.webp",
   restaurantConceptDesktop: "/images/restaurant-concept-desktop.webp",
   cremaCurrentDesktop: "/images/crema-current-desktop.webp",
