@@ -13,7 +13,7 @@ export const site = {
   url: "https://stapled.co.uk",
   tagline: "Helping Southampton businesses look the part online.",
   description:
-    "Stapled. designs and builds modern, mobile-friendly websites for Southampton businesses — barbers, tradespeople, restaurants and independent shops. Most projects cost £400–£800.",
+    "Stapled. designs and builds modern, mobile-friendly websites for Southampton businesses — barbers, tradespeople, restaurants and independent shops. Websites for £50 a month, with hosting and support included.",
   location: "Southampton, UK",
   founder: "Matt",
 };

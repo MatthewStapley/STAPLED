@@ -1,13 +1,18 @@
 ---
 import { ctas } from "../../data/config";
 
-const factors = [
-  "Number of pages",
-  "Amount of written content",
-  "Required features",
-  "Branding requirements",
-  "Google Business support",
-  "Additional services",
+const included = [
+  "Design and build",
+  "Hosting",
+  "Small updates and changes",
+  "Ongoing support",
+  "Mobile-first",
+];
+
+const terms = [
+  "Pay £50 to start — that covers your first month.",
+  "12-month minimum, then carry on month to month.",
+  "If you cancel after that, your website comes down.",
 ];
 ---
 
@@ -15,24 +20,32 @@ const factors = [
   <div class="container pricing__inner">
     <div class="pricing__copy reveal">
       <p class="eyebrow">Pricing</p>
-      <h2 class="pricing__heading">Straightforward pricing, built around the job.</h2>
+      <h2 class="pricing__heading">One simple monthly price. No big upfront bill.</h2>
       <p class="pricing__range">
-        Most Stapled. websites cost between <strong>&pound;400</strong> and <strong>&pound;800</strong>.
+        <strong>&pound;50</strong> a month for your website.
       </p>
       <p class="text-muted">
-        The final price depends on a few things, and I'll always agree it
-        with you upfront before any work starts:
+        I design and build your website, host it, and keep it looking right
+        for you. Everything you need is included:
       </p>
 
       <ul class="pricing__factors">
-        {factors.map((f) => (
+        {included.map((f) => (
           <li>{f}</li>
         ))}
       </ul>
 
+      <ul class="pricing__terms">
+        {terms.map((t) => (
+          <li>{t}</li>
+        ))}
+      </ul>
+
       <p class="text-muted pricing__note">
-        Optional hosting and ongoing support are available and can be
-        discussed separately, once you know what your website needs.
+        Want to own it outright? You can buy your website from me for a
+        one-off <strong>&pound;499</strong> at any time. You get the site to keep and
+        host wherever you like &mdash; hosting, updates and support from me stop at
+        that point.
       </p>
 
       <a href={ctas.quote.href} class="btn btn--lime">
@@ -82,6 +95,17 @@ const factors = [
     border-radius: 999px;
     padding: 0.5rem 1.1rem;
     font-size: 0.85rem;
+  }
+
+  .pricing__terms {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 1.75rem;
+    font-size: 0.95rem;
+  }
+
+  .pricing__note strong {
+    color: var(--colour-lime);
   }
 
   .pricing__note {

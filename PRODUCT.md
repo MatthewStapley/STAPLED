@@ -16,7 +16,7 @@ Stapled. is a solo web design and build studio, run personally by Matt, that des
 
 ## Positioning
 
-Personal, direct-from-the-designer service at fixed, accessible small-business pricing (£400–£800), with none of the "usual agency runaround": one point of contact (Matt), straightforward pricing agreed upfront, and a website built around the individual business rather than a generic template. The differentiator against larger agencies is the combination of personal relationship, transparency, affordability, and being genuinely Southampton-based.
+Personal, direct-from-the-designer service on a simple monthly plan (£50/month, hosting, small updates and support included), with none of the "usual agency runaround": one point of contact (Matt), straightforward pricing agreed upfront, and a website built around the individual business rather than a generic template. The differentiator against larger agencies is the combination of personal relationship, transparency, affordability, and being genuinely Southampton-based.
 
 ## Operating Context
 
@@ -28,7 +28,7 @@ Personal, direct-from-the-designer service at fixed, accessible small-business p
 ## Capabilities and Constraints
 
 - Matt is the sole designer/builder, and staying solo is a deliberate, durable part of the positioning — not a stepping stone to growing an agency. Copy should keep using first-person ("I", "built personally by Matt"), not "we".
-- Pricing (most projects £400–£800) is driven by: number of pages, amount of written content, required features, branding requirements, Google Business support, and additional services. Final price is always agreed with the client upfront.
+- Pricing (changed 2026-10-03, replacing the old one-off £400–£800 fee): £50/month subscription. The client pays £50 upfront, which covers the first month. There is a 12-month minimum term, then it continues month to month. If the client cancels, the website is taken down. A buyout option is always available: a one-off £499 to own the site outright, after which Matt provides no hosting, management, updates or support. The aim is recurring income rather than one-time fees.
 - The site explicitly avoids promising specific Google search rankings, since ranking depends on factors outside any one website.
 - Client-provided written content is preferred (client knows their business best), though Matt will guide and help tidy wording where useful.
 - Domain and hosting can be arranged by Stapled. or the client can keep an existing domain.
@@ -49,7 +49,7 @@ Personal, direct-from-the-designer service at fixed, accessible small-business p
 ## Product Principles
 
 1. Personal beats agency scale — the sell against bigger web agencies is one person, directly reachable, not a process.
-2. Pricing stays transparent and accessible to small local businesses — always agreed upfront, never an obscured quote.
+2. Pricing stays transparent and accessible to small local businesses — one simple monthly price with the terms (minimum term, cancellation, buyout) stated plainly, never hidden.
 3. Mobile-first by default — most local customers will find and judge the business on their phone.
 4. Local credibility is load-bearing — Southampton-based, a real local portfolio piece, plain and direct communication.
 5. One contact route (the enquiry form) keeps intake simple and low-friction for both Matt and the visitor.
