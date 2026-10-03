@@ -25,10 +25,11 @@ const year = new Date().getFullYear();
         <li>
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </li>
-        <li>
-          <a href={contact.instagramLink} target="_blank" rel="noopener noreferrer">{contact.instagramHandle}</a>
-          <!-- REPLACE: real Instagram profile in src/data/config.ts -->
-        </li>
+        {contact.instagramLink && (
+          <li>
+            <a href={contact.instagramLink} target="_blank" rel="noopener noreferrer">{contact.instagramHandle}</a>
+          </li>
+        )}
       </ul>
     </div>
 

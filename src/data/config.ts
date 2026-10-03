@@ -13,7 +13,7 @@ export const site = {
   url: "https://stapled.co.uk",
   tagline: "Helping Southampton businesses look the part online.",
   description:
-    "Stapled. designs and builds modern, mobile-friendly websites for Southampton businesses — barbers, tradespeople, restaurants and independent shops. £50 a month for your website, hosting, updates and Google Business Profile management (12-month minimum).",
+    "Stapled. designs and builds modern, mobile-friendly websites for Southampton businesses — barbers, tradespeople, restaurants and independent shops. £50 a month for your website, hosting, updates, Google Business Profile management and fortnightly check-ins. 12-month minimum with an early-exit option.",
   location: "Southampton, UK",
   founder: "Matt",
 };
@@ -24,8 +24,10 @@ export const site = {
 export const contact = {
   email: "stapledweb@gmail.com",
   phone: "", // REPLACE — optional, leave blank to hide phone links
-  instagramHandle: "@stapled.co", // REPLACE
-  instagramLink: "https://instagram.com/stapled.co", // REPLACE
+  // Unconfirmed: the footer hides the Instagram link while these are
+  // blank. Fill both in once the real handle is confirmed.
+  instagramHandle: "",
+  instagramLink: "",
 };
 
 // Enquiry form delivery, via FormSubmit (https://formsubmit.co).

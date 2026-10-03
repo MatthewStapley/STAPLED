@@ -4,15 +4,16 @@ import { ctas } from "../../data/config";
 const included = [
   "Custom website design and build",
   "Hosting and maintenance",
-  "Content updates",
+  "Up to 90 minutes of content updates a month",
   "Google Business Profile management",
   "Check-ins every two weeks",
 ];
 
 const terms = [
-  "Your first £50 is paid when you sign up and covers your first month.",
-  "After the first 12 months, it carries on at £50 a month until you cancel with 30 days’ notice.",
-  "If you cancel, I give you notice and hand back your content and domain before the website goes offline.",
+  "Your first £50 is paid when you sign up and covers your first month. After that, it's £50 a month by Direct Debit.",
+  "Leaving in the first 12 months? Pay £100 to cancel, or £499 to buy your website. Either one replaces the remaining monthly payments.",
+  "After 12 months, the plan carries on monthly until you cancel with 30 days’ notice. There's no cancellation fee.",
+  "Your domain, photos, text and logo are always yours to keep.",
 ];
 ---
 
@@ -24,7 +25,7 @@ const terms = [
       <p class="pricing__range">
         <strong>&pound;50</strong> a month
       </p>
-      <p class="pricing__minimum">12-month minimum, then monthly until you cancel</p>
+      <p class="pricing__minimum">12-month minimum with an early-exit option, then monthly until you cancel</p>
       <p class="text-muted">
         A professional website for your business, plus ongoing support from
         me. Everything below is included:
@@ -44,8 +45,8 @@ const terms = [
 
       <p class="text-muted pricing__note">
         Prefer to own the website yourself? You can buy it outright for a
-        one-off <strong>&pound;499</strong>. After that, my monthly services
-        stop and you look after the hosting.
+        one-off <strong>&pound;499</strong> at any time. My monthly services
+        then stop, and I hand the website over so you can host it yourself.
       </p>
 
       <a href={ctas.primary.href} class="btn btn--lime">
@@ -106,7 +107,7 @@ const terms = [
 
   .pricing__terms {
     display: grid;
-    gap: 0.4rem;
+    gap: 0.85rem;
     margin-top: 1.75rem;
     font-size: 0.95rem;
   }
