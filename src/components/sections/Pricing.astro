@@ -2,17 +2,17 @@
 import { ctas } from "../../data/config";
 
 const included = [
-  "Design and build",
-  "Hosting",
-  "Small updates and changes",
-  "Ongoing support",
-  "Mobile-first",
+  "Custom website design and build",
+  "Hosting and maintenance",
+  "Content updates",
+  "Google Business Profile management",
+  "Check-ins every two weeks",
 ];
 
 const terms = [
-  "Pay £50 to start — that covers your first month.",
-  "12-month minimum, then carry on month to month.",
-  "If you cancel after that, your website comes down.",
+  "Your first £50 is paid when you sign up and covers your first month.",
+  "After the first 12 months, it carries on at £50 a month until you cancel with 30 days’ notice.",
+  "If you cancel, I give you notice and hand back your content and domain before the website goes offline.",
 ];
 ---
 
@@ -20,13 +20,14 @@ const terms = [
   <div class="container pricing__inner">
     <div class="pricing__copy reveal">
       <p class="eyebrow">Pricing</p>
-      <h2 class="pricing__heading">One simple monthly price. No big upfront bill.</h2>
+      <h2 class="pricing__heading">One monthly plan. Your website, looked after.</h2>
       <p class="pricing__range">
-        <strong>&pound;50</strong> a month for your website.
+        <strong>&pound;50</strong> a month
       </p>
+      <p class="pricing__minimum">12-month minimum, then monthly until you cancel</p>
       <p class="text-muted">
-        I design and build your website, host it, and keep it looking right
-        for you. Everything you need is included:
+        A professional website for your business, plus ongoing support from
+        me. Everything below is included:
       </p>
 
       <ul class="pricing__factors">
@@ -42,14 +43,13 @@ const terms = [
       </ul>
 
       <p class="text-muted pricing__note">
-        Want to own it outright? You can buy your website from me for a
-        one-off <strong>&pound;499</strong> at any time. You get the site to keep and
-        host wherever you like &mdash; hosting, updates and support from me stop at
-        that point.
+        Prefer to own the website yourself? You can buy it outright for a
+        one-off <strong>&pound;499</strong>. After that, my monthly services
+        stop and you look after the hosting.
       </p>
 
-      <a href={ctas.quote.href} class="btn btn--lime">
-        {ctas.quote.label}
+      <a href={ctas.primary.href} class="btn btn--lime">
+        {ctas.primary.label}
       </a>
     </div>
   </div>
@@ -76,6 +76,13 @@ const terms = [
     font-family: var(--font-display);
     font-weight: 600;
     margin-top: 1.5rem;
+  }
+
+  .pricing__minimum {
+    margin-top: 0.35rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--colour-bg);
   }
 
   .pricing__range strong {

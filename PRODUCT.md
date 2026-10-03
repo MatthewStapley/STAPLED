@@ -16,19 +16,19 @@ Stapled. is a solo web design and build studio, run personally by Matt, that des
 
 ## Positioning
 
-Personal, direct-from-the-designer service on a simple monthly plan (£50/month, hosting, small updates and support included), with none of the "usual agency runaround": one point of contact (Matt), straightforward pricing agreed upfront, and a website built around the individual business rather than a generic template. The differentiator against larger agencies is the combination of personal relationship, transparency, affordability, and being genuinely Southampton-based.
+Personal, direct-from-the-designer service on a simple monthly plan (£50/month: custom website, hosting and maintenance, content updates, Google Business Profile management and fortnightly check-ins), with none of the "usual agency runaround": one point of contact (Matt), straightforward pricing agreed upfront, and a website built around the individual business rather than a generic template. The differentiator against larger agencies is the combination of personal relationship, transparency, affordability, and being genuinely Southampton-based.
 
 ## Operating Context
 
-- Engagement flow (from the Process section): (1) a conversation about the business, its customers, goals and required features; (2) an initial visual direction / homepage preview; (3) the full responsive build, refined with client feedback; (4) domain connection, launch, and optional ongoing support.
+- Engagement flow (from the Process section): (1) a conversation about the business, its customers, goals and required features; (2) an initial visual direction / homepage preview; (3) the full responsive build, refined with client feedback; (4) launch on the client's domain, then ongoing care: hosting, updates, Google Business Profile management and a check-in every two weeks.
 - The enquiry form (delivered via FormSubmit) is the only contact route on the site — no phone number, WhatsApp, or call-booking route. A free homepage preview / free quote both submit through this same form.
-- Optional add-on services: hosting and maintenance, Google Business Profile setup/improvement, branding essentials (logo, colours, typography).
+- Included in the monthly plan: hosting and maintenance, content updates to existing pages, Google Business Profile management (client stays owner and adds Matt as a manager; no passwords requested), and fortnightly check-ins. Quoted separately: new pages or features, redesigns, branding essentials (logo, colours, typography).
 - Site is a static Astro build deployed to GitHub Pages under the custom domain stapled.co.uk.
 
 ## Capabilities and Constraints
 
 - Matt is the sole designer/builder, and staying solo is a deliberate, durable part of the positioning — not a stepping stone to growing an agency. Copy should keep using first-person ("I", "built personally by Matt"), not "we".
-- Pricing (changed 2026-10-03, replacing the old one-off £400–£800 fee): £50/month subscription. The client pays £50 upfront, which covers the first month. There is a 12-month minimum term, then it continues month to month. If the client cancels, the website is taken down. A buyout option is always available: a one-off £499 to own the site outright, after which Matt provides no hosting, management, updates or support. The aim is recurring income rather than one-time fees.
+- Pricing (changed 2026-10-03, replacing the old one-off £400–£800 fee): £50/month ongoing service, not a website paid off in instalments. The first £50 is paid at sign-up and covers the first month. 12-month minimum term; after that it continues monthly until the client cancels with 30 days' written notice (no automatic renewal for another year). When the plan ends, the client gets notice and a handover (content and domain) before the site is taken offline. Buyout: a one-off £499 to own the website, after which Matt provides no hosting, management, updates or support. Whether the buyout replaces remaining minimum-term payments is still to be confirmed. The client always keeps their domain and supplied content. Never claim "no upfront fee". The aim is recurring income.
 - The site explicitly avoids promising specific Google search rankings, since ranking depends on factors outside any one website.
 - Client-provided written content is preferred (client knows their business best), though Matt will guide and help tidy wording where useful.
 - Domain and hosting can be arranged by Stapled. or the client can keep an existing domain.

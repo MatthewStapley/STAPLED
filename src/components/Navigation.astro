@@ -65,15 +65,35 @@ import { nav, ctas } from "../data/config";
       box-shadow var(--dur-mid) var(--ease-out);
   }
 
+  /* The frosted background lives on a pseudo-element, not on .nav itself:
+     backdrop-filter on .nav would make it the containing block for the
+     position: fixed mobile menu, shrinking the "full-screen" menu to the
+     height of the header once the page is scrolled. */
+  .nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: transparent;
+    transition: background var(--dur-mid) var(--ease-out);
+  }
+
   .nav[data-scrolled] {
-    background: rgb(245 243 238 / 0.85);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
     border-bottom-color: var(--colour-border);
     box-shadow: 0 8px 30px -20px rgb(17 17 17 / 0.25);
   }
 
+  .nav[data-scrolled]::before {
+    background: rgb(245 243 238 / 0.85);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  /* Sits above the open mobile menu so the logo and close button stay
+     visible and tappable. */
   .nav__inner {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -156,9 +176,9 @@ import { nav, ctas } from "../data/config";
   .mobile-menu {
     position: fixed;
     inset: 0;
-    top: 0;
     background: var(--colour-bg);
-    z-index: 49;
+    z-index: 1;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -238,35 +258,82 @@ import { nav, ctas } from "../data/config";
     });
   };
 
+  // Lock page scroll by pinning the body in place. overflow: hidden alone
+  // doesn't stop scrolling on iOS Safari. The saved position is restored
+  // instantly on close so the page doesn't jump or smooth-scroll back.
+  let lockedScrollY = 0;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const lockScroll = () => {
+    lockedScrollY = window.scrollY;
+    const body = document.body.style;
+    body.position = "fixed";
+    body.top = `-${lockedScrollY}px`;
+    body.left = "0";
+    body.right = "0";
+    body.overflow = "hidden";
+  };
+
+  const unlockScroll = () => {
+    ["position", "top", "left", "right", "overflow"].forEach((prop) =>
+      document.body.style.removeProperty(prop)
+    );
+    window.scrollTo({ top: lockedScrollY, behavior: "instant" });
+  };
+
+  const isOpen = () => toggle?.getAttribute("aria-expanded") === "true";
+
   const closeMenu = (restoreFocus = true) => {
-    if (!toggle || !menu) return;
+    if (!toggle || !menu || !isOpen()) return;
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "Open menu");
     menu.hidden = true;
-    document.body.style.removeProperty("overflow");
     setBackgroundInert(false);
-    if (restoreFocus) toggle.focus();
+    unlockScroll();
+    if (restoreFocus) toggle.focus({ preventScroll: true });
   };
 
   const openMenu = () => {
-    if (!toggle || !menu) return;
+    if (!toggle || !menu || isOpen()) return;
+    lockScroll();
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", "Close menu");
     menu.hidden = false;
-    document.body.style.overflow = "hidden";
     setBackgroundInert(true);
-    menu.querySelector(".mobile-menu__link")?.focus();
+    menu.querySelector(".mobile-menu__link")?.focus({ preventScroll: true });
   };
 
   toggle?.addEventListener("click", () => {
-    const expanded = toggle.getAttribute("aria-expanded") === "true";
-    expanded ? closeMenu() : openMenu();
+    isOpen() ? closeMenu() : openMenu();
+  });
+
+  // Close the menu if the screen widens to the desktop layout while open.
+  window.matchMedia("(min-width: 861px)").addEventListener("change", (e) => {
+    if (e.matches) closeMenu(false);
   });
 
   menu?.querySelectorAll("a").forEach((link) => {
-    // A link click navigates/scrolls the page itself, so let the browser
-    // manage focus instead of yanking it back to the toggle button.
-    link.addEventListener("click", () => closeMenu(false));
+    link.addEventListener("click", (e) => {
+      const url = new URL(link.href);
+      const target =
+        url.pathname === window.location.pathname && url.hash
+          ? document.querySelector(url.hash)
+          : null;
+
+      // Off-page links navigate normally.
+      if (!target) {
+        closeMenu(false);
+        return;
+      }
+
+      // Same-page links: unlock the page first, then scroll to the section.
+      // Left to the browser, the jump fires while the body is still pinned
+      // and gets lost when the saved scroll position is restored.
+      e.preventDefault();
+      closeMenu(false);
+      history.pushState(null, "", url.hash);
+      target.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth" });
+    });
   });
 
   document.addEventListener("keydown", (e) => {

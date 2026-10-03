@@ -13,7 +13,7 @@ export const site = {
   url: "https://stapled.co.uk",
   tagline: "Helping Southampton businesses look the part online.",
   description:
-    "Stapled. designs and builds modern, mobile-friendly websites for Southampton businesses — barbers, tradespeople, restaurants and independent shops. Websites for £50 a month, with hosting and support included.",
+    "Stapled. designs and builds modern, mobile-friendly websites for Southampton businesses — barbers, tradespeople, restaurants and independent shops. £50 a month for your website, hosting, updates and Google Business Profile management (12-month minimum).",
   location: "Southampton, UK",
   founder: "Matt",
 };
@@ -22,7 +22,7 @@ export const site = {
 // The enquiry form is the only contact route on the site — keep this to
 // details actually used elsewhere (email links, Instagram).
 export const contact = {
-  email: "hello@stapled.co.uk", // REPLACE with real inbox
+  email: "stapledweb@gmail.com",
   phone: "", // REPLACE — optional, leave blank to hide phone links
   instagramHandle: "@stapled.co", // REPLACE
   instagramLink: "https://instagram.com/stapled.co", // REPLACE
@@ -83,12 +83,13 @@ export const interactiveConcepts = [
 export const nav = [
   { label: "Work", href: "/#work" },
   { label: "Services", href: "/#services" },
+  { label: "Pricing", href: "/#pricing" },
   { label: "Process", href: "/#process" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#preview" },
 ];
 
-// Every CTA on the site points at the enquiry form — it's the only
+// Every enquiry CTA points at the enquiry form — it's the only
 // contact route.
 export const ctas = {
   primary: {
@@ -96,8 +97,8 @@ export const ctas = {
     href: "#preview",
   },
   quote: {
-    label: "Get a free quote",
-    href: "#preview",
+    label: "See what £50 a month includes",
+    href: "/#pricing",
   },
   work: {
     label: "View recent work",

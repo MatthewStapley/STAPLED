@@ -39,6 +39,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Keeps section headings clear of the sticky header when jumping to an
+     anchor link. */
+  scroll-padding-top: 5rem;
   -webkit-text-size-adjust: 100%;
 }
 
