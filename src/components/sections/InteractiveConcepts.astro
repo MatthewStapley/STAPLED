@@ -29,7 +29,7 @@ import { interactiveConcepts } from "../../data/config";
          multiple concepts sit side by side. -->
     <div class="concepts__list">
       {interactiveConcepts.map((concept) => (
-        <a href={`/concepts/${concept.slug}`} class="concepts__card reveal">
+        <a href={`/concepts/${concept.slug}/`} class="concepts__card reveal">
           <div class="concepts__card-visual">
             <BrowserMockup
               src={concept.image}

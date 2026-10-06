@@ -24,10 +24,9 @@ export const site = {
 export const contact = {
   email: "stapledweb@gmail.com",
   phone: "", // REPLACE — optional, leave blank to hide phone links
-  // Unconfirmed: the footer hides the Instagram link while these are
-  // blank. Fill both in once the real handle is confirmed.
-  instagramHandle: "",
-  instagramLink: "",
+  // The footer hides the Instagram link if these are left blank.
+  instagramHandle: "@stapledwebsites",
+  instagramLink: "https://www.instagram.com/stapledwebsites/",
 };
 
 // Enquiry form delivery, via FormSubmit (https://formsubmit.co).
@@ -37,7 +36,7 @@ export const contact = {
 export const formEndpoint = "https://formsubmit.co/stapledweb@gmail.com";
 
 // Where FormSubmit redirects the visitor after a successful submission.
-export const thankYouUrl = `${site.url}/thank-you`;
+export const thankYouUrl = `${site.url}/thank-you/`;
 
 export const barberWarnzUrl = "https://barberwarnz.co.uk";
 export const leroyDrivingInstructorUrl = "https://leroydrivinginstructor.co.uk";
