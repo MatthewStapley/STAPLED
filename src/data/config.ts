@@ -57,7 +57,15 @@ export const images = {
   // crema-current-editorial.png, also kept in public/images, for ~18x
   // smaller payload at no visible quality loss). 1672x941 source, 16:9.
   cremaCurrentAtmosphere: "/images/crema-current-editorial.webp",
+  // Real screenshot of the standalone bathroom demo's hero (1600x1000).
+  bathroomConceptDesktop: "/images/bathroom-concept-desktop.webp",
 };
+
+// The bathroom renovation demo is a separate project
+// (github.com/MatthewStapley/StapledRenovationDemo), hosted on GitHub Pages
+// rather than inside this site. REPLACE if it moves to a custom domain.
+export const bathroomDemoUrl =
+  "https://matthewstapley.github.io/StapledRenovationDemo/bathroom/";
 
 // Interactive Concepts — full standalone concept pages (unlike the
 // visual-only cards in Work.astro), each showing a distinct brand built
@@ -66,8 +74,19 @@ export const images = {
 //
 // To add another concept later: add an entry here, a fallback variant in
 // FallbackScreen.astro, and a new page under src/pages/concepts/. Nothing
-// else in InteractiveConcepts.astro needs to change.
-export const interactiveConcepts = [
+// else in InteractiveConcepts.astro needs to change. A concept hosted
+// elsewhere sets `href` (and `displayUrl` for the mockup's address bar)
+// instead of having a page here; `cta` overrides the link label.
+export const interactiveConcepts: {
+  slug: string;
+  name: string;
+  category: string;
+  tagline: string;
+  image: string;
+  href?: string;
+  displayUrl?: string;
+  cta?: string;
+}[] = [
   {
     slug: "crema-current",
     name: "Crema Current",
@@ -75,6 +94,17 @@ export const interactiveConcepts = [
     tagline:
       "A premium independent coffee brand concept, built to show a bolder, more editorial direction than a typical small-business site.",
     image: images.cremaCurrentDesktop,
+  },
+  {
+    slug: "bathroom-renovation",
+    name: "Bathroom renovation — interactive concept",
+    category: "FORM Bathrooms, a fictional brand",
+    tagline:
+      "An interactive bathroom website concept with scroll storytelling, material selection and an inspiration gallery.",
+    image: images.bathroomConceptDesktop,
+    href: bathroomDemoUrl,
+    displayUrl: "matthewstapley.github.io/StapledRenovationDemo",
+    cta: "Explore bathroom demo",
   },
 ];
 

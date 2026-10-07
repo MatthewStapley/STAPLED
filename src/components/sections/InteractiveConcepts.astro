@@ -1,10 +1,10 @@
 ---
 // Full standalone concept builds, distinct from the visual-only cards in
 // Work.astro: each one links through to its own page with its own brand
-// system. Currently ships with one entry (Crema Current); more can be
-// added to `interactiveConcepts` in src/data/config.ts later, each paired
-// with its own page under src/pages/concepts/ and fallback variant in
-// FallbackScreen.astro — this section's markup doesn't need to change.
+// system. Entries live in `interactiveConcepts` in src/data/config.ts:
+// most have a page under src/pages/concepts/ (plus a fallback variant in
+// FallbackScreen.astro); a concept hosted as its own project (the bathroom
+// demo) supplies an external `href` instead. Cards stack as wide features.
 import BrowserMockup from "../mockups/BrowserMockup.astro";
 import FallbackScreen from "../mockups/FallbackScreen.astro";
 import ConceptBadge from "../ConceptBadge.astro";
@@ -23,18 +23,16 @@ import { interactiveConcepts } from "../../data/config";
       </p>
     </div>
 
-    <!-- Rendered as a single wide feature card while there's one concept.
-         Once a second entry exists in interactiveConcepts, switch this
-         wrapper to a grid (matching the Work section's card grid) so
-         multiple concepts sit side by side. -->
+    <!-- Each concept is a wide feature card; with more than one they
+         stack, so every concept keeps its large preview. -->
     <div class="concepts__list">
       {interactiveConcepts.map((concept) => (
-        <a href={`/concepts/${concept.slug}/`} class="concepts__card reveal">
+        <a href={concept.href ?? `/concepts/${concept.slug}/`} class="concepts__card reveal">
           <div class="concepts__card-visual">
             <BrowserMockup
               src={concept.image}
-              alt={`${concept.name} concept website on desktop`}
-              url={`stapled.co.uk/concepts/${concept.slug}`}
+              alt={concept.href ? `${concept.name}, shown on desktop` : `${concept.name} concept website on desktop`}
+              url={concept.displayUrl ?? `stapled.co.uk/concepts/${concept.slug}`}
             >
               <Fragment slot="fallback">
                 <FallbackScreen variant="crema-current-desktop" />
@@ -47,7 +45,7 @@ import { interactiveConcepts } from "../../data/config";
             <p class="text-muted concepts__card-category">{concept.category}</p>
             <p class="text-muted">{concept.tagline}</p>
             <span class="link-arrow">
-              Explore the concept
+              {concept.cta ?? "Explore the concept"}
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
           </div>
