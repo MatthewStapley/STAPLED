@@ -25,7 +25,9 @@ export const site = {
 export const business = {
   proprietor: "Matthew Stapley",
   tradingAs: "Stapled.",
-  // UNRESOLVED: no business correspondence address has been chosen.
+  // UNRESOLVED: a preferred candidate is recorded privately, outside this
+  // repository, but whether it meets the geographic-address requirement
+  // hasn't been settled. Don't fill these in until it has.
   // Leave these empty until Matt chooses one and the disclosure
   // requirements are resolved (the private launch notes). While
   // `address` is empty, `npm run check:publish` fails and the deploy is

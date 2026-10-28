@@ -1,32 +1,27 @@
 ---
-// Terms for the website purchase model (22 Oct 2026): websites from £200,
-// each individually quoted, optionally on a payment plan. Hosting and
-// maintenance is a separate £25/month from when hosting starts (including
-// during a payment plan) and never counts towards the website's price;
-// customers can use their own hosting instead. Weekly backups (repository
-// only, no recovery promise) are included since 23 Oct 2026 (Backblaze B2,
-// EU); keep encryption details, paths and credentials off this page. Only
-// settled terms
-// appear here. Clauses awaiting decisions or legal review live in
-// the private draft clauses (kept outside this repository), and each gap is marked with a
-// <ToConfirm> (visible in development, hidden in production, and caught by
-// `npm run check:publish`). Keep this page, Pricing.astro and FAQ.astro
-// saying the same thing.
+// Terms (version dated 28 Oct 2026). Prices are never stated here: each
+// written quote sets the price, any payment schedule agreed in writing,
+// and, if Stapled. hosts the site, the hosting and care cost, included
+// work, domain costs and cancellation arrangements. Homepage previews are
+// offered case by case. Earlier versions are kept privately, outside this
+// repository, and each quote names the version that applies. Existing
+// clients' agreements are unchanged. Only settled terms appear here;
+// anything awaiting a decision is marked with a <ToConfirm> (visible in
+// development, hidden in production, and caught by `npm run check:publish`).
 import LegalLayout from "../layouts/LegalLayout.astro";
-import ToConfirm from "../components/ToConfirm.astro";
-import { contact, business, addressNote } from "../data/config";
+import { contact, business } from "../data/config";
 
-const lastUpdated = "22 October 2026";
+const lastUpdated = "28 October 2026";
 
 const sections = [
   { id: "about", label: "About these terms" },
   { id: "who-for", label: "Business and personal buyers" },
-  { id: "preview", label: "Free homepage preview" },
+  { id: "preview", label: "Homepage previews" },
   { id: "quotes", label: "Quotes and accepting them" },
   { id: "payment", label: "Paying for your website" },
   { id: "ownership", label: "When the website becomes yours" },
   { id: "early", label: "Ending before it's paid for" },
-  { id: "maintenance", label: "Hosting and maintenance" },
+  { id: "maintenance", label: "Hosting and care" },
   { id: "backups", label: "Backups" },
   { id: "own-hosting", label: "Using your own hosting" },
   { id: "handover", label: "Handover" },
@@ -41,7 +36,7 @@ const sections = [
 
 <LegalLayout
   title="Terms | Stapled."
-  description="How buying a website from Stapled. works: quotes, payment plans, when the website becomes yours, optional £25 a month hosting and maintenance, cancelling and handover."
+  description="How buying a website from Stapled. works: written quotes, paying for your website, when it becomes yours, optional hosting and care, cancelling and handover."
   path="/terms/"
   heading="Terms"
   intro="How buying a website from me works, in plain English: what you pay, when it's yours, and how to leave."
@@ -56,20 +51,17 @@ const sections = [
       UK. You can reach me at{" "}
       <a href={`mailto:${contact.email}`}>{contact.email}</a>.
     </p>
-    {business.address ? (
-      <p>
-        My {business.addressLabel.toLowerCase()} is {business.address}. It's
-        for post and formal documents only, not an office open to visitors.
-      </p>
-    ) : (
-      <ToConfirm note={addressNote} />
-    )}
     <p>
-      They apply alongside the written quote I send you. When you accept a
-      quote by email, the quote and these terms (in the version dated on
-      this page) make up our agreement. If you agreed a different
-      arrangement with me before {lastUpdated}, that arrangement still
-      applies.
+      My full business details, including my {business.addressLabel.toLowerCase()}
+      for post and formal documents, are on the{" "}
+      <a href="/business-details/">business details</a> page.
+    </p>
+    <p>
+      They apply alongside the written quote I send you. Your quote says
+      which version of these terms applies, by its date. When you accept a
+      quote by email, the quote and that version of these terms make up our
+      agreement. If you agreed a different arrangement with me before{" "}
+      {lastUpdated}, that arrangement still applies.
     </p>
   </section>
 
@@ -95,11 +87,12 @@ const sections = [
   </section>
 
   <section id="preview">
-    <h2>Free homepage preview</h2>
+    <h2>Homepage previews</h2>
     <p>
-      If you ask for one, I'll put together a first look at how your
-      homepage could feel and read, based on what you've told me. It's
-      free, and you're under no obligation to go ahead afterwards.
+      For some projects, I may offer to put together a first look at how
+      your homepage could feel and read, based on what you've told me. I
+      don't offer one with every enquiry. If I do, it's free, and you're
+      under no obligation to go ahead afterwards.
     </p>
   </section>
 
@@ -109,9 +102,14 @@ const sections = [
     <ul>
       <li>what the website will include</li>
       <li>its total purchase price</li>
-      <li>if you'd like to spread the cost, the payment schedule we've agreed</li>
-      <li>whether I'll host it (and the £25 a month that costs) or you'll use your own hosting</li>
+      <li>if you'd like to spread the cost, the payment schedule we've agreed in writing</li>
+      <li>
+        whether I'll host and look after it or you'll use your own hosting,
+        and if I will: what hosting and care costs, the work it includes,
+        any domain costs, and how it can be cancelled
+      </li>
       <li>whether you're buying for a business or for personal use</li>
+      <li>which version of these terms applies</li>
     </ul>
     <p>
       You accept a quote by replying to say so. Nothing is payable until you
@@ -123,9 +121,9 @@ const sections = [
   <section id="payment">
     <h2>Paying for your website</h2>
     <p>
-      Websites start from £200. Your quote sets your website's total price.
-      You can pay it in one go, or spread it with a payment plan: the
-      payment schedule we agree is set out in your quote.
+      Your quote sets your website's total price. You can pay it in one go,
+      or, if we agree, spread the cost: any payment schedule is agreed with
+      you individually in writing and set out in your quote.
     </p>
     <p>
       Payments are made by bank transfer. I'll send you the details with
@@ -133,8 +131,8 @@ const sections = [
       price.
     </p>
     <p>
-      If you're on a payment plan, you can pay the remaining balance at any
-      time to finish paying early.
+      If you're paying in instalments, you can pay the remaining balance at
+      any time to finish paying early.
     </p>
   </section>
 
@@ -163,11 +161,11 @@ const sections = [
       </li>
       <li>
         <strong>End the agreement early:</strong> give me one calendar
-        month's notice by email. Payment-plan instalments that fall due
-        during the notice period are still payable, and they count towards
-        the website's price. If I'm hosting the website, hosting ends when
-        the notice period ends, and the £25 monthly fee is payable until
-        then. If you end early,
+        month's notice by email. Instalments that fall due during the notice
+        period are still payable, and they count towards the website's
+        price. If I'm hosting the website, hosting ends when the notice
+        period ends, and hosting and care is payable until then as set out
+        in your quote. If you end early,
         the website and its files aren't transferred to you, but your domain
         and the content you gave me are still yours.
       </li>
@@ -180,48 +178,29 @@ const sections = [
 
 
   <section id="maintenance">
-    <h2>Hosting and maintenance</h2>
+    <h2>Hosting and care</h2>
     <p>
-      If you'd like me to host your website, hosting and maintenance costs
-      £25 a month. It's a separate, rolling monthly arrangement:
+      If you'd like me to host and look after your website, your quote sets
+      out what hosting and care costs, the work it includes, any domain
+      costs, and how it can be cancelled.
     </p>
     <ul>
       <li>
         It starts when I start hosting your website, including while you're
-        still paying for the website on a payment plan.
+        still paying for the website.
       </li>
       <li>
         It's separate from the website's price and doesn't count towards
         paying it off.
       </li>
     </ul>
-    <p>It includes:</p>
-    <ul>
-      <li>hosting, with HTTPS</li>
-      <li>
-        technical maintenance, such as keeping the site's software up to date
-        and fixing faults in code I've written
-      </li>
-      <li>
-        weekly backups of your website's code and files stored in its
-        repository (see <a href="#backups">backups</a>)
-      </li>
-      <li>
-        up to 30 minutes of minor content edits a month, such as changing
-        text, prices, opening hours or photos on existing pages. Unused time
-        doesn't carry over to the next month.
-      </li>
-    </ul>
     <p>
-      New pages, redesigns and new features aren't included. I'll quote for
-      them separately, and they only go ahead if you agree.
+      Work that your quote doesn't include, such as new pages, redesigns and
+      new features, is quoted separately and only goes ahead if you agree.
     </p>
     <p>
-      You can cancel hosting and maintenance at any time by giving one
-      calendar month's notice by email. Hosting continues until the end of
-      that notice period, which you pay for as normal, and then ends.
-      Cancelling hosting never means losing a website you've already paid
-      for, and it doesn't cancel any payment-plan instalments still due for
+      Cancelling hosting and care never means losing a website you've
+      already paid for, and it doesn't cancel any instalments still due for
       the website.
     </p>
   </section>
@@ -229,8 +208,9 @@ const sections = [
   <section id="backups">
     <h2>Backups</h2>
     <p>
-      While I host your website, I back up its code and the files stored in
-      its repository once a week, and keep the copies with a cloud storage
+      If your hosting and care includes backups (your quote says whether it
+      does), I back up your website's code and the files stored in its
+      repository once a week, and keep the copies with a cloud storage
       service.
     </p>
     <ul>
@@ -267,7 +247,7 @@ const sections = [
       Backups make it possible for me to try to restore your website if
       something goes wrong. I can't guarantee that a restore will succeed,
       or how long it will take. That doesn't change my duty to provide
-      hosting, maintenance and backups with reasonable care and skill, or
+      hosting and care with reasonable care and skill, or
       any of your rights under the law (see{" "}
       <a href="#refunds">refunds and your rights</a>).
     </p>
@@ -276,8 +256,8 @@ const sections = [
   <section id="own-hosting">
     <h2>Using your own hosting</h2>
     <p>
-      You don't have to host with me. If you use your own hosting, you pay
-      me no monthly hosting fee, and I'll provide the transferable website
+      You don't have to host with me. If you use your own hosting, you don't
+      pay me for hosting and care, and I'll provide the transferable website
       files and basic setup instructions as set out in your quote.
     </p>
     <p>
@@ -338,10 +318,8 @@ const sections = [
         the named owner (the registrant).
       </li>
       <li>
-        <strong>Cost:</strong> while I host your website, including while
-        you're paying for it, I include up to £20 a year towards the domain.
-        If it costs more than that, I'll agree the extra with you before
-        buying or renewing it.
+        <strong>Cost:</strong> your quote sets out any domain costs while I
+        host your website.
       </li>
       <li>
         <strong>When hosting with me ends,</strong> I'll help you take over
@@ -431,13 +409,10 @@ const sections = [
       best to sort it out. For how I handle your personal information, see
       the <a href="/privacy/">privacy policy</a>.
     </p>
-    {business.address ? (
-      <p>
-        You can also write to me at my{" "}
-        {business.addressLabel.toLowerCase()}: {business.address}.
-      </p>
-    ) : (
-      <ToConfirm note={addressNote} />
-    )}
+    <p>
+      You can also write to me at the{" "}
+      {business.addressLabel.toLowerCase()} on the{" "}
+      <a href="/business-details/">business details</a> page.
+    </p>
   </section>
 </LegalLayout>

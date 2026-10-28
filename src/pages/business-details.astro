@@ -1,0 +1,80 @@
+---
+// Business details: the one place the full trader disclosure lives
+// (trading name, proprietor, correspondence address, contact). The footer
+// links here instead of showing the street address. While
+// business.address is unset, a "to confirm" note shows in development and
+// `npm run check:publish` blocks the deploy.
+import LegalLayout from "../layouts/LegalLayout.astro";
+import ToConfirm from "../components/ToConfirm.astro";
+import { contact, business, addressNote } from "../data/config";
+
+const lastUpdated = "28 October 2026";
+
+const sections = [
+  { id: "details", label: "Business details" },
+  { id: "contact", label: "Contact" },
+];
+---
+
+<LegalLayout
+  title="Business details | Stapled."
+  description="Business details for Stapled.: trading name, proprietor, correspondence address and how to get in touch."
+  path="/business-details/"
+  heading="Business details"
+  intro="Who you're dealing with when you work with Stapled., and where to send post or formal documents."
+  lastUpdated={lastUpdated}
+  sections={sections}
+>
+  <section id="details">
+    <h2>Business details</h2>
+    <dl class="pp-uses">
+      <div class="pp-use">
+        <dt>Trading name</dt>
+        <dd>{business.tradingAs}</dd>
+      </div>
+      <div class="pp-use">
+        <dt>Proprietor</dt>
+        <dd>{business.proprietor}, a sole trader</dd>
+      </div>
+      <div class="pp-use">
+        <dt>Based in</dt>
+        <dd>Southampton, UK</dd>
+      </div>
+      <div class="pp-use">
+        <dt>{business.addressLabel}</dt>
+        <dd>
+          {business.address ? (
+            <address class="bd-address">
+              {business.addressLines.map((line, i) => <>{i > 0 && <br />}{line}</>)}
+            </address>
+          ) : (
+            <ToConfirm note={addressNote} />
+          )}
+          For post and formal documents only. It isn't an office open to
+          visitors.
+        </dd>
+      </div>
+      <div class="pp-use">
+        <dt>VAT</dt>
+        <dd>Not registered for VAT</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>
+      Email <a href={`mailto:${contact.email}`}>{contact.email}</a>. For how
+      buying a website works, see the <a href="/terms/">terms</a>. For how I
+      handle your information, see the <a href="/privacy/">privacy policy</a>.
+    </p>
+  </section>
+</LegalLayout>
+
+<style>
+  .bd-address {
+    font-style: normal;
+    color: var(--colour-ink);
+    margin-bottom: 0.5rem;
+  }
+</style>

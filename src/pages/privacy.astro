@@ -1,8 +1,12 @@
 ---
-// Privacy policy, matched to what's actually operating (22 Oct 2026):
-// enquiries arrive by email (Gmail) or through Meta instant forms on
-// Facebook/Instagram; the site is hosted on GitHub Pages with self-hosted
-// fonts and sets no cookies or web storage. There is no website form, no
+// Privacy policy, matched to what's actually operating (28 Oct 2026):
+// enquiries arrive by email (Gmail). Facebook and Instagram adverts link to
+// this website; Meta instant lead forms are no longer used, but enquiries
+// already received through them are described until they reach the end of
+// their retention period. The site is hosted on GitHub Pages with
+// self-hosted fonts and sets no cookies or web storage, and has no Meta
+// Pixel, analytics or other tracking (checked in the built site and in a
+// browser, 28 Oct 2026). There is no website form, no
 // payment provider, no CRM and no spreadsheet service in use. Weekly
 // backups of hosted client websites' repositories go to Backblaze B2, EU
 // Central (Amsterdam), under Backblaze's UK DPA (since 23 Oct 2026). The
@@ -12,11 +16,9 @@
 // Client websites currently hosted by Matt are on GitHub
 // Pages (verified 22 Oct 2026 for barberwarnz.co.uk and
 // leroydrivinginstructor.co.uk). If any of that changes, update this page
-// first. Meta instant forms link here, so
-// this page must stay accurate and live.
+// first.
 import LegalLayout from "../layouts/LegalLayout.astro";
-import ToConfirm from "../components/ToConfirm.astro";
-import { contact, business, addressNote } from "../data/config";
+import { contact, business } from "../data/config";
 
 const lastUpdated = "28 October 2026";
 
@@ -37,7 +39,7 @@ const sections = [
 
 <LegalLayout
   title="Privacy Policy | Stapled."
-  description="How Stapled. uses the details you send by email or through Facebook and Instagram instant forms, how long they're kept, and your rights."
+  description="How Stapled. uses the details you send by email, how long they're kept, and your rights. This website uses no cookies or tracking."
   path="/privacy/"
   heading="Privacy policy"
   intro="This explains what I do with the details you send me when you ask about a website, and what you can ask me to do about it."
@@ -54,18 +56,16 @@ const sections = [
       </p>
       <p>
         For anything to do with your information, email me at{" "}
-        <a href={`mailto:${contact.email}`}>{contact.email}</a>{business.address ? (
-          <>, or write to my {business.addressLabel.toLowerCase()}: {business.address}.</>
-        ) : "."}
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>, or write to
+        the {business.addressLabel.toLowerCase()} on the{" "}
+        <a href="/business-details/">business details</a> page.
       </p>
-      {!business.address && <ToConfirm note={addressNote} />}
     </section>
 
     <section id="collect">
       <h2>What I collect</h2>
       <p>
-        I only collect what you choose to send me. That can happen in two
-        ways.
+        I only collect what you choose to send me.
       </p>
 
       <h3>Emails you send me</h3>
@@ -78,15 +78,22 @@ const sections = [
         number is only needed if you'd like me to call you.
       </p>
 
-      <h3>Instant forms on Facebook and Instagram</h3>
+      <h3>Adverts on Facebook and Instagram</h3>
       <p>
-        If you respond to one of my adverts on Facebook or Instagram, the
-        form asks for your name, email address, phone number (optional),
-        business name, type of business, a website or social media link,
-        and details of your enquiry. Meta may fill in some of these from
-        your Facebook or Instagram profile, and you can check and change
-        them before you submit. I see these enquiries in Meta's tools and
-        reply by email.
+        My adverts on Facebook and Instagram link to this website. Clicking
+        one doesn't send me any details about you: you only reach me if you
+        then get in touch by email.
+      </p>
+
+      <h3>Earlier enquiries through instant forms</h3>
+      <p>
+        I used to collect some enquiries through instant forms on Facebook
+        and Instagram, and I no longer do. If you sent me one, I have what
+        the form asked for: your name, email address, phone number (if you
+        gave it), business name, type of business, a website or social
+        media link, and details of your enquiry. Those enquiries are kept
+        in Meta's tools and my email, and deleted as described in{" "}
+        <a href="#retention">how long I keep it</a>.
       </p>
 
       <h3>If you become a client</h3>
@@ -177,10 +184,13 @@ const sections = [
           emails arrive and where I keep our conversations.
         </li>
         <li>
-          <strong>Meta</strong> runs Facebook and Instagram, where its
-          instant forms collect enquiries from my adverts and hold them in
-          Meta's tools. Meta also uses information about your activity on
-          its platforms under its own privacy policy.
+          <strong>Meta</strong> runs Facebook and Instagram, where my adverts
+          appear. Meta uses information about your activity on its platforms,
+          including how you interact with adverts, under its own privacy
+          policy. This website doesn't use Meta's tracking pixel, so Meta
+          doesn't receive information about what you do here. Meta's tools
+          also hold any enquiries you sent me through an instant form in the
+          past.
         </li>
         <li>
           <strong>GitHub</strong> hosts this website (GitHub Pages). Like any
@@ -264,8 +274,8 @@ const sections = [
         </li>
       </ul>
       <p>
-        Meta may also keep its own copy of instant-form enquiries under its
-        own terms.
+        Meta may also keep its own copy of earlier instant-form enquiries
+        under its own terms.
       </p>
     </section>
 
@@ -280,7 +290,7 @@ const sections = [
       </p>
       <p>
         Email links open your own email app. This site also links to other
-        websites, such as Instagram and sites I've built. Once you follow a
+        websites, such as Instagram. Once you follow a
         link, that site's own privacy policy applies.
       </p>
     </section>

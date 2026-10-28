@@ -37,6 +37,10 @@ const stage = [
           on Google, and simpler ways for customers to get in touch. Built and
           looked after personally by me, Matt.
         </p>
+        <p class="hero__place">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" stroke="currentColor" stroke-width="1.6"></path><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"></circle></svg>
+          Southampton, UK
+        </p>
         <div class="hero__actions">
           <a href={ctas.primary.href} class="btn btn--lime">{ctas.primary.label}</a>
           <a href="/services/" class="link-arrow">
@@ -106,6 +110,21 @@ const stage = [
 
   .hero__copy {
     max-width: 36rem;
+  }
+
+  .hero__place {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .hero__place svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
   }
 
   .hero__actions {

@@ -2,10 +2,12 @@
 // payment-plan wording (pricing is on enquiry since Oct 2026). Scans the
 // built HTML in dist/, so run it after `npm run build`.
 //
-// Skipped on purpose:
-// - /terms/ and /privacy/: contractual and legal text, changed only after
-//   Matt's review (see the private launch notes), never by this check.
-// - /concepts/: fictional concept pages (e.g. a coffee menu's prices).
+// Legal pages (/terms/, /privacy/, /business-details/) get the £ and
+// payment-plan checks only: since 28 Oct 2026 the terms state no fixed
+// prices (each written quote does), but they legitimately describe things
+// like "one copy a month" for backups.
+// Skipped on purpose: /concepts/, fictional concept pages (e.g. a coffee
+// menu's prices).
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 
@@ -17,10 +19,11 @@ if (!existsSync(dist)) {
   process.exit(1);
 }
 
-const skip = ["terms", "privacy", "concepts"];
+const skip = ["concepts"];
+const legal = ["terms", "privacy", "business-details"];
 const patterns = [
-  { name: "a £ amount", re: /(£|&pound;|&#163;)\s?\d/i },
-  { name: "payment plans", re: /payment[\s-]plans?/i },
+  { name: "a £ amount", re: /(£|&pound;|&#163;)\s?\d/i, legal: true },
+  { name: "payment plans", re: /payment[\s-]plans?/i, legal: true },
   { name: "a monthly price", re: /(per|a)\s+month\b|\/\s?month\b/i },
   { name: "instalments", re: /instal(l)?ments?/i },
 ];
@@ -34,14 +37,17 @@ const problems = [];
 for (const file of walk(dist)) {
   if (!file.endsWith(".html")) continue;
   const rel = relative(dist, file);
-  if (skip.includes(rel.split(sep)[0])) continue;
+  const section = rel.split(sep)[0];
+  if (skip.includes(section)) continue;
+  const isLegal = legal.includes(section);
   const text = readFileSync(file, "utf8")
     .replace(/<script[\s\S]*?<\/script>/gi, (m) =>
       // Keep JSON-LD (structured data is public copy); drop other scripts.
       m.includes("application/ld+json") ? m : ""
     )
     .replace(/<style[\s\S]*?<\/style>/gi, "");
-  for (const { name, re } of patterns) {
+  for (const { name, re, legal: onLegal } of patterns) {
+    if (isLegal && !onLegal) continue;
     const m = text.match(re);
     if (m) {
       const at = text.indexOf(m[0]);
@@ -57,4 +63,4 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log("No prices or payment-plan wording on the marketing pages (terms, privacy and concepts skipped).");
+console.log("No prices or payment-plan wording on the marketing pages, and no £ amounts or payment plans on the legal pages (concepts skipped).");

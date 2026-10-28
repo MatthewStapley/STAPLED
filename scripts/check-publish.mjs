@@ -31,7 +31,7 @@ for (const file of walk(join(root, "src"))) {
 
 const config = readFileSync(join(root, "src/data/config.ts"), "utf8");
 if (/address:\s*""/.test(config)) {
-  problems.push("Business address: src/data/config.ts business.address is empty. A verified geographic business address is required on the site (terms and privacy) before publishing. See the private launch notes.");
+  problems.push("Business address: src/data/config.ts business.address is empty. A verified geographic business address is required on the Business details page before publishing. See the private launch notes.");
 }
 
 if (problems.length) {
