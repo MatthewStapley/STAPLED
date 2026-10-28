@@ -64,7 +64,7 @@ const stage = [
         {stage.map((s) => (
           <li class="stage__item">
             <Illustration variant={s.art} />
-            <p class="stage__cap"><span>{s.n}</span>{s.label}</p>
+            <p class="stage__cap"><span aria-hidden="true">{s.n}</span>{s.label}</p>
           </li>
         ))}
       </ul>

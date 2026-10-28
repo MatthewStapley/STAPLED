@@ -9,6 +9,7 @@
 // anything awaiting a decision is marked with a <ToConfirm> (visible in
 // development, hidden in production, and caught by `npm run check:publish`).
 import LegalLayout from "../layouts/LegalLayout.astro";
+import ToConfirm from "../components/ToConfirm.astro";
 import { contact, business } from "../data/config";
 
 const lastUpdated = "28 October 2026";
@@ -171,6 +172,7 @@ const sections = [
         and the content you gave me are still yours.
       </li>
     </ul>
+    <ToConfirm note="Unresolved commercial decision: what a client owes if they cancel a fixed-price build before it's completed or fully paid for. The notice and instalment wording above is the existing draft and hasn't been signed off. Not decided yet; no clause has been drafted." />
     <p>
       Personal buyers also have the 14-day cancellation right described{" "}
       <a href="#cancel-14">below</a>.
@@ -267,6 +269,7 @@ const sections = [
       fully paid for, as described in{" "}
       <a href="#ownership">when the website becomes yours</a>.
     </p>
+    <ToConfirm note="Unresolved commercial decision: whether clients can receive and use the website files on their own hosting before the website is fully paid for, and on what basis. Not decided yet; no clause has been drafted." />
   </section>
 
   <section id="handover">
@@ -298,8 +301,8 @@ const sections = [
     </p>
     <p>
       This doesn't cover business records I have to keep, such as quotes,
-      agreements and invoices. Those are kept for the periods set out in the
-      <a href="/privacy/#retention">privacy policy</a>.
+      agreements and invoices. Those are kept for the periods set out in
+      the <a href="/privacy/#retention">privacy policy</a>.
     </p>
   </section>
 
@@ -359,6 +362,7 @@ const sections = [
       and website data is only deleted as described in{" "}
       <a href="#after-hosting">after hosting ends</a>.
     </p>
+    <ToConfirm note="Unresolved commercial decision: what happens when a payment is overdue and I'm not hosting the client's website (the steps above only cover hosting). Not decided yet; no clause has been drafted." />
   </section>
 
   <section id="refunds">
