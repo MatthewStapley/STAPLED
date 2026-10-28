@@ -395,22 +395,24 @@ const img = (name: string) => `/images/form-demo/${name}`;
   .story__dots {
     display: flex;
     justify-content: center;
-    gap: 6px;
+    gap: 2px;
     margin-top: 10px;
   }
 
+  /* Each dot is an 18px pill drawn at a third of its width; the active
+     one scales out to full length (transform only, no layout change). */
   .story__dots li {
-    width: 6px;
+    width: 18px;
     height: 6px;
-    border-radius: 50%;
+    border-radius: 3px;
     background: rgb(245 243 238 / 0.25);
-    transition: background 0.3s var(--ease-out), width 0.3s var(--ease-out);
+    transform: scaleX(0.333);
+    transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
   }
 
   .story__dots li.is-active {
-    width: 18px;
-    border-radius: 3px;
     background: var(--colour-lime);
+    transform: none;
   }
 </style>
 
