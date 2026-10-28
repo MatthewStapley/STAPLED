@@ -1,6 +1,6 @@
 ---
 // Business details: the one place the full trader disclosure lives
-// (trading name, proprietor, correspondence address, contact). The footer
+// (trading name, proprietor, business address, contact). The footer
 // links here instead of showing the street address. While
 // business.address is unset, a "to confirm" note shows in development and
 // `npm run check:publish` blocks the deploy.
@@ -18,10 +18,10 @@ const sections = [
 
 <LegalLayout
   title="Business details | Stapled."
-  description="Business details for Stapled.: trading name, proprietor, correspondence address and how to get in touch."
+  description="Business details for Stapled.: trading name, proprietor, business address and how to get in touch."
   path="/business-details/"
   heading="Business details"
-  intro="Who you're dealing with when you work with Stapled., and where to send post or formal documents."
+  intro="Who you're dealing with when you work with Stapled., and where the business operates from."
   lastUpdated={lastUpdated}
   sections={sections}
 >
@@ -37,8 +37,8 @@ const sections = [
         <dd>{business.proprietor}, a sole trader</dd>
       </div>
       <div class="pp-use">
-        <dt>Based in</dt>
-        <dd>Southampton, UK</dd>
+        <dt>Area served</dt>
+        <dd>Southampton and businesses across the UK</dd>
       </div>
       <div class="pp-use">
         <dt>{business.addressLabel}</dt>
@@ -50,8 +50,7 @@ const sections = [
           ) : (
             <ToConfirm note={addressNote} />
           )}
-          For post and formal documents only. It isn't an office open to
-          visitors.
+          It isn't an office open to visitors.
         </dd>
       </div>
       <div class="pp-use">

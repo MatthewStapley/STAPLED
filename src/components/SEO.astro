@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title = "Websites for Trade and Service Businesses | Stapled.",
-  description = "Websites and digital support for trade and service businesses, built and looked after personally by Matt. Based in Southampton, working with businesses across the UK.",
+  description = "Websites and digital support for trade and service businesses, built and looked after personally by Matt. Serving Southampton and businesses across the UK.",
   path = "/",
   noindex = false,
 } = Astro.props;
@@ -24,15 +24,10 @@ const structuredData = {
   name: site.legalName,
   description: site.description,
   url: site.url,
-  areaServed: {
-    "@type": "Country",
-    name: "United Kingdom",
-  },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Southampton",
-    addressCountry: "GB",
-  },
+  areaServed: [
+    { "@type": "City", name: "Southampton" },
+    { "@type": "Country", name: "United Kingdom" },
+  ],
   founder: {
     "@type": "Person",
     name: "Matt",

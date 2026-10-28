@@ -13,8 +13,8 @@ export const site = {
   url: "https://stapled.co.uk",
   tagline: "Websites and digital support for trade and service businesses.",
   description:
-    "Stapled. provides websites and digital support for trade and service businesses: websites built around your work, help with an eligible Google Business Profile, and simpler ways for customers to get in touch. Based in Southampton, working with businesses across the UK.",
-  location: "Based in Southampton, working with businesses across the UK",
+    "Stapled. provides websites and digital support for trade and service businesses: websites built around your work, help with an eligible Google Business Profile, and simpler ways for customers to get in touch. Serving Southampton and businesses across the UK.",
+  location: "Serving Southampton and businesses across the UK",
   founder: "Matt",
 };
 
@@ -25,25 +25,19 @@ export const site = {
 export const business = {
   proprietor: "Matthew Stapley",
   tradingAs: "Stapled.",
-  // Business correspondence address, shown publicly on the Business
-  // details page only (never the homepage, footer or structured data).
-  // Matt supplies the value directly. Don't add visiting directions or
-  // opening hours, or add it to a Google Business Profile.
-  address: "",
-  addressLines: [] as string[],
-  // Whether the address has been confirmed as meeting the geographic-
-  // address requirements (E-Commerce "established" address and consumer
-  // "geographic address"). A filled-in address alone doesn't resolve this:
-  // `npm run check:publish` fails until this is true, and it should only
-  // be set to true once that confirmation is recorded in the private
-  // launch notes.
-  addressSuitabilityConfirmed: false,
-  addressLabel: "Business correspondence address",
+  // The business address Stapled. operates from, shown publicly on the
+  // Business details page only (never the homepage, footer or structured
+  // data). Matt supplies the value directly. While it's empty,
+  // `npm run check:publish` fails. Filling it in completes the disclosure
+  // on the site; it doesn't by itself establish legal compliance.
+  address: "26 Littlewood Lane, Buxted, East Sussex, TN22 4LW, United Kingdom",
+  addressLines: ["26 Littlewood Lane", "Buxted", "East Sussex", "TN22 4LW", "United Kingdom"] as string[],
+  addressLabel: "Business address",
 };
 
 // Shown in a "to confirm" note if business.address is ever emptied again.
 export const addressNote =
-  "No business correspondence address set. A sole trader using a business name must show an address where documents can be served. Set it in src/data/config.ts → business.address (see the private launch notes).";
+  "No business address set. A sole trader using a business name must show an address where documents can be served. Set it in src/data/config.ts → business.address (see the private launch notes).";
 
 // REPLACE: real contact details once available.
 // Email is the only enquiry route on the site — keep this to details

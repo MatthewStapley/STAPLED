@@ -1,4 +1,4 @@
-// Post-build guard: the business correspondence address may appear only on
+// Post-build guard: the business address may appear only on
 // /business-details/, never on the homepage, in the footer, in metadata or
 // in structured data. Reads the address lines from src/data/config.ts and
 // scans every built page. While no address is set, it passes and says so.
