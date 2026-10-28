@@ -25,16 +25,19 @@ export const site = {
 export const business = {
   proprietor: "Matthew Stapley",
   tradingAs: "Stapled.",
-  // UNRESOLVED: a preferred candidate is recorded privately, outside this
-  // repository, but whether it meets the geographic-address requirement
-  // hasn't been settled. Don't fill these in until it has.
-  // Leave these empty until Matt chooses one and the disclosure
-  // requirements are resolved (the private launch notes). While
-  // `address` is empty, `npm run check:publish` fails and the deploy is
-  // blocked. Don't add an address to structured data or a Google Business
-  // Profile, and don't add visiting directions or opening hours.
+  // Business correspondence address, shown publicly on the Business
+  // details page only (never the homepage, footer or structured data).
+  // Matt supplies the value directly. Don't add visiting directions or
+  // opening hours, or add it to a Google Business Profile.
   address: "",
   addressLines: [] as string[],
+  // Whether the address has been confirmed as meeting the geographic-
+  // address requirements (E-Commerce "established" address and consumer
+  // "geographic address"). A filled-in address alone doesn't resolve this:
+  // `npm run check:publish` fails until this is true, and it should only
+  // be set to true once that confirmation is recorded in the private
+  // launch notes.
+  addressSuitabilityConfirmed: false,
   addressLabel: "Business correspondence address",
 };
 

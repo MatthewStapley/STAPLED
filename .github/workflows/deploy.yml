@@ -47,6 +47,10 @@ jobs:
       - name: Check internal links and redirects
         run: npm run check:links
 
+      # The business address may appear only on the Business details page.
+      - name: Check where the business address appears
+        run: npm run check:address
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:

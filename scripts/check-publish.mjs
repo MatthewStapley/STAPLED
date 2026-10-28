@@ -33,6 +33,11 @@ const config = readFileSync(join(root, "src/data/config.ts"), "utf8");
 if (/address:\s*""/.test(config)) {
   problems.push("Business address: src/data/config.ts business.address is empty. A verified geographic business address is required on the Business details page before publishing. See the private launch notes.");
 }
+// A populated address isn't enough: its suitability for the geographic-
+// address requirements has to be confirmed separately.
+if (!/addressSuitabilityConfirmed:\s*true\b/.test(config)) {
+  problems.push("Business address suitability: not yet confirmed as meeting the geographic-address requirements (business.addressSuitabilityConfirmed in src/data/config.ts). See the private launch notes.");
+}
 
 if (problems.length) {
   console.error(`Not ready to publish: ${problems.length} unresolved item(s).\n`);

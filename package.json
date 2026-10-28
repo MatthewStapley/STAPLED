@@ -12,7 +12,8 @@
     "astro": "astro",
     "check:publish": "node scripts/check-publish.mjs",
     "check:prices": "node scripts/check-prices.mjs",
-    "check:links": "node scripts/check-links.mjs"
+    "check:links": "node scripts/check-links.mjs",
+    "check:address": "node scripts/check-address.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
