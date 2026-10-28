@@ -6,15 +6,16 @@
 // domain costs and cancellation arrangements. Homepage previews are
 // offered case by case. Earlier versions are kept privately, outside this
 // repository, and each quote names the version that applies. Existing
-// clients' agreements are unchanged. Ownership and files transfer only
-// after the build price is paid in full; cancelling a build is charged on
-// work completed (valued as the quote explains), never the whole remaining
-// balance; overdue payments can pause work or handover, and suspend only
-// hosting I provide. Only settled terms appear here;
+// clients' agreements are unchanged. Three situations are kept apart:
+// cancelling an unfinished build (settlement for work completed, then a
+// cancellation handover within 14 days), paying for a finished build
+// (finished = delivered and approved in writing), and cancelling hosting
+// and care (optional, separate, under the quote). Ownership covers
+// client-specific work; reusable components and third-party materials are
+// licensed, not transferred. Only settled terms appear here;
 // anything awaiting a decision is marked with a <ToConfirm> (visible in
 // development, hidden in production, and caught by `npm run check:publish`).
 import LegalLayout from "../layouts/LegalLayout.astro";
-import ToConfirm from "../components/ToConfirm.astro";
 import { contact, business } from "../data/config";
 
 const lastUpdated = "28 October 2026";
@@ -25,8 +26,9 @@ const sections = [
   { id: "preview", label: "Homepage previews" },
   { id: "quotes", label: "Quotes and accepting them" },
   { id: "payment", label: "Paying for your website" },
-  { id: "ownership", label: "When the website becomes yours" },
-  { id: "early", label: "Cancelling a build" },
+  { id: "finished", label: "When your build is finished" },
+  { id: "ownership", label: "What becomes yours, and when" },
+  { id: "early", label: "Cancelling an unfinished build" },
   { id: "maintenance", label: "Hosting and care" },
   { id: "backups", label: "Backups" },
   { id: "own-hosting", label: "Using your own hosting" },
@@ -107,17 +109,21 @@ const sections = [
     <h2>Quotes and accepting them</h2>
     <p>Before any work starts, I'll email you a quote that sets out:</p>
     <ul>
-      <li>what the website will include</li>
-      <li>its total purchase price</li>
+      <li>the agreed scope of the build, including any rounds of revisions</li>
       <li>
-        if you'd like to spread the cost, each payment amount, the stage or
-        milestone it relates to, and when it's due
+        the deliverables: the transferable source code and website assets,
+        and design files only where the quote expressly includes them
       </li>
-      <li>how work completed is valued if you cancel before the build is finished</li>
+      <li>its total build price, and the value of each stage of the work</li>
+      <li>how work on a partly completed stage is valued</li>
       <li>
-        whether I'll host and look after it or you'll use your own hosting,
-        and if I will: what hosting and care costs, the work it includes,
-        any domain costs, and how it can be cancelled
+        if you'd like to spread the cost, each payment amount, the stage it
+        relates to, and when it's due
+      </li>
+      <li>
+        whether you'd like me to host and look after the website (this is
+        optional), and if so: what hosting and care costs, the work it
+        includes, any domain costs, and how it can be cancelled
       </li>
       <li>whether you're buying for a business or for personal use</li>
       <li>which version of these terms applies</li>
@@ -132,10 +138,10 @@ const sections = [
   <section id="payment">
     <h2>Paying for your website</h2>
     <p>
-      Your quote sets your website's total build price. You can pay it in
-      one go or, if we agree, in stages: your written quote sets out each
-      payment amount, the stage or milestone it relates to, and when it's
-      due.
+      Your quote sets your website's total build price and the value of
+      each stage. You can pay it in one go or, if we agree, in stages: your
+      written quote sets out each payment amount, the stage it relates to,
+      and when it's due.
     </p>
     <p>
       Payments are made by bank transfer. I'll send you the details with
@@ -148,43 +154,86 @@ const sections = [
     </p>
   </section>
 
-  <section id="ownership">
-    <h2>When the website becomes yours</h2>
+  <section id="finished">
+    <h2>When your build is finished</h2>
     <p>
-      Once you've paid the full build price, I transfer to you the ownership
-      rights agreed in your quote (the rights I own in the website's design
-      and code) and the website's transferable files. I don't transfer them
-      before then.
+      Your build is finished when I've completed the agreed scope and any
+      revisions included in your quote, delivered it to you for review, and
+      you've approved it in writing (an email is fine). It isn't treated as
+      approved just because time has passed.
+    </p>
+    <p>
+      Once it's finished, any remaining payments are due as your quote sets
+      out. Cancelling at that point doesn't replace paying for the finished
+      build. If anything hasn't been done with reasonable care and skill,
+      your rights in{" "}
+      <a href="#refunds">refunds and your rights</a> still apply.
+    </p>
+  </section>
+
+  <section id="ownership">
+    <h2>What becomes yours, and when</h2>
+    <p>Ownership passes to you in one of two ways:</p>
+    <ul>
+      <li>
+        <strong>Full payment:</strong> once you've paid the full build price,
+        the finished website's deliverables listed in your quote.
+      </li>
+      <li>
+        <strong>Cancellation settlement:</strong> if you cancel an unfinished
+        build, once you've paid the agreed settlement, the work completed up
+        to the cancellation, as described in{" "}
+        <a href="#early">cancelling an unfinished build</a>.
+      </li>
+    </ul>
+    <p>In either case:</p>
+    <ul>
+      <li>
+        <strong>Work made for you:</strong> I transfer to you the ownership
+        rights I hold in the design and code I created specifically for your
+        website, and send you its deliverables.
+      </li>
+      <li>
+        <strong>My reusable components:</strong> some parts of your website
+        may be tools, code or design components I made before your project,
+        or use across projects. I keep ownership of those, and you get
+        permission to keep using them as part of your website, including if
+        you move it to another host.
+      </li>
+      <li>
+        <strong>Third-party materials:</strong> some parts may be licensed
+        from someone else, such as a stock photo, a font or a third-party
+        service. They're not mine to transfer. They stay subject to their own
+        licences, and I'll tell you about any restrictions before you accept
+        your quote.
+      </li>
+    </ul>
+    <p>
+      Nothing transfers before full payment or an agreed cancellation
+      settlement has been paid.
     </p>
     <p>
       Paying in full doesn't end hosting and care. If I'm hosting your
-      website, that carries on under the separate hosting and care
-      arrangement in your quote until it's cancelled as that arrangement
-      sets out.
-    </p>
-    <p>
-      Some parts of a website may be licensed from someone else, such as a
-      stock photo, a font or a third-party service, rather than owned by me.
-      If anything in your website comes with licence restrictions, I'll tell
-      you what they are before you accept your quote.
+      website, that carries on under its separate arrangement until it's
+      cancelled as described in <a href="#maintenance">hosting and care</a>.
     </p>
   </section>
 
   <section id="early">
-    <h2>Cancelling a build</h2>
+    <h2>Cancelling an unfinished build</h2>
     <p>
-      You can cancel the build at any time before it's finished or paid for
-      by emailing me. If the build is already finished, you can instead pay
-      the remaining balance and the website is yours, as described in{" "}
-      <a href="#ownership">when the website becomes yours</a>.
+      You can cancel the build at any time before it's finished, by emailing
+      me. If you cancel before I've started any work, you owe nothing and
+      I'll refund anything you've paid.
     </p>
-    <p>If you cancel:</p>
+    <h3>The cancellation settlement</h3>
     <ul>
       <li>
         <strong>What you pay:</strong> the value of the work completed up to
-        when you tell me you're cancelling, worked out the way your quote
-        explains. You don't have to pay the whole remaining balance, and no
-        part of the price is a non-refundable deposit.
+        when you tell me you're cancelling, using the stage values in your
+        quote and its method for a partly completed stage. You don't have to
+        pay the whole remaining balance, and no part of the price is a
+        non-refundable deposit.
       </li>
       <li>
         <strong>Payments you've already made</strong> count towards that
@@ -193,19 +242,50 @@ const sections = [
         difference.
       </li>
       <li>
-        <strong>Ownership:</strong> the website's ownership rights and
-        transferable files only pass to you once the full build price is
-        paid. Your domain and the content you gave me are still yours.
-      </li>
-      <li>
-        <strong>Hosting and care:</strong> if I'm hosting the website,
-        cancelling the build doesn't cancel hosting and care by itself.
-        Hosting and care ends as its own arrangement in your quote sets out.
+        <strong>I'll confirm the settlement in writing,</strong> showing how
+        it was worked out.
       </li>
     </ul>
-    <ToConfirm note="Legal question for review: after cancelling, a client pays for work completed but doesn't receive the files or ownership unless the full build price is paid. Check this is fair, particularly for personal buyers, before publishing." />
+    <h3>The cancellation handover</h3>
     <p>
-      Personal buyers also have the 14-day cancellation right described{" "}
+      Within 14 days of receiving the agreed settlement, I'll send you:
+    </p>
+    <ul>
+      <li>
+        the work completed up to the cancellation, as the deliverables listed
+        in your quote, in its current state
+      </li>
+      <li>
+        a note of its condition: what's finished, what isn't, any problems I
+        know about, and that it may need more work before it can go live
+      </li>
+      <li>
+        a list of any third-party materials it contains, whether their
+        licences carry over to you, and anything I've had to remove or that
+        you'd need to license yourself
+      </li>
+      <li>the content you gave me</li>
+    </ul>
+    <p>
+      Ownership of the completed work passes as described in{" "}
+      <a href="#ownership">what becomes yours, and when</a>. If the
+      settlement isn't paid, the handover waits until it is (see{" "}
+      <a href="#late">if a payment is late</a>). Your domain and your own
+      content are yours whatever happens.
+    </p>
+    <h3>Hosting when you cancel a build</h3>
+    <p>
+      If I'm hosting the website when you cancel the build, I won't assume
+      you want hosting and care to continue. Tell me in your cancellation
+      email whether you'd like it to. If you don't confirm that you do, it
+      ends as the cancellation arrangements for hosting and care in your
+      quote set out.
+    </p>
+    <p>
+      None of this affects your rights if work hasn't been done with
+      reasonable care and skill (see{" "}
+      <a href="#refunds">refunds and your rights</a>). Personal buyers also
+      have the 14-day cancellation right described{" "}
       <a href="#cancel-14">below</a>.
     </p>
   </section>
@@ -214,9 +294,10 @@ const sections = [
   <section id="maintenance">
     <h2>Hosting and care</h2>
     <p>
-      If you'd like me to host and look after your website, your quote sets
-      out what hosting and care costs, the work it includes, any domain
-      costs, and how it can be cancelled.
+      Hosting and care is optional, and separate from your build. If you'd
+      like me to host and look after your website, your quote sets out what
+      it costs, the work it includes, any domain costs, and how it can be
+      cancelled.
     </p>
     <ul>
       <li>
@@ -224,8 +305,13 @@ const sections = [
         still paying for the website.
       </li>
       <li>
-        It's separate from the website's price and doesn't count towards
-        paying it off.
+        It's separate from the build price and doesn't count towards paying
+        it off.
+      </li>
+      <li>
+        It's cancelled under the arrangements in your quote. Finishing or
+        paying for your build doesn't end it. If you cancel the build, see{" "}
+        <a href="#early">hosting when you cancel a build</a>.
       </li>
     </ul>
     <p>
@@ -235,7 +321,7 @@ const sections = [
     <p>
       Cancelling hosting and care never means losing a website you've
       already paid for, and it doesn't cancel any payments still due for
-      the website.
+      the build.
     </p>
   </section>
 
@@ -250,11 +336,10 @@ const sections = [
     <ul>
       <li>
         <strong>Timing:</strong> a check runs once a day and takes a backup
-        when one is due, so there's one a week. If the computer that runs
-        them is switched off, asleep or offline at the time of the check,
-        the backup runs late: when the computer wakes, or otherwise at the
-        next daily check it can run. A missed week isn't recreated
-        afterwards.
+        when one is due, aiming to create a backup each week. If the
+        computer that runs them is switched off, asleep or offline, the
+        backup runs late, usually at the next daily check it can complete.
+        A missed week isn't recreated afterwards.
       </li>
       <li>
         <strong>Upload:</strong> a backup needs that computer to be connected
@@ -294,13 +379,13 @@ const sections = [
     <p>
       You don't have to host with me. If you use your own hosting, you don't
       pay me for hosting and care. Once the full build price is paid, I'll
-      provide the transferable website files and basic setup instructions
-      as set out in your quote.
+      provide the deliverables listed in your quote and basic setup
+      instructions.
     </p>
     <p>
       I don't provide the files, or transfer ownership, before then, as
       described in{" "}
-      <a href="#ownership">when the website becomes yours</a>. Choosing your
+      <a href="#ownership">what becomes yours, and when</a>. Choosing your
       own hosting doesn't cancel any payments still due for your website.
     </p>
   </section>
@@ -312,7 +397,7 @@ const sections = [
       I'll send you, before hosting ends:
     </p>
     <ul>
-      <li>a ZIP file of the website's transferable files</li>
+      <li>a ZIP file of the deliverables listed in your quote</li>
       <li>basic instructions for putting it online with another host</li>
       <li>
         a note of anything that needs moving separately or can't be
@@ -381,7 +466,8 @@ const sections = [
       </li>
       <li>
         If it's still unpaid on that date, I may pause unfinished work on
-        your website and hold back the handover of files until it's paid.
+        your website and hold back any handover (including a cancellation
+        handover) until it's paid.
       </li>
       <li>
         If I'm hosting your website, I may also suspend hosting, which takes
