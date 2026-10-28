@@ -1,0 +1,443 @@
+---
+// Terms for the website purchase model (22 Oct 2026): websites from £200,
+// each individually quoted, optionally on a payment plan. Hosting and
+// maintenance is a separate £25/month from when hosting starts (including
+// during a payment plan) and never counts towards the website's price;
+// customers can use their own hosting instead. Weekly backups (repository
+// only, no recovery promise) are included since 23 Oct 2026 (Backblaze B2,
+// EU); keep encryption details, paths and credentials off this page. Only
+// settled terms
+// appear here. Clauses awaiting decisions or legal review live in
+// the private draft clauses (kept outside this repository), and each gap is marked with a
+// <ToConfirm> (visible in development, hidden in production, and caught by
+// `npm run check:publish`). Keep this page, Pricing.astro and FAQ.astro
+// saying the same thing.
+import LegalLayout from "../layouts/LegalLayout.astro";
+import ToConfirm from "../components/ToConfirm.astro";
+import { contact, business, addressNote } from "../data/config";
+
+const lastUpdated = "22 October 2026";
+
+const sections = [
+  { id: "about", label: "About these terms" },
+  { id: "who-for", label: "Business and personal buyers" },
+  { id: "preview", label: "Free homepage preview" },
+  { id: "quotes", label: "Quotes and accepting them" },
+  { id: "payment", label: "Paying for your website" },
+  { id: "ownership", label: "When the website becomes yours" },
+  { id: "early", label: "Ending before it's paid for" },
+  { id: "maintenance", label: "Hosting and maintenance" },
+  { id: "backups", label: "Backups" },
+  { id: "own-hosting", label: "Using your own hosting" },
+  { id: "handover", label: "Handover" },
+  { id: "after-hosting", label: "After hosting ends" },
+  { id: "domain", label: "Your domain and content" },
+  { id: "late", label: "If a payment is late" },
+  { id: "refunds", label: "Refunds and your rights" },
+  { id: "cancel-14", label: "14-day cancellation (personal buyers)" },
+  { id: "contact", label: "Questions and complaints" },
+];
+---
+
+<LegalLayout
+  title="Terms | Stapled."
+  description="How buying a website from Stapled. works: quotes, payment plans, when the website becomes yours, optional £25 a month hosting and maintenance, cancelling and handover."
+  path="/terms/"
+  heading="Terms"
+  intro="How buying a website from me works, in plain English: what you pay, when it's yours, and how to leave."
+  lastUpdated={lastUpdated}
+  sections={sections}
+>
+  <section id="about">
+    <h2>About these terms</h2>
+    <p>
+      These terms are between you and {business.proprietor}, a sole trader
+      trading as {business.tradingAs} ("I" or "me"), based in Southampton,
+      UK. You can reach me at{" "}
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+    </p>
+    {business.address ? (
+      <p>
+        My {business.addressLabel.toLowerCase()} is {business.address}. It's
+        for post and formal documents only, not an office open to visitors.
+      </p>
+    ) : (
+      <ToConfirm note={addressNote} />
+    )}
+    <p>
+      They apply alongside the written quote I send you. When you accept a
+      quote by email, the quote and these terms (in the version dated on
+      this page) make up our agreement. If you agreed a different
+      arrangement with me before {lastUpdated}, that arrangement still
+      applies.
+    </p>
+  </section>
+
+  <section id="who-for">
+    <h2>Business and personal buyers</h2>
+    <p>
+      I work with businesses and with individuals. Some parts of these
+      terms depend on which you are, because the law gives extra protection
+      to people buying for personal use.
+    </p>
+    <ul>
+      <li>
+        <strong>Buying for a business:</strong> you're buying mainly for your
+        trade, business or profession. That includes sole traders and
+        partnerships buying for their business.
+      </li>
+      <li>
+        <strong>Buying for personal use:</strong> you're buying mainly for
+        purposes outside any trade or business. The law calls you a
+        "consumer", and the parts marked "personal buyers" apply to you.
+      </li>
+    </ul>
+  </section>
+
+  <section id="preview">
+    <h2>Free homepage preview</h2>
+    <p>
+      If you ask for one, I'll put together a first look at how your
+      homepage could feel and read, based on what you've told me. It's
+      free, and you're under no obligation to go ahead afterwards.
+    </p>
+  </section>
+
+  <section id="quotes">
+    <h2>Quotes and accepting them</h2>
+    <p>Before any work starts, I'll email you a quote that sets out:</p>
+    <ul>
+      <li>what the website will include</li>
+      <li>its total purchase price</li>
+      <li>if you'd like to spread the cost, the payment schedule we've agreed</li>
+      <li>whether I'll host it (and the £25 a month that costs) or you'll use your own hosting</li>
+      <li>whether you're buying for a business or for personal use</li>
+    </ul>
+    <p>
+      You accept a quote by replying to say so. Nothing is payable until you
+      do. Any extra work you ask for later is quoted separately and only
+      goes ahead if you agree.
+    </p>
+  </section>
+
+  <section id="payment">
+    <h2>Paying for your website</h2>
+    <p>
+      Websites start from £200. Your quote sets your website's total price.
+      You can pay it in one go, or spread it with a payment plan: the
+      payment schedule we agree is set out in your quote.
+    </p>
+    <p>
+      Payments are made by bank transfer. I'll send you the details with
+      your quote. I'm not registered for VAT, so no VAT is added to any
+      price.
+    </p>
+    <p>
+      If you're on a payment plan, you can pay the remaining balance at any
+      time to finish paying early.
+    </p>
+  </section>
+
+  <section id="ownership">
+    <h2>When the website becomes yours</h2>
+    <p>
+      Once you've paid the full price, the website is yours. I transfer the
+      website's files to you, along with the rights I own in its design and
+      code.
+    </p>
+    <p>
+      Some parts of a website may be licensed from someone else, such as a
+      stock photo, a font or a third-party service, rather than owned by me.
+      If anything in your website comes with licence restrictions, I'll tell
+      you what they are before you accept your quote.
+    </p>
+  </section>
+
+  <section id="early">
+    <h2>Ending before your website is paid for</h2>
+    <p>You have two options if you want to stop before the price is paid:</p>
+    <ul>
+      <li>
+        <strong>Finish paying:</strong> pay the remaining balance, and the
+        website and its transferable files are yours.
+      </li>
+      <li>
+        <strong>End the agreement early:</strong> give me one calendar
+        month's notice by email. Payment-plan instalments that fall due
+        during the notice period are still payable, and they count towards
+        the website's price. If I'm hosting the website, hosting ends when
+        the notice period ends, and the £25 monthly fee is payable until
+        then. If you end early,
+        the website and its files aren't transferred to you, but your domain
+        and the content you gave me are still yours.
+      </li>
+    </ul>
+    <p>
+      Personal buyers also have the 14-day cancellation right described{" "}
+      <a href="#cancel-14">below</a>.
+    </p>
+  </section>
+
+
+  <section id="maintenance">
+    <h2>Hosting and maintenance</h2>
+    <p>
+      If you'd like me to host your website, hosting and maintenance costs
+      £25 a month. It's a separate, rolling monthly arrangement:
+    </p>
+    <ul>
+      <li>
+        It starts when I start hosting your website, including while you're
+        still paying for the website on a payment plan.
+      </li>
+      <li>
+        It's separate from the website's price and doesn't count towards
+        paying it off.
+      </li>
+    </ul>
+    <p>It includes:</p>
+    <ul>
+      <li>hosting, with HTTPS</li>
+      <li>
+        technical maintenance, such as keeping the site's software up to date
+        and fixing faults in code I've written
+      </li>
+      <li>
+        weekly backups of your website's code and files stored in its
+        repository (see <a href="#backups">backups</a>)
+      </li>
+      <li>
+        up to 30 minutes of minor content edits a month, such as changing
+        text, prices, opening hours or photos on existing pages. Unused time
+        doesn't carry over to the next month.
+      </li>
+    </ul>
+    <p>
+      New pages, redesigns and new features aren't included. I'll quote for
+      them separately, and they only go ahead if you agree.
+    </p>
+    <p>
+      You can cancel hosting and maintenance at any time by giving one
+      calendar month's notice by email. Hosting continues until the end of
+      that notice period, which you pay for as normal, and then ends.
+      Cancelling hosting never means losing a website you've already paid
+      for, and it doesn't cancel any payment-plan instalments still due for
+      the website.
+    </p>
+  </section>
+
+  <section id="backups">
+    <h2>Backups</h2>
+    <p>
+      While I host your website, I back up its code and the files stored in
+      its repository once a week, and keep the copies with a cloud storage
+      service.
+    </p>
+    <ul>
+      <li>
+        <strong>Timing:</strong> backups are scheduled weekly. If the
+        computer that runs them is switched off, asleep or offline, a backup
+        may run late, and is taken as soon as it's next available. A missed
+        week isn't recreated afterwards.
+      </li>
+      <li>
+        <strong>Upload:</strong> a backup needs that computer to be connected
+        to the internet and the storage service to be available. If an upload
+        fails, it's retried, and otherwise tried again at the next daily
+        check.
+      </li>
+      <li>
+        <strong>What's covered:</strong> the website's code and the files
+        saved in its repository.
+      </li>
+      <li>
+        <strong>What isn't covered:</strong> databases, emails, third-party
+        services (such as booking or form tools), account settings (such as
+        your domain registrar account), passwords and other secrets, and any
+        changes that haven't been saved to the repository.
+      </li>
+      <li>
+        <strong>How long copies are kept:</strong> weekly copies for about 8
+        weeks and one copy a month for about 6 months. After that they're
+        removed automatically and permanently deleted within a further 30
+        days.
+      </li>
+    </ul>
+    <p>
+      Backups make it possible for me to try to restore your website if
+      something goes wrong. I can't guarantee that a restore will succeed,
+      or how long it will take. That doesn't change my duty to provide
+      hosting, maintenance and backups with reasonable care and skill, or
+      any of your rights under the law (see{" "}
+      <a href="#refunds">refunds and your rights</a>).
+    </p>
+  </section>
+
+  <section id="own-hosting">
+    <h2>Using your own hosting</h2>
+    <p>
+      You don't have to host with me. If you use your own hosting, you pay
+      me no monthly hosting fee, and I'll provide the transferable website
+      files and basic setup instructions as set out in your quote.
+    </p>
+    <p>
+      Choosing your own hosting doesn't cancel any payments still due for
+      your website, and ownership only passes to you once the website is
+      fully paid for, as described in{" "}
+      <a href="#ownership">when the website becomes yours</a>.
+    </p>
+  </section>
+
+  <section id="handover">
+    <h2>Handover</h2>
+    <p>
+      When I'm hosting a website you've paid for and that hosting is ending,
+      I'll send you, before hosting ends:
+    </p>
+    <ul>
+      <li>a ZIP file of the website's transferable files</li>
+      <li>basic instructions for putting it online with another host</li>
+      <li>
+        a note of anything that needs moving separately or can't be
+        transferred, such as a database, a third-party service, a licence
+        or an account in my name
+      </li>
+    </ul>
+  </section>
+
+  <section id="after-hosting">
+    <h2>After hosting ends</h2>
+    <p>
+      Once hosting has ended and the handover is complete, I keep a recovery
+      copy of your website for 30 days, in case anything goes wrong with the
+      move. After that I delete it from my active storage. Backup copies
+      made while I was hosting your website are deleted automatically when
+      they reach the end of the retention periods in{" "}
+      <a href="#backups">backups</a>.
+    </p>
+    <p>
+      This doesn't cover business records I have to keep, such as quotes,
+      agreements and invoices. Those are kept for the periods set out in the
+      <a href="/privacy/#retention">privacy policy</a>.
+    </p>
+  </section>
+
+  <section id="domain">
+    <h2>Your domain and content</h2>
+    <p>
+      Your domain, photos, text and logo are always yours, whatever happens.
+    </p>
+    <ul>
+      <li>
+        <strong>If you already have a domain,</strong> you keep it and stay
+        in control of it. I only need enough access to point it at your
+        website.
+      </li>
+      <li>
+        <strong>If you need a new one,</strong> I'll register it with you as
+        the named owner (the registrant).
+      </li>
+      <li>
+        <strong>Cost:</strong> while I host your website, including while
+        you're paying for it, I include up to £20 a year towards the domain.
+        If it costs more than that, I'll agree the extra with you before
+        buying or renewing it.
+      </li>
+      <li>
+        <strong>When hosting with me ends,</strong> I'll help you take over
+        the domain: either by moving it into a registrar account of your
+        own, or by giving you its transfer code so you can move it to
+        another provider. From then on, renewing it is up to you.
+      </li>
+    </ul>
+  </section>
+
+  <section id="late">
+    <h2>If a payment is late</h2>
+    <ol class="pp-steps">
+      <li>
+        I'll email you a reminder saying what's overdue and the date hosting
+        will be suspended if it's still unpaid. That date will be at least
+        14 days after the reminder.
+      </li>
+      <li>
+        If you pay before then, nothing else happens. If something's wrong,
+        reply to the reminder and we'll sort it out.
+      </li>
+      <li>
+        If it's still unpaid on that date and I'm hosting your website, I'll
+        suspend hosting, which takes the website offline.
+      </li>
+    </ol>
+    <p>
+      Suspension is temporary. It doesn't delete your website, it doesn't
+      end our agreement, and it doesn't add any charges. Once the overdue
+      amount is paid, I'll put the website back online.
+    </p>
+    <p>
+      Suspending hosting, ending the agreement and deleting data are three
+      separate things. The agreement only ends as described in these terms,
+      and website data is only deleted as described in{" "}
+      <a href="#after-hosting">after hosting ends</a>.
+    </p>
+  </section>
+
+  <section id="refunds">
+    <h2>Refunds and your rights</h2>
+    <p>
+      Whether you buy for a business or for personal use, the law requires
+      my work to be carried out with reasonable care and skill. If something
+      isn't, tell me and I'll put it right. If that isn't possible, you may
+      be entitled to a price reduction or a refund.
+    </p>
+    <p>
+      Beyond those rights, I don't offer an extra refund if you simply change
+      your mind about work that's been completed and supplied properly.
+      Nothing in these terms takes away or limits any rights you have by
+      law.
+    </p>
+  </section>
+
+  <section id="cancel-14">
+    <h2>14-day cancellation (personal buyers)</h2>
+    <p>
+      If you're buying for personal use and you accept a quote by email,
+      phone or anywhere other than my business premises, you can cancel
+      within 14 days of accepting it. You don't need to give a reason. To
+      cancel, email me at{" "}
+      <a href={`mailto:${contact.email}`}>{contact.email}</a> with a clear
+      statement that you're cancelling.
+    </p>
+    <p>
+      I won't start work during those 14 days unless you ask me to in
+      writing. If you ask me to start and then cancel within the 14 days,
+      you pay a proportionate amount for the work done up to when you tell
+      me you're cancelling, and I'll refund anything you've paid beyond that
+      within 14 days.
+    </p>
+    <p>
+      If you ask me to start early and the work is completely finished
+      within the 14 days, you lose the right to cancel once it's finished,
+      but only if you confirmed in writing, when asking me to start, that
+      you understood this.
+    </p>
+  </section>
+
+  <section id="contact">
+    <h2>Questions and complaints</h2>
+    <p>
+      If something isn't right, email me at{" "}
+      <a href={`mailto:${contact.email}`}>{contact.email}</a> and I'll do my
+      best to sort it out. For how I handle your personal information, see
+      the <a href="/privacy/">privacy policy</a>.
+    </p>
+    {business.address ? (
+      <p>
+        You can also write to me at my{" "}
+        {business.addressLabel.toLowerCase()}: {business.address}.
+      </p>
+    ) : (
+      <ToConfirm note={addressNote} />
+    )}
+  </section>
+</LegalLayout>

@@ -3,6 +3,26 @@
    Colour tokens, typography, resets and shared animation utilities.
 --------------------------------------------------------------------------- */
 
+/* Self-hosted fonts (latin subset, variable weight). Sourced from Google
+   Fonts under the SIL Open Font License — licence text sits beside each
+   file in /public/fonts. The Crema Current concept page declares its own
+   two typefaces the same way. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/inter-latin.woff2") format("woff2");
+}
+
 :root {
   --colour-bg: #f5f3ee;
   --colour-ink: #111111;
@@ -12,6 +32,13 @@
   --colour-muted: #6e6b65;
   --colour-lime: #c8f560;
   --colour-lime-ink: #1a2405;
+  /* Redesign additions: graphite is the stage behind device and
+     illustration showcases; paper-2 is a quiet fill for tags and
+     placeholders; text-2 is body copy a step softer than ink. */
+  --colour-graphite: #16181a;
+  --colour-paper-2: #ece9e2;
+  --colour-text-2: #3d3b37;
+  --colour-on-dark-muted: #c9c6bf;
 
   --font-display: "Bricolage Grotesque", "Manrope", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
@@ -22,6 +49,7 @@
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 24px;
+  --radius-xl: clamp(24px, 3vw, 40px);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 0.2s;
@@ -52,6 +80,9 @@ body {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.55;
+  /* Long words (domains, email addresses) wrap instead of forcing sideways
+     scrolling when text is enlarged on narrow screens. */
+  overflow-wrap: break-word;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -286,14 +317,16 @@ ol {
 
 /* Scroll reveal --------------------------------------------------------- */
 
-.reveal {
+/* Fails open: content is only hidden once Layout.astro has marked the page
+   with .js, so if the script never runs everything stays visible. */
+.js .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity var(--dur-slow) var(--ease-out),
     transform var(--dur-slow) var(--ease-out);
 }
 
-.reveal.is-visible {
+.js .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -332,8 +365,104 @@ ol {
   color: rgb(245 243 238 / 0.6);
 }
 
+/* --colour-muted on ink is only 3.6:1; lift eyebrows on dark sections to
+   meet the 4.5:1 WCAG AA minimum for small text. */
+[data-dark] .eyebrow {
+  color: rgb(245 243 238 / 0.7);
+}
+
 @media (max-width: 640px) {
   .section {
     padding-block: clamp(3rem, 12vw, 4.5rem);
+  }
+}
+
+/* Redesign: shared type and motion utilities ----------------------------- */
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+.display {
+  font-size: clamp(2.6rem, 7vw, 6.25rem);
+  line-height: 0.98;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  font-optical-sizing: auto;
+}
+
+.headline {
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  line-height: 1;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  max-width: 17ch;
+}
+
+.lead {
+  font-size: clamp(1.125rem, 1.6vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--colour-text-2);
+  max-width: 52ch;
+}
+
+[data-dark] .lead,
+[data-graphite] .lead {
+  color: var(--colour-on-dark-muted);
+}
+
+[data-graphite] {
+  background: var(--colour-graphite);
+  color: var(--colour-bg);
+}
+
+[data-graphite] :focus-visible {
+  outline-color: var(--colour-lime);
+}
+
+[data-graphite] .eyebrow {
+  color: rgb(245 243 238 / 0.75);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.4em 0.85em;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--colour-paper-2);
+  color: var(--colour-ink);
+}
+
+[data-graphite] .tag,
+[data-dark] .tag {
+  background: rgb(245 243 238 / 0.12);
+  color: var(--colour-bg);
+}
+
+/* Text links get a full 44px tap area (WCAG 2.2 target size). */
+.link-arrow {
+  min-height: 44px;
+  border-bottom: 0;
+  padding-bottom: 0;
+  text-decoration: underline;
+  text-decoration-color: var(--colour-border);
+  text-underline-offset: 0.35em;
+}
+
+.link-arrow:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Page transitions between routes, where the browser supports them. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
   }
 }

@@ -56,6 +56,12 @@
         ],
         "createdAt": "2026-09-06T01:06:37.117Z",
         "reason": "Crema Current's own deliberate brand type system (Taste Skill direction), scoped separately from Stapled's DESIGN.md typography by user instruction"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-22T21:37:10.829Z",
+        "reason": "Claude: Inter is the documented body font in DESIGN.md (Body Font: Inter); the audit only self-hosted it, not a new choice"
       }
     ]
   }

@@ -1,0 +1,23 @@
+---
+// Shell for every redesigned marketing page: the shared header, a single
+// <main id="main"> (the skip link's target) and the footer.
+import Layout from "./Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const { title, description, path } = Astro.props;
+---
+
+<Layout title={title} description={description} path={path}>
+  <Navigation />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</Layout>

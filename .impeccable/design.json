@@ -122,7 +122,7 @@
       "kind": "card",
       "refersTo": "card",
       "description": "White, hairline-bordered content container; flat at rest, lifts on hover.",
-      "html": "<div class=\"ds-card\"><h3>South Coast Electrical</h3><p>A clean, trustworthy lead-generation website for a local electrical business.</p></div>",
+      "html": "<div class=\"ds-card\"><h3>Electrician website concept</h3><p>A clean, trustworthy lead-generation website for a fictional electrical business.</p></div>",
       "css": ".ds-card { background:var(--colour-white); border:1px solid var(--colour-border); border-radius:24px; padding:1.5rem; transition:transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1); } .ds-card:hover { transform:translateY(-4px); box-shadow:0 30px 50px -30px rgb(17 17 17 / 0.25); } .ds-card h3 { font-family:var(--font-display); font-weight:600; font-size:1.15rem; margin:0 0 0.6rem; color:var(--colour-ink); } .ds-card p { margin:0; color:var(--colour-muted); font-size:0.95rem; }"
     },
     {

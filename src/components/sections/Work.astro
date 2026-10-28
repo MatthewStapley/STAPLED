@@ -2,6 +2,7 @@
 import BrowserMockup from "../mockups/BrowserMockup.astro";
 import PhoneMockup from "../mockups/PhoneMockup.astro";
 import FallbackScreen from "../mockups/FallbackScreen.astro";
+import ConceptBadge from "../ConceptBadge.astro";
 import { images, barberWarnzUrl, leroyDrivingInstructorUrl, ctas } from "../../data/config";
 ---
 
@@ -42,11 +43,7 @@ import { images, barberWarnzUrl, leroyDrivingInstructorUrl, ctas } from "../../d
         </p>
         <div class="work__feature-actions">
           <a href={leroyDrivingInstructorUrl} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
-            View Live Website
-          </a>
-          <a href="/work/leroy-driving-instructor/" class="link-arrow">
-            Read the case study
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            View Live Website<span class="visually-hidden">: Leroy Driving Instructor (opens in a new tab)</span>
           </a>
         </div>
       </div>
@@ -80,7 +77,7 @@ import { images, barberWarnzUrl, leroyDrivingInstructorUrl, ctas } from "../../d
           the experience.
         </p>
         <a href={barberWarnzUrl} class="link-arrow" target="_blank" rel="noopener noreferrer">
-          Visit live site
+          Visit live site<span class="visually-hidden">: Barber Warnz (opens in a new tab)</span>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
@@ -90,37 +87,38 @@ import { images, barberWarnzUrl, leroyDrivingInstructorUrl, ctas } from "../../d
     <div class="work__grid">
       <article class="work__card reveal">
         <div class="work__card-visual">
-          <BrowserMockup src={images.tradesConceptDesktop} alt="South Coast Electrical concept website on desktop" url="southcoastelectrical.co.uk">
+          <BrowserMockup src={images.tradesConceptDesktop} alt="Electrician website concept on desktop" url="Concept, not a live site">
             <Fragment slot="fallback">
               <FallbackScreen variant="trades-desktop" />
             </Fragment>
           </BrowserMockup>
         </div>
         <div class="work__card-copy">
-          <p class="eyebrow">Concept project &bull; Trades</p>
-          <h3>South Coast Electrical <span class="text-muted work__concept-tag">— Concept</span></h3>
+          <ConceptBadge />
+          <h3>Electrician website concept</h3>
           <p class="text-muted">
-            A clean, trustworthy lead-generation website for a local
-            electrical business, focused on emergency call-outs, services,
-            customer reviews and quick quote requests.
+            A design study, not client work: a clean lead-generation layout
+            for a fictional electrician, built around services, call-outs and
+            quick quote requests.
           </p>
         </div>
       </article>
 
       <article class="work__card reveal">
         <div class="work__card-visual">
-          <BrowserMockup src={images.restaurantConceptDesktop} alt="Nook restaurant concept website on desktop" url="nookrestaurant.co.uk">
+          <BrowserMockup src={images.restaurantConceptDesktop} alt="Restaurant website concept on desktop" url="Concept, not a live site">
             <Fragment slot="fallback">
               <FallbackScreen variant="restaurant-desktop" />
             </Fragment>
           </BrowserMockup>
         </div>
         <div class="work__card-copy">
-          <p class="eyebrow">Concept project &bull; Restaurant</p>
-          <h3>Nook <span class="text-muted work__concept-tag">— Restaurant Concept</span></h3>
+          <ConceptBadge />
+          <h3>Restaurant website concept</h3>
           <p class="text-muted">
-            A warm, editorial restaurant website focused on atmosphere,
-            menus, reservations and excellent mobile usability.
+            A design study, not client work: a warm, editorial layout for a
+            fictional restaurant, focused on atmosphere, menus and
+            reservations on mobile.
           </p>
         </div>
       </article>
@@ -234,12 +232,6 @@ import { images, barberWarnzUrl, leroyDrivingInstructorUrl, ctas } from "../../d
     display: flex;
     flex-wrap: wrap;
     gap: 0.4em;
-  }
-
-  .work__concept-tag {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 0.85em;
   }
 
   .work__cta {

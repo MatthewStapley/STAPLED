@@ -1,0 +1,212 @@
+---
+// "How it comes together": three short panels on graphite. On wide screens
+// a phone stays pinned beside them and its screen changes as each panel
+// scrolls past (CSS scroll timelines, no JavaScript). The text carries the
+// whole story; the phone is decorative. On phones, and anywhere scroll
+// timelines or motion aren't available, each panel shows its own small
+// illustration instead and the pinned phone shows its first screen only.
+import Illustration from "../ui/Illustration.astro";
+
+const panels = [
+  {
+    title: "Someone needs a new roof. They search on their phone.",
+    body: "Your business shows up with clear services, the areas you cover and photos of real jobs.",
+    art: "website" as const,
+  },
+  {
+    title: "They can tell straight away that you do this properly.",
+    body: "Fast pages, plain English and genuine work. No stock photos of someone else's roof.",
+    art: "profile" as const,
+  },
+  {
+    title: "They send a quote request you can actually price.",
+    body: "It asks what you'd ask on the phone, so you get the job type, rough location and photos in one message.",
+    art: "enquiry" as const,
+  },
+];
+---
+
+<section class="story section" data-graphite aria-labelledby="story-heading">
+  <div class="container">
+    <p class="eyebrow">How it comes together</p>
+    <h2 id="story-heading" class="headline story__heading">From a search to a job you can price.</h2>
+    <p class="tag story__tag">Illustrative example</p>
+
+    <div class="story__grid">
+      <ol class="story__panels">
+        {panels.map((p, i) => (
+          <li class={`story__panel story__panel--${i + 1}`}>
+            <span class="story__step" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="story__title">{p.title}</h3>
+            <p class="story__body">{p.body}</p>
+            <div class="story__inline">
+              <Illustration variant={p.art} />
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="story__phone-col" aria-hidden="true">
+        <div class="story__phone">
+          {panels.map((p, i) => (
+            <div class={`story__screen story__screen--${i + 1}`}>
+              <Illustration variant={p.art} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story__heading {
+    margin-top: 1.5rem;
+  }
+
+  .story__tag {
+    margin-top: 1.5rem;
+  }
+
+  .story__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .story__panel {
+    /* Fixed, not viewport-relative: a vh height balloons in tall frames. */
+    min-height: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.1rem;
+    max-width: 30rem;
+  }
+
+  .story__step {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--colour-lime);
+  }
+
+  .story__title {
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    line-height: 1.02;
+    font-weight: 620;
+    letter-spacing: -0.03em;
+  }
+
+  .story__body {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--colour-on-dark-muted);
+  }
+
+  .story__inline {
+    display: none;
+  }
+
+  .story__phone-col {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    justify-content: center;
+    padding-block: 1.5rem;
+  }
+
+  .story__phone {
+    position: relative;
+    height: min(38.75rem, calc(100vh - 9.5rem));
+    aspect-ratio: 300 / 620;
+    border-radius: 48px;
+    background: #0b0c0d;
+    box-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.8), inset 0 0 0 1px rgb(255 255 255 / 0.08);
+  }
+
+  .story__screen {
+    position: absolute;
+    inset: 12px;
+    border-radius: 38px;
+    overflow: hidden;
+    background: var(--colour-bg);
+    padding: 3rem 0.9rem 1rem;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .story__screen :global(.ill-card) {
+    box-shadow: none;
+  }
+
+  .story__screen--2,
+  .story__screen--3 {
+    display: none;
+  }
+
+  @supports (timeline-scope: --a) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 861px) {
+      .story__grid {
+        timeline-scope: --story-2, --story-3;
+      }
+
+      .story__panel--2 {
+        view-timeline: --story-2 block;
+      }
+
+      .story__panel--3 {
+        view-timeline: --story-3 block;
+      }
+
+      .story__screen--2,
+      .story__screen--3 {
+        display: flex;
+        opacity: 0;
+        animation: story-swap linear both;
+        animation-range: entry 40% contain 10%;
+      }
+
+      .story__screen--2 {
+        animation-timeline: --story-2;
+      }
+
+      .story__screen--3 {
+        animation-timeline: --story-3;
+      }
+    }
+  }
+
+  @keyframes story-swap {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .story__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .story__phone-col {
+      display: none;
+    }
+
+    .story__panel {
+      min-height: 0;
+      padding-block: 2rem 1rem;
+      max-width: none;
+    }
+
+    .story__inline {
+      display: block;
+      max-width: 20rem;
+      margin-top: 0.5rem;
+    }
+  }
+</style>

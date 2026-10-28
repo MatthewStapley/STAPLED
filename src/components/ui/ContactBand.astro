@@ -1,0 +1,60 @@
+---
+// Closing call to action used at the foot of every marketing page.
+import { contact, ctas } from "../../data/config";
+
+interface Props {
+  heading?: string;
+  body?: string;
+}
+
+const {
+  heading = "Tell me about your business.",
+  body = "A short email is enough to start. I'll reply personally, and once I understand what you need, you'll get a clear written quote.",
+} = Astro.props;
+---
+
+<section class="band section" data-dark aria-labelledby="band-heading">
+  <div class="container band__inner">
+    <h2 id="band-heading" class="band__heading">{heading}</h2>
+    <p class="lead band__body">{body}</p>
+    <a href={ctas.primary.href} class="btn btn--lime">{ctas.primary.label}</a>
+    <p class="band__email">
+      or email <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .band__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.75rem;
+  }
+
+  .band__heading {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    max-width: 14ch;
+  }
+
+  .band__body {
+    max-width: 46ch;
+  }
+
+  .band__email {
+    font-size: 0.95rem;
+    color: var(--colour-on-dark-muted);
+  }
+
+  .band__email a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--colour-bg);
+    text-underline-offset: 0.25em;
+  }
+</style>

@@ -11,16 +11,38 @@ export const site = {
   legalName: "Stapled.",
   domain: "stapled.co.uk",
   url: "https://stapled.co.uk",
-  tagline: "Helping Southampton businesses look the part online.",
+  tagline: "Websites and digital support for trade and service businesses.",
   description:
-    "Stapled. designs and builds modern, mobile-friendly websites for Southampton businesses — barbers, tradespeople, restaurants and independent shops. £50 a month for your website, hosting, updates, Google Business Profile management and fortnightly check-ins. 12-month minimum with an early-exit option.",
-  location: "Southampton, UK",
+    "Stapled. provides websites and digital support for trade and service businesses: websites built around your work, help with an eligible Google Business Profile, and simpler ways for customers to get in touch. Based in Southampton, working with businesses across the UK.",
+  location: "Based in Southampton, working with businesses across the UK",
   founder: "Matt",
 };
 
+// The trader behind the Stapled. name. A sole trader using a business name
+// must show their own name and an address where documents can be served
+// (Companies Act 2006, Part 41), and the E-Commerce Regulations 2002 ask
+// for the geographic address where the business is established.
+export const business = {
+  proprietor: "Matthew Stapley",
+  tradingAs: "Stapled.",
+  // UNRESOLVED: no business correspondence address has been chosen.
+  // Leave these empty until Matt chooses one and the disclosure
+  // requirements are resolved (the private launch notes). While
+  // `address` is empty, `npm run check:publish` fails and the deploy is
+  // blocked. Don't add an address to structured data or a Google Business
+  // Profile, and don't add visiting directions or opening hours.
+  address: "",
+  addressLines: [] as string[],
+  addressLabel: "Business correspondence address",
+};
+
+// Shown in a "to confirm" note if business.address is ever emptied again.
+export const addressNote =
+  "No business correspondence address set. A sole trader using a business name must show an address where documents can be served. Set it in src/data/config.ts → business.address (see the private launch notes).";
+
 // REPLACE: real contact details once available.
-// The enquiry form is the only contact route on the site — keep this to
-// details actually used elsewhere (email links, Instagram).
+// Email is the only enquiry route on the site — keep this to details
+// actually used elsewhere (email links, Instagram).
 export const contact = {
   email: "stapledweb@gmail.com",
   phone: "", // REPLACE — optional, leave blank to hide phone links
@@ -29,14 +51,10 @@ export const contact = {
   instagramLink: "https://www.instagram.com/stapledwebsites/",
 };
 
-// Enquiry form delivery, via FormSubmit (https://formsubmit.co).
-// The first submission from this domain triggers a one-time confirmation
-// email to the address below — it must be clicked before FormSubmit will
-// deliver further enquiries.
-export const formEndpoint = "https://formsubmit.co/stapledweb@gmail.com";
-
-// Where FormSubmit redirects the visitor after a successful submission.
-export const thankYouUrl = `${site.url}/thank-you/`;
+// Enquiries come in by email (see PreviewForm.astro). The FormSubmit form
+// endpoint was removed on 22 Oct 2026 because its processing terms
+// couldn't be verified; there's no form endpoint until a replacement is
+// chosen.
 
 export const barberWarnzUrl = "https://barberwarnz.co.uk";
 export const leroyDrivingInstructorUrl = "https://leroydrivinginstructor.co.uk";
@@ -54,7 +72,7 @@ export const images = {
   cremaCurrentDesktop: "/images/crema-current-desktop.webp",
   // Wide editorial photo for the cinematic section directly after the
   // Crema Current hero. Delivered as .webp (converted from the original
-  // crema-current-editorial.png, also kept in public/images, for ~18x
+  // crema-current-editorial.png, kept unpublished in assets-source/, for ~18x
   // smaller payload at no visible quality loss). 1672x941 source, 16:9.
   cremaCurrentAtmosphere: "/images/crema-current-editorial.webp",
   // Real screenshot of the standalone bathroom demo's hero (1600x1000).
@@ -108,31 +126,29 @@ export const interactiveConcepts: {
   },
 ];
 
-// Homepage-relative anchors. Using a leading "/" (rather than a bare "#…")
-// means these still resolve correctly from other pages (e.g. /thank-you),
-// not just from the homepage itself.
+// Primary navigation for the redesign. "Our Work" joins this list once
+// Matt approves the first project to show (see the private launch notes).
 export const nav = [
-  { label: "Work", href: "/#work" },
-  { label: "Services", href: "/#services" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "Process", href: "/#process" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#preview" },
+  { label: "Services", href: "/services/" },
+  { label: "Possibilities", href: "/possibilities/" },
+  { label: "About", href: "/about/" },
+  { label: "Contact", href: "/contact/" },
 ];
 
-// Every enquiry CTA points at the enquiry form — it's the only
-// contact route.
+// "Talk about your business" is the one primary call to action site-wide.
+// `quote` and `work` are still read by the older homepage sections kept in
+// src/components/sections/ for reference; they no longer point at pricing.
 export const ctas = {
   primary: {
-    label: "Request a free homepage preview",
-    href: "#preview",
+    label: "Talk about your business",
+    href: "/contact/",
   },
   quote: {
-    label: "See what £50 a month includes",
-    href: "/#pricing",
+    label: "How I can help",
+    href: "/services/",
   },
   work: {
-    label: "View recent work",
-    href: "#work",
+    label: "See what's possible",
+    href: "/possibilities/",
   },
 };

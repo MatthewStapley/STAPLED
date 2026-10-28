@@ -1,36 +1,330 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
-import Hero from "../components/sections/Hero.astro";
-import TrustStrip from "../components/sections/TrustStrip.astro";
-import Work from "../components/sections/Work.astro";
-import InteractiveConcepts from "../components/sections/InteractiveConcepts.astro";
-import Services from "../components/sections/Services.astro";
-import BeforeAfter from "../components/sections/BeforeAfter.astro";
-import Process from "../components/sections/Process.astro";
-import Pricing from "../components/sections/Pricing.astro";
-import About from "../components/sections/About.astro";
-import PreviewForm from "../components/sections/PreviewForm.astro";
-import FAQ from "../components/sections/FAQ.astro";
-import FinalCTA from "../components/sections/FinalCTA.astro";
+// Homepage (redesign). Services lead; no project screenshots until Matt
+// confirms which real projects and demos to show. The previous homepage
+// sections are kept in src/components/sections/ for reference and reuse.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Hero from "../components/home/Hero.astro";
+import ServiceIndex from "../components/home/ServiceIndex.astro";
+import Story from "../components/home/Story.astro";
+import Illustration from "../components/ui/Illustration.astro";
+import QuoteSheet from "../components/ui/QuoteSheet.astro";
+import StapleMark from "../components/ui/StapleMark.astro";
+import ContactBand from "../components/ui/ContactBand.astro";
+import { features, steps } from "../data/services";
+import { ctas, site } from "../data/config";
+
+const featured = features.filter((f) => ["galleries", "areas", "quote"].includes(f.id));
 ---
 
-<Layout>
-  <Navigation />
-  <main id="main">
-    <Hero />
-    <TrustStrip />
-    <Work />
-    <InteractiveConcepts />
-    <Services />
-    <BeforeAfter />
-    <Process />
-    <Pricing />
-    <About />
-    <PreviewForm />
-    <FAQ />
-    <FinalCTA />
-  </main>
-  <Footer />
-</Layout>
+<SiteLayout>
+  <Hero />
+  <ServiceIndex />
+  <Story />
+
+  <section class="feat section" aria-labelledby="feat-heading">
+    <div class="container">
+      <p class="eyebrow">What's possible</p>
+      <h2 id="feat-heading" class="headline feat__heading reveal">Features that help trades win work.</h2>
+      <ul class="feat__grid">
+        {featured.map((f) => (
+          <li class="feat__card reveal">
+            <div class="feat__art" data-graphite>
+              <Illustration variant={f.art} />
+              <span class="tag feat__tag">Illustrative</span>
+            </div>
+            <h3 class="feat__title">{f.title}</h3>
+            <p class="feat__body">{f.body}</p>
+          </li>
+        ))}
+      </ul>
+      <a href="/possibilities/" class="link-arrow feat__more">
+        See all the features
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="steps section" aria-labelledby="steps-heading">
+    <div class="container">
+      <p class="eyebrow">How it works</p>
+      <h2 id="steps-heading" class="headline steps__heading reveal">Straightforward from first chat to launch.</h2>
+      <ol class="steps__list">
+        {steps.map((s, i) => (
+          <li class="steps__item">
+            <span class="steps__dot" aria-hidden="true">{i + 1}</span>
+            <h3 class="steps__title">{s.title}</h3>
+            <p class="steps__body">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="pricing section" aria-labelledby="pricing-heading">
+    <div class="container pricing__grid">
+      <div>
+        <p class="eyebrow">Pricing</p>
+        <h2 id="pricing-heading" class="headline pricing__heading reveal">No packages to decode. A clear written quote.</h2>
+        <p class="lead pricing__lead">
+          Every business needs something slightly different. Once I understand
+          what you need, you'll get a written quote that sets out what's
+          included and the total price, including any hosting and care you
+          choose.
+        </p>
+        <a href={ctas.primary.href} class="btn btn--lime pricing__cta">{ctas.primary.label}</a>
+      </div>
+      <QuoteSheet />
+    </div>
+  </section>
+
+  <section class="about section" aria-labelledby="about-heading">
+    <div class="container about__grid">
+      <div class="about__mark" aria-hidden="true">
+        <StapleMark class="about__staple" tone="ink" />
+      </div>
+      <div>
+        <p class="eyebrow">About</p>
+        <h2 id="about-heading" class="headline about__heading reveal">You'll deal with me, start to finish.</h2>
+        <p class="lead about__lead">
+          I'm Matt. I run Stapled. on my own, on purpose. You get one person who
+          knows your project, explains things plainly and answers when you need
+          a change.
+        </p>
+        <p class="about__place">{site.location}</p>
+        <a href="/about/" class="link-arrow about__more">
+          More about how I work
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ContactBand />
+</SiteLayout>
+
+<!-- The old one-page site used homepage anchors (/#pricing, /#preview…).
+     Send anyone arriving on one of those to the page that replaced it. -->
+<script is:inline>
+  (function () {
+    var moved = {
+      "#preview": "/contact/",
+      "#pricing": "/services/#pricing",
+      "#faq": "/services/#faq",
+      "#process": "/services/",
+      "#work": "/possibilities/",
+      "#concepts": "/possibilities/",
+      "#about": "/about/",
+      "#transform": "/services/",
+    };
+    var to = moved[window.location.hash];
+    if (to) window.location.replace(to);
+  })();
+</script>
+
+<style>
+  .feat__heading,
+  .steps__heading,
+  .pricing__heading,
+  .about__heading {
+    margin-top: 1.5rem;
+  }
+
+  .feat__grid {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feat__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feat__art {
+    position: relative;
+    border-radius: var(--radius-lg);
+    padding: 3.5rem 1.5rem 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .feat__tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .feat__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .feat__body {
+    color: var(--colour-text-2);
+    line-height: 1.6;
+  }
+
+  .feat__more {
+    margin-top: 2rem;
+  }
+
+  .steps {
+    background: var(--colour-white);
+    border-block: 1px solid var(--colour-border);
+  }
+
+  .steps__list {
+    position: relative;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .steps__list::before,
+  .steps__list::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 19px;
+    height: 2px;
+    background: var(--colour-border);
+  }
+
+  /* Drawn in full by default; scroll timelines (below) draw it in as the
+     steps scroll into view. */
+  .steps__list::after {
+    background: var(--colour-ink);
+    transform-origin: left;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .steps__list::after {
+        animation: steps-grow linear both;
+        animation-timeline: view();
+        animation-range: entry 30% cover 55%;
+      }
+    }
+  }
+
+  @keyframes steps-grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .steps__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .steps__dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--colour-white);
+    border: 2px solid var(--colour-ink);
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .steps__title {
+    margin-top: 0.5rem;
+    font-size: 1.35rem;
+  }
+
+  .steps__body {
+    color: var(--colour-text-2);
+    line-height: 1.55;
+  }
+
+  .pricing__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+
+  .pricing__lead {
+    margin-top: 1.5rem;
+  }
+
+  .pricing__cta {
+    margin-top: 2.25rem;
+  }
+
+  .about {
+    background: var(--colour-white);
+    border-block: 1px solid var(--colour-border);
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+
+  /* Stands in for Matt's photo until he supplies one. Never a stock photo. */
+  .about__mark {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    background: var(--colour-bg);
+    border: 1px solid var(--colour-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about__mark :global(.about__staple) {
+    width: 46%;
+    height: auto;
+  }
+
+  .about__lead {
+    margin-top: 1.5rem;
+  }
+
+  .about__place {
+    margin-top: 1.5rem;
+    font-weight: 600;
+  }
+
+  .about__more {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 960px) {
+    .feat__grid,
+    .pricing__grid,
+    .about__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .steps__list {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.75rem;
+    }
+
+    .steps__list::before,
+    .steps__list::after {
+      display: none;
+    }
+
+    .about__mark {
+      aspect-ratio: 16 / 9;
+      max-width: 28rem;
+    }
+  }
+</style>

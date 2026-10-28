@@ -1,0 +1,260 @@
+---
+// Shared shell for the legal pages (privacy policy, terms): the site
+// header, a heading block with the "last updated" date, an "On this page"
+// contents list and a readable prose column. Page content goes in the
+// default slot as <section id="…"> blocks matching `sections`.
+import Layout from "./Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  heading: string;
+  intro: string;
+  lastUpdated: string;
+  sections: { id: string; label: string }[];
+}
+
+const { title, description, path, heading, intro, lastUpdated, sections } = Astro.props;
+---
+
+<Layout title={title} description={description} path={path}>
+  <Navigation />
+
+  <main id="main" class="pp">
+    <section class="pp-hero section--tight">
+      <div class="container">
+        <p class="eyebrow">Legal</p>
+        <h1 class="pp-hero__heading">{heading}</h1>
+        <p class="pp-hero__intro">{intro}</p>
+        <p class="pp-hero__updated text-muted">Last updated {lastUpdated}</p>
+      </div>
+    </section>
+
+    <div class="container pp-body">
+      <nav class="pp-toc" aria-label="On this page">
+        <p class="pp-toc__label">On this page</p>
+        <ol>
+          {sections.map((s) => (
+            <li><a href={`#${s.id}`}>{s.label}</a></li>
+          ))}
+        </ol>
+      </nav>
+
+      <div class="pp-prose">
+        <slot />
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .pp-hero__heading {
+    font-size: clamp(2.4rem, 5.4vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-top: 1rem;
+  }
+
+  .pp-hero__intro {
+    margin-top: 1.25rem;
+    font-size: 1.1rem;
+    max-width: 52ch;
+  }
+
+  .pp-hero__updated {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .pp-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    padding-bottom: clamp(4rem, 9vw, 7rem);
+  }
+
+  /* Contents ---------------------------------------------------------- */
+
+  .pp-toc {
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-md);
+    background: var(--colour-white);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .pp-toc__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--colour-muted);
+  }
+
+  .pp-toc ol {
+    margin-top: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(11rem, 100%), 1fr));
+    gap: 0.5rem 1.5rem;
+  }
+
+  .pp-toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.92rem;
+    text-decoration: none;
+    color: var(--colour-ink);
+  }
+
+  .pp-toc a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* Prose ------------------------------------------------------------- */
+
+  .pp-prose {
+    max-width: 68ch;
+    overflow-wrap: break-word;
+  }
+
+  .pp-prose :global(section + section) {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .pp-prose :global(h2) {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    letter-spacing: -0.01em;
+  }
+
+  .pp-prose :global(h3) {
+    font-size: 1.1rem;
+    margin-top: 1.75rem;
+  }
+
+  .pp-prose :global(p),
+  .pp-prose :global(ul) {
+    margin-top: 1rem;
+  }
+
+  .pp-prose :global(ul) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pp-prose :global(ul li) {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+
+  .pp-prose :global(ul li::before) {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--colour-lime);
+    outline: 1px solid var(--colour-lime-ink);
+    outline-offset: -1px;
+  }
+
+  /* Numbered steps (e.g. the late-payment process). */
+  .pp-prose :global(ol.pp-steps) {
+    margin-top: 1rem;
+    padding-left: 1.4rem;
+    list-style: decimal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pp-prose :global(ol.pp-steps li::marker) {
+    font-weight: 700;
+  }
+
+  .pp-prose :global(a) {
+    text-underline-offset: 0.2em;
+    overflow-wrap: anywhere;
+  }
+
+  .pp-prose :global(.pp-uses) {
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pp-prose :global(.pp-use) {
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-md);
+    background: var(--colour-white);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .pp-prose :global(.pp-use dt) {
+    font-weight: 600;
+  }
+
+  .pp-prose :global(.pp-use dd) {
+    margin: 0.6rem 0 0;
+    color: var(--colour-muted);
+  }
+
+  .pp-prose :global(.pp-use__basis) {
+    display: table;
+    margin-bottom: 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--colour-lime-ink);
+    background: var(--colour-lime);
+    border-radius: 999px;
+    padding: 0.25em 0.75em;
+  }
+
+  .pp-prose :global(.pp-callout) {
+    margin-top: 1.5rem;
+    border: 1px solid var(--colour-border-strong);
+    background: var(--colour-white);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .pp-prose :global(.pp-callout h3) {
+    margin-top: 0;
+  }
+
+  .pp-prose :global(.pp-callout p) {
+    margin-top: 0.5rem;
+  }
+
+ @media (min-width: 960px) {
+    .pp-body {
+      grid-template-columns: 15rem minmax(0, 1fr);
+      gap: clamp(3rem, 6vw, 5rem);
+      align-items: start;
+    }
+
+    .pp-toc {
+      position: sticky;
+      top: 2rem;
+      border: none;
+      background: none;
+      padding: 0;
+    }
+
+    .pp-toc ol {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

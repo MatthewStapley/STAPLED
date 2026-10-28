@@ -15,17 +15,20 @@ const { title, description, path, noindex } = Astro.props;
 <!doctype html>
 <html lang="en-GB">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Marks the page as script-capable before first paint, so reveal
+         animations hide content only when the script that shows it can run. -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
     <SEO title={title} description={description} path={path} noindex={noindex} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts are self-hosted from /public/fonts (declared in global.css),
+         so no page makes requests to Google Fonts. -->
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Optional per-page additions (e.g. a concept page's own typeface),
          left empty by default so every existing page is unaffected. -->

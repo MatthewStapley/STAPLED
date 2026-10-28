@@ -36,17 +36,26 @@ const fileExists = src
           fetchpriority={priority ? "high" : undefined}
         />
       ) : (
-        <slot name="fallback">
-          <div class="phone-mockup__placeholder">
-            <p>Screenshot coming soon</p>
-          </div>
-        </slot>
+        <div class="mockup-fallback" role="img" aria-label={alt}>
+          <slot name="fallback">
+            <div class="phone-mockup__placeholder">
+              <p>Screenshot coming soon</p>
+            </div>
+          </slot>
+        </div>
       )}
     </div>
   </div>
 </div>
 
 <style>
+  /* Styled stand-in for a missing screenshot: its text is decorative
+     fragments, so it's exposed as a single image using the alt text. */
+  .mockup-fallback {
+    width: 100%;
+    height: 100%;
+  }
+
   .phone-mockup__frame {
     background: var(--colour-ink);
     border-radius: 2.4rem;

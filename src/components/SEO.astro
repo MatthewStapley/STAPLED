@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = "Web Design Southampton | £50/Month Websites | Stapled.",
-  description = "Websites for small businesses from £50/month. Southampton-based web design with hosting, maintenance and ongoing support. See Matt’s work.",
+  title = "Websites for Trade and Service Businesses | Stapled.",
+  description = "Websites and digital support for trade and service businesses, built and looked after personally by Matt. Based in Southampton, working with businesses across the UK.",
   path = "/",
   noindex = false,
 } = Astro.props;
@@ -25,25 +25,23 @@ const structuredData = {
   description: site.description,
   url: site.url,
   areaServed: {
-    "@type": "City",
-    name: "Southampton",
+    "@type": "Country",
+    name: "United Kingdom",
   },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Southampton",
     addressCountry: "GB",
   },
-  priceRange: "£50 per month",
   founder: {
     "@type": "Person",
     name: "Matt",
   },
   makesOffer: [
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website design and development" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website design and build" } },
     { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website redesigns" } },
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Google Business Profile management" } },
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website hosting and maintenance" } },
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Basic branding and logo design" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Google Business Profile support" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website hosting and care" } },
   ],
 };
 ---
@@ -53,8 +51,6 @@ const structuredData = {
 <link rel="canonical" href={canonicalUrl} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta charset="utf-8" />
 <meta name="theme-color" content="#111111" />
 
 <!-- Open Graph -->

@@ -24,3 +24,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Internal notes and operations tooling live in a private backup,
+# never in this public repository.
+/docs/
+/ops/
+/PRODUCT.md
+/src/drafts/

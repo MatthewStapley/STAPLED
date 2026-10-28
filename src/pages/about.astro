@@ -1,0 +1,178 @@
+---
+// About Matt. The staple mark stands in for a photo until Matt supplies
+// one: never a stock photo.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import StapleMark from "../components/ui/StapleMark.astro";
+import ContactBand from "../components/ui/ContactBand.astro";
+import { site } from "../data/config";
+
+const principles = [
+  {
+    title: "One person, start to finish",
+    body: "You talk to me from the first conversation to launch, and afterwards if I'm looking after your site. No hand-offs, no account managers.",
+  },
+  {
+    title: "Plain English",
+    body: "I'll explain what I'm doing and why, without jargon. If something won't help your business, I'll say so.",
+  },
+  {
+    title: "Honest about results",
+    body: "I don't promise rankings or a number of enquiries. I build things properly and tell you what's realistic.",
+  },
+  {
+    title: "Your real work, front and centre",
+    body: "Your photos, your reviews, your words. Never stock photos passed off as your jobs, and never invented testimonials.",
+  },
+];
+---
+
+<SiteLayout
+  title="About Matt | Stapled."
+  description="Stapled. is run by Matt, who designs, builds and looks after websites for trade and service businesses. Based in Southampton, working with businesses across the UK."
+  path="/about/"
+>
+  <PageHero
+    eyebrow="About"
+    heading="You'll deal with me, start to finish."
+  />
+
+  <section class="intro" aria-label="About Matt">
+    <div class="container intro__grid">
+      <div class="intro__mark" aria-hidden="true">
+        <StapleMark class="intro__staple" tone="ink" animated />
+      </div>
+      <div class="intro__copy">
+        <p class="lead intro__lead">
+          I'm Matt. I run Stapled. on my own, on purpose. I design, build and
+          look after websites for trade and service businesses, and help them
+          get the basics of being found on Google right.
+        </p>
+        <p class="intro__text">
+          Good trade businesses often have websites that don't do them justice:
+          hard to use on a phone, short on real photos, or vague about what they
+          do and where. My job is to fix that, so the website shows the same
+          care you put into your work.
+        </p>
+        <p class="intro__place">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" stroke="currentColor" stroke-width="1.6"></path><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"></circle></svg>
+          {site.location}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ways section" aria-labelledby="ways-heading">
+    <div class="container">
+      <p class="eyebrow">How I work</p>
+      <h2 id="ways-heading" class="headline ways__heading">What you can expect.</h2>
+      <ul class="ways__grid">
+        {principles.map((p) => (
+          <li class="ways__item reveal">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <ContactBand />
+</SiteLayout>
+
+<style>
+  .intro {
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .intro__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+
+  .intro__mark {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .intro__mark :global(.intro__staple) {
+    width: 46%;
+    height: auto;
+  }
+
+  .intro__text {
+    margin-top: 1.5rem;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--colour-text-2);
+    max-width: 58ch;
+  }
+
+  .intro__place {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+  }
+
+  .intro__place svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .ways {
+    background: var(--colour-white);
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .ways__heading {
+    margin-top: 1.5rem;
+  }
+
+  .ways__grid {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ways__item {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-lg);
+    background: var(--colour-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ways__item h3 {
+    font-size: 1.4rem;
+  }
+
+  .ways__item p {
+    color: var(--colour-text-2);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 860px) {
+    .intro__grid,
+    .ways__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .intro__mark {
+      aspect-ratio: 16 / 9;
+      max-width: 28rem;
+    }
+  }
+</style>

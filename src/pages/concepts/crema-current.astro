@@ -35,12 +35,6 @@ const atmosphereImageExists = fs.existsSync(
   path="/concepts/crema-current/"
   noindex
 >
-  <Fragment slot="head">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-  </Fragment>
 
   <ConceptRibbon backHref="/" />
 
@@ -176,6 +170,9 @@ const atmosphereImageExists = fs.existsSync(
         )}
         <div class="cc-atmosphere__scrim" aria-hidden="true"></div>
         <p class="cc-atmosphere__caption">Coffee worth slowing down for.</p>
+        {atmosphereImageExists && (
+          <p class="cc-atmosphere__credit">AI-generated image, made for this concept</p>
+        )}
       </div>
     </section>
 
@@ -273,6 +270,25 @@ const atmosphereImageExists = fs.existsSync(
      distinct from Stapled's DESIGN.md (dark-first, amber accent, Space
      Grotesk/Work Sans, tighter radii) to show a different visual range
      within the same portfolio. */
+
+  /* The concept's typefaces, self-hosted like Stapled's own (SIL OFL,
+     licence text in /public/fonts). */
+  @font-face {
+    font-family: "Space Grotesk";
+    font-style: normal;
+    font-weight: 500 700;
+    font-display: swap;
+    src: url("/fonts/space-grotesk-latin.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Work Sans";
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url("/fonts/work-sans-latin.woff2") format("woff2");
+  }
+
   .cc {
     --cc-bg: #0f1d17;
     --cc-panel: #16261f;
@@ -552,6 +568,21 @@ const atmosphereImageExists = fs.existsSync(
     position: absolute;
     inset: 0;
     background: radial-gradient(120% 90% at 0% 100%, rgb(8 6 4 / 0.75) 0%, rgb(8 6 4 / 0.35) 35%, rgb(8 6 4 / 0) 62%);
+  }
+
+  /* The photo was generated with ChatGPT (see the private asset register), so
+     it's labelled rather than passed off as photography of a real café. */
+  .cc-atmosphere__credit {
+    position: absolute;
+    /* Top corner, so it never collides with the caption at the bottom. */
+    right: clamp(1rem, 3vw, 1.75rem);
+    top: clamp(0.75rem, 2vw, 1.25rem);
+    font-family: var(--cc-font-body);
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 0.85);
+    background: rgb(0 0 0 / 0.55);
+    border-radius: 999px;
+    padding: 0.2em 0.7em;
   }
 
   .cc-atmosphere__caption {

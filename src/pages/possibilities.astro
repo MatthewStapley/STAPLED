@@ -1,0 +1,250 @@
+---
+// Possibilities: an illustrated tour of the features Stapled. can build.
+// Until Matt confirms which projects and demos to show, this page uses
+// labelled illustrations only. Candidate projects are listed in
+// the private launch notes; Crema Current is excluded.
+//
+// Filtering is progressive: without JavaScript every feature shows and the
+// filter buttons stay hidden.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import Illustration from "../components/ui/Illustration.astro";
+import ContactBand from "../components/ui/ContactBand.astro";
+import { features, goals, type Goal } from "../data/services";
+
+const filters: { id: "all" | Goal; label: string }[] = [
+  { id: "all", label: "All features" },
+  ...(Object.entries(goals) as [Goal, string][]).map(([id, label]) => ({ id, label })),
+];
+---
+
+<SiteLayout
+  title="Possibilities | What your website could do | Stapled."
+  description="An illustrated tour of the website features I build for trade and service businesses: galleries, service and area pages, quote requests, tap-to-call and more."
+  path="/possibilities/"
+>
+  <PageHero
+    eyebrow="Possibilities"
+    heading="What your website could do."
+    lead="A tour of the features I can build, shown as simple illustrations. Pick what matters most to your business, then we can talk about how it would work for you."
+  />
+
+  <section class="tour" aria-labelledby="tour-heading">
+    <div class="container">
+      <h2 id="tour-heading" class="visually-hidden">Features</h2>
+      <div class="tour__filters" role="group" aria-label="Show features that help you" data-filters hidden>
+        {filters.map((f, i) => (
+          <button type="button" class="tour__chip" data-filter={f.id} aria-pressed={i === 0 ? "true" : "false"}>
+            {f.label}
+          </button>
+        ))}
+      </div>
+      <p class="tour__count" aria-live="polite" data-count></p>
+
+      <ul class="tour__grid">
+        {features.map((f) => (
+          <li class="tour__card" data-goal={f.goal}>
+            <div class="tour__art" data-graphite>
+              <span class="tag tour__tag">Illustrative</span>
+              <Illustration variant={f.art} />
+            </div>
+            <div class="tour__body">
+              <p class="tour__goal">{goals[f.goal]}</p>
+              <h3 class="tour__title">{f.title}</h3>
+              <p class="tour__text">{f.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="ask section" aria-labelledby="ask-heading">
+    <div class="container ask__inner">
+      <h2 id="ask-heading" class="ask__heading">Something specific in mind?</h2>
+      <p class="lead">
+        If there's a feature you need that isn't here, ask. Most things a trade
+        or service business needs from a website can be built.
+      </p>
+    </div>
+  </section>
+
+  <ContactBand />
+</SiteLayout>
+
+<script>
+  const bar = document.querySelector<HTMLElement>("[data-filters]");
+  const count = document.querySelector<HTMLElement>("[data-count]");
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".tour__card"));
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
+
+  const apply = (goal: string) => {
+    let shown = 0;
+    for (const card of cards) {
+      const match = goal === "all" || card.dataset.goal === goal;
+      card.hidden = !match;
+      if (match) shown++;
+    }
+    for (const b of buttons) b.setAttribute("aria-pressed", String(b.dataset.filter === goal));
+    if (count) count.textContent = `Showing ${shown} ${shown === 1 ? "feature" : "features"}`;
+  };
+
+  if (bar) {
+    bar.hidden = false;
+    for (const b of buttons) b.addEventListener("click", () => apply(b.dataset.filter ?? "all"));
+  }
+</script>
+
+<style>
+  .tour {
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .tour__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tour__filters[hidden] {
+    display: none;
+  }
+
+  .tour__chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--colour-border);
+    background: var(--colour-white);
+    color: var(--colour-ink);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .tour__chip:hover {
+    border-color: var(--colour-ink);
+  }
+
+  .tour__chip[aria-pressed="true"] {
+    background: var(--colour-ink);
+    border-color: var(--colour-ink);
+    color: var(--colour-bg);
+  }
+
+  .tour__count {
+    margin-top: 0.75rem;
+    min-height: 1.5em;
+    font-size: 0.85rem;
+    color: var(--colour-muted);
+  }
+
+  .tour__grid {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tour__card {
+    display: flex;
+    flex-direction: column;
+    background: var(--colour-white);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .tour__card[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tour__card {
+      animation: tour-in 0.45s var(--ease-out) both;
+    }
+  }
+
+  @keyframes tour-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .tour__art {
+    position: relative;
+    padding: 3.5rem 1.5rem 1.5rem;
+  }
+
+  .tour__art :global(.ill) {
+    max-width: 18rem;
+    margin-inline: auto;
+  }
+
+  .tour__tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .tour__body {
+    padding: 1.5rem 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tour__goal {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--colour-muted);
+  }
+
+  .tour__title {
+    font-size: 1.35rem;
+  }
+
+  .tour__text {
+    color: var(--colour-text-2);
+    line-height: 1.55;
+  }
+
+  .ask {
+    background: var(--colour-white);
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .ask__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ask__heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.03em;
+  }
+
+  @media (max-width: 1000px) {
+    .tour__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .tour__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

@@ -2,39 +2,27 @@
 const faqs = [
   {
     q: "How much does a website cost?",
-    a: "£50 a month. That covers a custom website for your business, hosting and maintenance, up to 90 minutes of content updates a month, Google Business Profile management and a check-in every two weeks. Your first £50 is paid when you sign up and covers your first month. After that, payments are taken monthly by Direct Debit.",
+    a: "Websites start from £200, and every website is quoted individually. Your quote sets out the total price and, if you'd like to spread the cost, the payment schedule we agree. Payments are by bank transfer, and no VAT is added because I'm not VAT-registered. Optional hosting and maintenance is a separate £25 a month.",
   },
   {
-    q: "Is there a minimum contract?",
-    a: "Yes: a 12-month minimum with an early-exit option. After 12 months, the plan carries on at £50 a month until you cancel. It's an ongoing service, so payments don't stop on their own after 12 months, and paying monthly doesn't make the website yours.",
+    q: "What happens once my website is paid for?",
+    a: "It's yours. If I'm hosting it, hosting and maintenance carries on at £25 a month on a rolling basis until you cancel with one calendar month's notice by email. It includes hosting with HTTPS, technical maintenance, weekly backups of your website's code and files stored in its repository, and up to 30 minutes of minor content edits a month (unused time doesn't carry over). New pages, redesigns and new features are quoted separately. If you'd rather host it somewhere else, I'll give you a ZIP of the website files with basic setup instructions.",
   },
   {
-    q: "Can I leave during the first 12 months?",
-    a: "Yes, in one of two ways. You can pay £100 to cancel: your monthly payments stop and the website goes offline, but you keep your domain, photos, text and logo. Or you can pay £499 to buy the website: I hand it over to you to keep, and my monthly services stop. Either payment replaces your remaining monthly payments.",
+    q: "Do I have to pay for hosting while I'm still paying for my website?",
+    a: "If I host it, yes: the £25 a month for hosting and maintenance starts when hosting starts, including while you're on a payment plan. It's a separate charge and doesn't count towards your website's price. You can use your own hosting instead and pay me no monthly fee. That doesn't change your website payments, and the website becomes yours once it's fully paid.",
   },
   {
-    q: "How do I cancel after the first 12 months?",
-    a: "Give me 30 days' notice in writing (email is fine). There's no cancellation fee. Unless you buy the website, it goes offline when the plan ends. Before that, I'll send you copies of your content and help you move your domain.",
+    q: "Can I pay off my website early?",
+    a: "Yes. You can pay the remaining balance at any time, and the website is yours once it's fully paid.",
   },
   {
-    q: "Can I own my website outright?",
-    a: "Yes, for a one-off £499, at any time. I transfer the website's design, code and files to you, and keep it online while you move it to your own hosting. After that, hosting, updates and domain renewal are up to you.",
-  },
-  {
-    q: "What counts as a content update?",
-    a: "Changes to your existing pages, like text, prices, opening hours, photos, contact details or a small new section. You get up to 90 minutes a month, and I'll make ordinary changes within 7 days of having everything I need. New pages, new features or a redesign are quoted separately and only go ahead if you agree.",
-  },
-  {
-    q: "What does Google Business Profile management include?",
-    a: "You stay the owner and add me as a manager, so I never need your password. I keep your hours, services and details accurate, and aim for 2–4 useful posts a month, depending on what's going on in your business and what photos and news you can share. I won't post filler or invent offers, and I can't promise rankings or a number of enquiries.",
-  },
-  {
-    q: "How do the check-ins work?",
-    a: "Every two weeks you'll get a message by email or WhatsApp with a link to a short form. Use it to tell me about anything that needs changing. You can also use the form between check-ins whenever something comes up.",
+    q: "What if I cancel hosting and maintenance later?",
+    a: "Give me one calendar month's notice by email. Hosting continues to the end of that month, which you pay for as normal. If your website is paid for, I'll send you a ZIP of its files and basic setup instructions before hosting ends, and tell you about anything that needs moving separately, such as a third-party service or account. Cancelling hosting never means losing a website you've paid for, and if you're still on a payment plan, those payments carry on as agreed.",
   },
   {
     q: "Who owns my domain and content?",
-    a: "You do, whatever happens. If you already have a domain, you keep it. If you need a new one, I'll register it in your name and cover the standard yearly cost within an agreed allowance while you're on the plan. If you leave, the domain is still yours and you take over renewing it.",
+    a: "You do, whatever happens. If you already have a domain, you keep it. If you need a new one, I'll register it in your name and include up to £20 a year towards it while I host your website, including while you're on a payment plan. If a domain costs more, I'll agree the extra with you before buying or renewing it.",
   },
   {
     q: "How long does a website take?",
@@ -42,7 +30,7 @@ const faqs = [
   },
   {
     q: "Can you redesign my existing website?",
-    a: "Yes. Redesigns are one of the most common projects — bringing an outdated or hard-to-use website up to a modern, mobile-friendly standard.",
+    a: "Yes. I can bring an outdated or hard-to-use website up to a modern, mobile-friendly standard.",
   },
   {
     q: "Do I need to provide the written content?",
@@ -115,6 +103,10 @@ const faqs = [
     font-weight: 600;
     font-size: 1.05rem;
     list-style: none;
+  }
+
+  .faq__item summary span {
+    min-width: 0;
   }
 
   .faq__item summary::-webkit-details-marker {

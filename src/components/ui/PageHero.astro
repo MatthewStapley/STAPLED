@@ -1,0 +1,66 @@
+---
+// Opening block for the inner marketing pages (services, possibilities,
+// about, contact): eyebrow, one large heading and a lead paragraph.
+interface Props {
+  eyebrow: string;
+  heading: string;
+  lead?: string;
+}
+
+const { eyebrow, heading, lead } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow page-hero__eyebrow">{eyebrow}</p>
+    <h1 class="page-hero__heading">{heading}</h1>
+    {lead && <p class="lead page-hero__lead">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding-block: clamp(4rem, 9vw, 8rem) clamp(3rem, 6vw, 5rem);
+  }
+
+  .page-hero__heading {
+    margin-top: 1.5rem;
+    font-size: clamp(2.6rem, 6.5vw, 5.75rem);
+    line-height: 0.98;
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    max-width: 16ch;
+  }
+
+  .page-hero__lead {
+    margin-top: 1.75rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .page-hero__eyebrow,
+    .page-hero__heading,
+    .page-hero__lead {
+      animation: page-hero-rise 0.8s var(--ease-out) both;
+    }
+
+    .page-hero__heading {
+      animation-delay: 0.08s;
+    }
+
+    .page-hero__lead {
+      animation-delay: 0.16s;
+    }
+  }
+
+  @keyframes page-hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

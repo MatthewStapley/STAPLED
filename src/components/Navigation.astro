@@ -1,11 +1,14 @@
 ---
 import Wordmark from "./Wordmark.astro";
 import { nav, ctas } from "../data/config";
+
+const current = Astro.url.pathname;
+const isCurrent = (href: string) => current === href || current === href.replace(/\/$/, "");
 ---
 
 <header class="nav" id="site-nav">
   <div class="container nav__inner">
-    <a href="#top" class="nav__brand" aria-label="Stapled. — home">
+    <a href="/" class="nav__brand" aria-label="Stapled. — home">
       <Wordmark size="md" />
     </a>
 
@@ -13,7 +16,7 @@ import { nav, ctas } from "../data/config";
       <ul>
         {nav.map((item) => (
           <li>
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a>
           </li>
         ))}
       </ul>
@@ -21,7 +24,7 @@ import { nav, ctas } from "../data/config";
 
     <div class="nav__actions">
       <a href={ctas.primary.href} class="btn btn--lime btn--sm">
-        Free homepage preview
+        {ctas.primary.label}
       </a>
     </div>
 
@@ -42,13 +45,13 @@ import { nav, ctas } from "../data/config";
       <ul>
         {nav.map((item) => (
           <li>
-            <a href={item.href} class="mobile-menu__link">{item.label}</a>
+            <a href={item.href} class="mobile-menu__link" aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a>
           </li>
         ))}
       </ul>
     </nav>
     <a href={ctas.primary.href} class="btn btn--lime" id="mobile-menu-cta">
-      Free homepage preview
+      {ctas.primary.label}
     </a>
   </div>
 </header>
@@ -102,22 +105,27 @@ import { nav, ctas } from "../data/config";
   }
 
   .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     text-decoration: none;
     flex-shrink: 0;
   }
 
   .nav__links ul {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .nav__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--colour-ink);
     position: relative;
-    padding-block: 0.3rem;
   }
 
   .nav__links a::after {
@@ -134,8 +142,13 @@ import { nav, ctas } from "../data/config";
   }
 
   .nav__links a:hover::after,
-  .nav__links a:focus-visible::after {
+  .nav__links a:focus-visible::after,
+  .nav__links a[aria-current="page"]::after {
     transform: scaleX(1);
+  }
+
+  .nav__links a::after {
+    bottom: 8px;
   }
 
   .nav__actions {

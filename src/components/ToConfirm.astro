@@ -1,0 +1,65 @@
+---
+// Marks wording that still depends on a fact or decision Matt hasn't
+// confirmed (an address, a legal clause awaiting review). In development
+// it renders a clearly flagged note so the gap is visible in review. In a
+// production build it renders nothing, so the normal build always works —
+// but `npm run check:publish` (run before every deploy, see
+// .github/workflows/deploy.yml) fails while any <ToConfirm> is still in
+// use, so incomplete pages can't go live by accident.
+interface Props {
+  /** What needs confirming, shown in the development note. */
+  note: string;
+}
+
+const { note } = Astro.props;
+const show = import.meta.env.DEV;
+---
+
+{show && (
+  <div class="to-confirm" role="note">
+    <p class="to-confirm__label">To confirm before publishing</p>
+    <p class="to-confirm__note">{note}</p>
+    {Astro.slots.has("default") && (
+      <div class="to-confirm__draft">
+        <p class="to-confirm__draft-label">Proposed wording</p>
+        <slot />
+      </div>
+    )}
+  </div>
+)}
+
+<style>
+  .to-confirm {
+    margin-top: 1rem;
+    border: 2px dashed #b45309;
+    border-radius: var(--radius-sm);
+    background: #fff7e6;
+    color: #3d2a05;
+    padding: 1rem 1.25rem;
+    overflow-wrap: anywhere;
+  }
+
+  .to-confirm__label,
+  .to-confirm__draft-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .to-confirm__note {
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+
+  .to-confirm__draft {
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid #e8c88a;
+  }
+
+  .to-confirm__draft :global(p),
+  .to-confirm__draft :global(ul) {
+    margin-top: 0.5rem;
+  }
+</style>

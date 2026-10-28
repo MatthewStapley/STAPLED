@@ -12,16 +12,11 @@ const services = [
   },
   {
     n: "03",
-    title: "Google Business Profile management",
-    body: "Included in your plan. You add me as a manager on your profile. I keep your details accurate and aim for 2–4 useful posts a month, based on what's going on in your business.",
+    title: "Hosting and maintenance",
+    body: "Optional hosting and maintenance for £25 a month, separate from your website's price: hosting with HTTPS, technical maintenance, weekly backups of your website's code and files, and minor content edits. Rolling monthly, cancel with a month's notice.",
   },
   {
     n: "04",
-    title: "Hosting, maintenance and check-ins",
-    body: "Included in your plan: reliable hosting, up to 90 minutes of content updates a month, and a check-in every two weeks by email or WhatsApp.",
-  },
-  {
-    n: "05",
     title: "Branding essentials",
     body: "Simple logos, colours and typography that help small businesses appear more consistent and professional.",
   },
@@ -43,7 +38,7 @@ const services = [
     <ul class="services__list">
       {services.map((s) => (
         <li class="services__item reveal">
-          <span class="services__num">{s.n}</span>
+          <span class="services__num" aria-hidden="true">{s.n}</span>
           <div>
             <h3>{s.title}</h3>
             <p class="text-muted">{s.body}</p>

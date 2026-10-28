@@ -1,8 +1,23 @@
 ---
-import { formEndpoint, thankYouUrl } from "../../data/config";
+// Enquiries currently come in by email only. The FormSubmit form that was
+// here was taken down on 22 Oct 2026 because its data processing terms
+// couldn't be verified (see the private asset register). The old form, with
+// its accessible validation, is in git history if a verified form service
+// replaces it later.
+import { contact } from "../../data/config";
 
-const autoresponseMessage =
-  "Thanks for contacting Stapled. I’ve received your enquiry and will take a look through the information you’ve sent. I’ll be in touch shortly to discuss your business and what we could create. — Matt, Stapled.";
+const subject = "Homepage preview request";
+const body = [
+  "Hi Matt,",
+  "",
+  "My name:",
+  "Business name:",
+  "Type of business:",
+  "Current website or social media page (if any):",
+  "What I'd like the website to achieve:",
+  "",
+].join("\n");
+const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 ---
 
 <section class="preview section" id="preview" data-dark>
@@ -22,79 +37,30 @@ const autoresponseMessage =
       </ul>
     </div>
 
-    <form class="preview__form reveal" method="POST" action={formEndpoint}>
-      <!-- FormSubmit configuration — see https://formsubmit.co/ -->
-      <input type="hidden" name="_subject" value="New Stapled. website enquiry" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_captcha" value="true" />
-      <input type="hidden" name="_next" value={thankYouUrl} />
-      <input type="hidden" name="_autoresponse" value={autoresponseMessage} />
+    <div class="preview__card reveal">
+      <h3 class="preview__card-heading">Email me about your business</h3>
+      <p class="preview__card-intro">It helps to include:</p>
+      <ul class="preview__include">
+        <li>your name and business name</li>
+        <li>what type of business it is</li>
+        <li>your current website or social media page, if you have one</li>
+        <li>what you'd like the website to achieve</li>
+      </ul>
+      <p class="preview__card-note">
+        Add a phone number only if you'd rather I called you.
+      </p>
 
-      <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
-      <div class="preview__honeypot" aria-hidden="true">
-        <label for="_honey">Leave this field blank</label>
-        <input type="text" id="_honey" name="_honey" tabindex="-1" autocomplete="off" />
-      </div>
-
-      <div class="preview__grid">
-        <div class="field">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required autocomplete="name" />
-        </div>
-
-        <div class="field">
-          <label for="business-name">Business name</label>
-          <input type="text" id="business-name" name="business_name" required autocomplete="organization" />
-        </div>
-
-        <div class="field">
-          <label for="business-type">Type of business</label>
-          <input type="text" id="business-type" name="business_type" placeholder="e.g. barber, café, electrician" required />
-        </div>
-
-        <div class="field">
-          <label for="current-website">Current website or social media page</label>
-          <input type="text" id="current-website" name="current_website" placeholder="Optional" />
-        </div>
-
-        <div class="field">
-          <label for="email">Email address</label>
-          <input type="email" id="email" name="email" required autocomplete="email" />
-        </div>
-
-        <div class="field">
-          <label for="phone-number">Phone number</label>
-          <input type="tel" id="phone-number" name="phone_number" autocomplete="tel" placeholder="Optional" />
-        </div>
-
-        <div class="field field--full">
-          <label for="goal">What would you like the website to achieve?</label>
-          <textarea id="goal" name="goal" rows="4" required></textarea>
-        </div>
-
-        <fieldset class="field field--full">
-          <legend>Preferred contact method</legend>
-          <div class="preview__radios">
-            <label class="radio">
-              <input type="radio" name="contact_method" value="Email" checked />
-              Email
-            </label>
-            <label class="radio">
-              <input type="radio" name="contact_method" value="Phone" />
-              Phone
-            </label>
-          </div>
-        </fieldset>
-      </div>
-
-      <button type="submit" class="btn btn--lime preview__submit">
-        Request my free homepage preview
-      </button>
+      <a href={mailto} class="btn btn--lime preview__email">
+        Email {contact.email}
+      </a>
 
       <p class="preview__disclaimer">
-        Your details will only be used to respond to your enquiry.
+        The button opens your email app with these headings filled in. If it
+        doesn't, write to <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+        I use your details to reply and prepare your preview. See the{" "}
+        <a href="/privacy/">privacy policy</a>.
       </p>
-    </form>
+    </div>
   </div>
 </section>
 
@@ -119,21 +85,30 @@ const autoresponseMessage =
     max-width: 42ch;
   }
 
-  .preview__expect {
-    margin-top: 1.75rem;
+  .preview__expect,
+  .preview__include {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .preview__expect li {
+  .preview__expect {
+    margin-top: 1.75rem;
+  }
+
+  .preview__expect li,
+  .preview__include li {
     padding-left: 1.4rem;
     position: relative;
     font-size: 0.95rem;
+  }
+
+  .preview__expect li {
     color: rgb(245 243 238 / 0.85);
   }
 
-  .preview__expect li::before {
+  .preview__expect li::before,
+  .preview__include li::before {
     content: "";
     position: absolute;
     left: 0;
@@ -144,7 +119,12 @@ const autoresponseMessage =
     background: var(--colour-lime);
   }
 
-  .preview__form {
+  .preview__include li::before {
+    outline: 1px solid var(--colour-lime-ink);
+    outline-offset: -1px;
+  }
+
+  .preview__card {
     background: var(--colour-bg);
     color: var(--colour-ink);
     border-radius: var(--radius-lg);
@@ -152,109 +132,44 @@ const autoresponseMessage =
     padding: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  .preview__honeypot {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
+  /* The card is light inside a dark section, so the dark section's lime
+     focus ring would be invisible here. */
+  .preview__card :focus-visible {
+    outline-color: var(--colour-ink);
   }
 
-  .preview__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.25rem;
+  .preview__card-heading {
+    font-size: clamp(1.4rem, 2.6vw, 1.75rem);
   }
 
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .field label,
-  fieldset legend {
-    font-size: 0.85rem;
+  .preview__card-intro {
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 600;
   }
 
-  .field input,
-  .field textarea {
-    background: var(--colour-white);
-    border: 1px solid var(--colour-border-strong);
-    border-radius: var(--radius-sm);
-    padding: 0.75rem 0.9rem;
-    font: inherit;
-    color: var(--colour-ink);
-  }
-
-  .field input:focus-visible,
-  .field textarea:focus-visible {
-    outline: 2px solid var(--colour-ink);
-    outline-offset: 1px;
-  }
-
-  fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .preview__radios {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .radio {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  .preview__card-note {
+    margin-top: 1rem;
     font-size: 0.9rem;
-    font-weight: 500;
-    border: 1px solid var(--colour-border-strong);
-    border-radius: 999px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    background: var(--colour-white);
+    color: var(--colour-muted);
   }
 
-  .radio input {
-    accent-color: var(--colour-ink);
-  }
-
-  .preview__submit {
+  .preview__email {
     width: 100%;
     margin-top: 1.75rem;
+    overflow-wrap: anywhere;
   }
 
   .preview__disclaimer {
     margin-top: 1rem;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     color: var(--colour-muted);
     line-height: 1.5;
-  }
-
-  .preview__disclaimer code {
-    background: var(--colour-white);
-    border: 1px solid var(--colour-border);
-    border-radius: 4px;
-    padding: 0.1em 0.4em;
-    font-size: 0.9em;
   }
 
   @media (min-width: 780px) {
     .preview__inner {
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    }
-
-    .preview__grid {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    }
-
-    .field--full {
-      grid-column: 1 / -1;
     }
   }
 </style>

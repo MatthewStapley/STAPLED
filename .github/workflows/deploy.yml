@@ -21,10 +21,36 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install, build, and upload your site
-        uses: withastro/action@v3
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+
+      # Stops the deploy while any page still has unresolved content, such
+      # as a missing business address (see scripts/check-publish.mjs).
+      - name: Check the site is ready to publish
+        run: npm run check:publish
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Stops the deploy if a marketing page shows a price or payment-plan
+      # wording (pricing is on enquiry). Runs on the built HTML, before
+      # anything is uploaded.
+      - name: Check marketing pages for prices
+        run: npm run check:prices
+
+      - name: Check internal links and redirects
+        run: npm run check:links
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
   deploy:
     needs: build

@@ -1,18 +1,19 @@
 ---
+// Public pricing (decided 22 Oct 2026): "Websites from £200", payment plans
+// available, and optional hosting and maintenance at £25/month. The £25 is
+// a separate charge from when hosting starts, including while a website is
+// still being paid for, and never counts towards the website's price.
+// Every customer gets an individual quote with the total price and any
+// agreed payment schedule. Weekly backups (repository only) are included
+// again since 23 Oct 2026, now to Backblaze B2 (EU) under its data
+// processing agreement, after upload and restore tests passed — see
+// the private backup notes. Keep this, the FAQ and /terms/ saying the same
+// thing, and keep encryption details, paths and credentials off the site.
 import { ctas } from "../../data/config";
 
-const included = [
-  "Custom website design and build",
-  "Hosting and maintenance",
-  "Up to 90 minutes of content updates a month",
-  "Google Business Profile management",
-  "Check-ins every two weeks",
-];
-
 const terms = [
-  "Your first £50 is paid when you sign up and covers your first month. After that, it's £50 a month by Direct Debit.",
-  "Leaving in the first 12 months? Pay £100 to cancel, or £499 to buy your website. Either one replaces the remaining monthly payments.",
-  "After 12 months, the plan carries on monthly until you cancel with 30 days’ notice. There's no cancellation fee.",
+  "Payments are by bank transfer. I'm not VAT-registered, so no VAT is added.",
+  "On a payment plan? Pay the remaining balance at any time and the website is yours.",
   "Your domain, photos, text and logo are always yours to keep.",
 ];
 ---
@@ -21,21 +22,46 @@ const terms = [
   <div class="container pricing__inner">
     <div class="pricing__copy reveal">
       <p class="eyebrow">Pricing</p>
-      <h2 class="pricing__heading">One monthly plan. Your website, looked after.</h2>
-      <p class="pricing__range">
-        <strong>&pound;50</strong> a month
-      </p>
-      <p class="pricing__minimum">12-month minimum with an early-exit option, then monthly until you cancel</p>
-      <p class="text-muted">
-        A professional website for your business, plus ongoing support from
-        me. Everything below is included:
+      <h2 class="pricing__heading">Websites from &pound;200.</h2>
+      <p class="pricing__lead">
+        Every website is quoted individually. Your quote sets out the total
+        price and, if you'd like to spread the cost, the payment schedule
+        we agree. Once it's paid for, the website is yours.
       </p>
 
-      <ul class="pricing__factors">
-        {included.map((f) => (
-          <li>{f}</li>
-        ))}
-      </ul>
+      <div class="pricing__cards">
+        <div class="pricing__card">
+          <p class="pricing__card-label">Your website</p>
+          <p class="pricing__range">From <strong>&pound;200</strong></p>
+          <p class="pricing__example">Payment plans available.</p>
+          <p class="pricing__small">
+            Your quote states your website's total price and any agreed
+            payment schedule.
+          </p>
+        </div>
+
+        <div class="pricing__card">
+          <p class="pricing__card-label">Hosting and maintenance (optional)</p>
+          <p class="pricing__range"><strong>&pound;25</strong> a month</p>
+          <p class="pricing__example">
+            Separate from the website price. It starts when I start hosting
+            your website, including while you're still paying for it, and it
+            doesn't count towards the website's price. Rolling monthly:
+            cancel with one calendar month's notice by email.
+          </p>
+          <p class="pricing__includes-label">Includes:</p>
+          <ul class="pricing__includes">
+            <li>Hosting with HTTPS</li>
+            <li>Technical maintenance</li>
+            <li>Weekly backups of your website's code and files stored in its repository</li>
+            <li>Up to 30 minutes of minor content edits a month (unused time doesn't carry over)</li>
+          </ul>
+          <p class="pricing__small">
+            New pages, redesigns and new features are quoted separately.
+            Prefer your own hosting? Then there's no monthly fee to me.
+          </p>
+        </div>
+      </div>
 
       <ul class="pricing__terms">
         {terms.map((t) => (
@@ -44,9 +70,7 @@ const terms = [
       </ul>
 
       <p class="text-muted pricing__note">
-        Prefer to own the website yourself? You can buy it outright for a
-        one-off <strong>&pound;499</strong> at any time. My monthly services
-        then stop, and I hand the website over so you can host it yourself.
+        The full details are in the <a href="/terms/">terms</a>.
       </p>
 
       <a href={ctas.primary.href} class="btn btn--lime">
@@ -63,7 +87,7 @@ const terms = [
   }
 
   .pricing__copy {
-    max-width: 640px;
+    max-width: 760px;
     text-align: center;
   }
 
@@ -72,37 +96,86 @@ const terms = [
     margin-top: 0.75rem;
   }
 
+  .pricing__lead {
+    margin: 1.25rem auto 0;
+    max-width: 52ch;
+    color: rgb(245 243 238 / 0.8);
+  }
+
+  .pricing__cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    text-align: left;
+  }
+
+  .pricing__card {
+    border: 1px solid rgb(245 243 238 / 0.25);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .pricing__card-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(245 243 238 / 0.7);
+  }
+
   .pricing__range {
     font-size: 1.4rem;
     font-family: var(--font-display);
     font-weight: 600;
-    margin-top: 1.5rem;
+    margin-top: 0.6rem;
   }
 
-  .pricing__minimum {
-    margin-top: 0.35rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    color: var(--colour-bg);
-  }
-
-  .pricing__range strong {
+  .pricing__range strong,
+  .pricing__example strong {
     color: var(--colour-lime);
   }
 
-  .pricing__factors {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
+  .pricing__example {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    color: rgb(245 243 238 / 0.85);
   }
 
-  .pricing__factors li {
-    border: 1px solid rgb(245 243 238 / 0.4);
-    border-radius: 999px;
-    padding: 0.5rem 1.1rem;
+  .pricing__small {
+    margin-top: 0.5rem;
     font-size: 0.85rem;
+    color: rgb(245 243 238 / 0.7);
+  }
+
+  .pricing__includes-label {
+    margin-top: 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .pricing__includes {
+    margin-top: 0.5rem;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.92rem;
+    color: rgb(245 243 238 / 0.85);
+  }
+
+  .pricing__includes li {
+    position: relative;
+    padding-left: 1.2rem;
+  }
+
+  .pricing__includes li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--colour-lime);
   }
 
   .pricing__terms {
@@ -112,10 +185,6 @@ const terms = [
     font-size: 0.95rem;
   }
 
-  .pricing__note strong {
-    color: var(--colour-lime);
-  }
-
   .pricing__note {
     margin-top: 1.5rem;
     font-size: 0.9rem;
@@ -123,5 +192,11 @@ const terms = [
 
   .pricing__copy .btn {
     margin-top: 2.25rem;
+  }
+
+  @media (min-width: 720px) {
+    .pricing__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>

@@ -1,0 +1,343 @@
+---
+// Privacy policy, matched to what's actually operating (22 Oct 2026):
+// enquiries arrive by email (Gmail) or through Meta instant forms on
+// Facebook/Instagram; the site is hosted on GitHub Pages with self-hosted
+// fonts and sets no cookies or web storage. There is no website form, no
+// payment provider, no CRM and no spreadsheet service in use. Weekly
+// backups of hosted client websites' repositories go to Backblaze B2, EU
+// Central (Amsterdam), under Backblaze's UK DPA (since 23 Oct 2026). The
+// earlier Dropbox archives were deleted on 23 Oct 2026; Dropbox Basic keeps
+// deleted files recoverable for 30 days, so mention Dropbox until 22 Nov
+// 2026, then remove it from this page.
+// Client websites currently hosted by Matt are on GitHub
+// Pages (verified 22 Oct 2026 for barberwarnz.co.uk and
+// leroydrivinginstructor.co.uk). If any of that changes, update this page
+// first. Meta instant forms link here, so
+// this page must stay accurate and live.
+import LegalLayout from "../layouts/LegalLayout.astro";
+import ToConfirm from "../components/ToConfirm.astro";
+import { contact, business, addressNote } from "../data/config";
+
+const lastUpdated = "28 October 2026";
+
+const sections = [
+  { id: "who", label: "Who I am" },
+  { id: "collect", label: "What I collect" },
+  { id: "use", label: "How I use it" },
+  { id: "marketing", label: "Marketing" },
+  { id: "providers", label: "Who handles it" },
+  { id: "transfers", label: "Outside the UK" },
+  { id: "retention", label: "How long I keep it" },
+  { id: "cookies", label: "Cookies and tracking" },
+  { id: "rights", label: "Your rights" },
+  { id: "complaints", label: "Complaints" },
+  { id: "changes", label: "Changes" },
+];
+---
+
+<LegalLayout
+  title="Privacy Policy | Stapled."
+  description="How Stapled. uses the details you send by email or through Facebook and Instagram instant forms, how long they're kept, and your rights."
+  path="/privacy/"
+  heading="Privacy policy"
+  intro="This explains what I do with the details you send me when you ask about a website, and what you can ask me to do about it."
+  lastUpdated={lastUpdated}
+  sections={sections}
+>
+    <section id="who">
+      <h2>Who I am</h2>
+      <p>
+        Stapled. is run by {business.proprietor}, a sole trader based in
+        Southampton, UK, trading as {business.tradingAs} I'm the person
+        responsible for your information (the "controller" under UK data
+        protection law).
+      </p>
+      <p>
+        For anything to do with your information, email me at{" "}
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>{business.address ? (
+          <>, or write to my {business.addressLabel.toLowerCase()}: {business.address}.</>
+        ) : "."}
+      </p>
+      {!business.address && <ToConfirm note={addressNote} />}
+    </section>
+
+    <section id="collect">
+      <h2>What I collect</h2>
+      <p>
+        I only collect what you choose to send me. That can happen in two
+        ways.
+      </p>
+
+      <h3>Emails you send me</h3>
+      <p>
+        You can ask about a website or any of my services by email. I'll
+        have whatever you include, usually your name, email address,
+        business name, what the business does and where, a link to your
+        current website or social media page, and what you'd like help
+        with. A phone
+        number is only needed if you'd like me to call you.
+      </p>
+
+      <h3>Instant forms on Facebook and Instagram</h3>
+      <p>
+        If you respond to one of my adverts on Facebook or Instagram, the
+        form asks for your name, email address, phone number (optional),
+        business name, type of business, a website or social media link,
+        and details of your enquiry. Meta may fill in some of these from
+        your Facebook or Instagram profile, and you can check and change
+        them before you submit. I see these enquiries in Meta's tools and
+        reply by email.
+      </p>
+
+      <h3>If you become a client</h3>
+      <p>
+        I'll also have your quote and acceptance, our correspondence, the
+        content you give me for your website, and records of your payments.
+      </p>
+    </section>
+
+    <section id="use">
+      <h2>How I use it, and why I'm allowed to</h2>
+      <p>
+        UK data protection law requires a "lawful basis" for each use of
+        your information. Here's what I do and the basis I rely on.
+      </p>
+
+      <dl class="pp-uses">
+        <div class="pp-use">
+          <dt>Replying to your enquiry and discussing your project</dt>
+          <dd>
+            <span class="pp-use__basis">Legitimate interests</span>
+            You've asked me to get in touch, and I have a legitimate
+            interest in replying and talking to you about the work. If
+            you're asking as an individual about buying a website, this is
+            also a step you've asked me to take before we enter into a
+            contract.
+          </dd>
+        </div>
+        <div class="pp-use">
+          <dt>Preparing a homepage preview, if I've offered one</dt>
+          <dd>
+            <span class="pp-use__basis">Legitimate interests</span>
+            For some enquiries I offer a quick homepage preview. If you'd
+            like one, I use your business details, and any website or
+            social link you give me, to put it together.
+          </dd>
+        </div>
+        <div class="pp-use">
+          <dt>Building and looking after your website, if you become a client</dt>
+          <dd>
+            <span class="pp-use__basis">Contract</span>
+            I use your details to do the work we've agreed and to take
+            payment for it.
+          </dd>
+        </div>
+        <div class="pp-use">
+          <dt>Keeping business and tax records</dt>
+          <dd>
+            <span class="pp-use__basis">Legal obligation</span>
+            I keep records of payments and invoices because the law requires
+            it.
+          </dd>
+        </div>
+      </dl>
+
+      <p>
+        You don't have to give me any of this information, and there's no
+        legal requirement to. Without a way to contact you, though, I can't
+        reply. I don't make any decisions about you by automated means.
+      </p>
+    </section>
+
+    <section id="marketing">
+      <h2>Marketing</h2>
+      <p>
+        I only use enquiry details to reply to you, discuss your project
+        and, if I've offered one and you'd like it, prepare a homepage
+        preview. You don't need to
+        agree to marketing to make an enquiry. I won't add you to a
+        newsletter or promotional campaign, and I won't upload your details
+        to Meta or anyone else to target you with adverts.
+      </p>
+      <p>
+        If that ever changes, I'll ask for your agreement separately first,
+        and you'll be able to change your mind at any time, free of charge.
+      </p>
+    </section>
+
+    <section id="providers">
+      <h2>Who handles your information</h2>
+      <p>
+        I don't sell your information or share it with anyone for their own
+        marketing. These services handle it on the way through:
+      </p>
+      <ul>
+        <li>
+          <strong>Google</strong> provides the Gmail account where your
+          emails arrive and where I keep our conversations.
+        </li>
+        <li>
+          <strong>Meta</strong> runs Facebook and Instagram, where its
+          instant forms collect enquiries from my adverts and hold them in
+          Meta's tools. Meta also uses information about your activity on
+          its platforms under its own privacy policy.
+        </li>
+        <li>
+          <strong>GitHub</strong> hosts this website (GitHub Pages). Like any
+          web host, it processes technical information such as your IP
+          address so it can deliver the pages to you. The client websites I
+          currently host are also on GitHub Pages, so if you're a client I
+          host, your website's files and the content you've given me for it
+          are stored with GitHub too.
+        </li>
+        <li>
+          <strong>Backblaze</strong> stores the weekly backups of the client
+          websites I host, in its data centre in Amsterdam. So if you're a
+          client I host, copies of your website's code and files are stored
+          with Backblaze too.
+        </li>
+        <li>
+          <strong>Dropbox</strong> briefly held a few earlier backup copies of
+          those websites in October 2026, before I moved backups to
+          Backblaze. I deleted them on 23 October 2026. Dropbox keeps deleted
+          files recoverable for 30 days before removing them permanently, so
+          they'll be gone from Dropbox by 22 November 2026. No new backups go
+          to Dropbox.
+        </li>
+        <li>
+          <strong>My bank</strong> processes any payments you make to me by
+          bank transfer.
+        </li>
+      </ul>
+      <p>
+        I don't currently use a payment provider, customer database or
+        spreadsheet service for your details. If I start using one, or host
+        a client's website somewhere other than GitHub, I'll update this
+        policy first.
+      </p>
+      <p>
+        I may also share information if the law requires me to, for example
+        with HMRC or in response to a valid legal request.
+      </p>
+    </section>
+
+    <section id="transfers">
+      <h2>Information sent outside the UK</h2>
+      <p>
+        Backblaze stores backups in the European Economic Area, which UK law
+        recognises as providing adequate protection. Google, Meta, GitHub and
+        Dropbox are based in, or store information in, the
+        United States and other countries outside the UK. They each describe
+        in their own privacy information the safeguards they rely on for
+        this, such as UK adequacy regulations (including the UK–US "data
+        bridge") or approved contract terms. Email me if you'd like more
+        detail.
+      </p>
+    </section>
+
+    <section id="retention">
+      <h2>How long I keep it</h2>
+      <ul>
+        <li>
+          <strong>Enquiries that don't lead to work:</strong> up to 12 months
+          after we were last in meaningful contact. Then I delete them from
+          my email and Meta's tools, unless there's a recorded reason to keep
+          one longer, such as an unresolved complaint or you asking me to.
+        </li>
+        <li>
+          <strong>Client records</strong> (your quote and acceptance, our
+          correspondence and project files): 6 years after our work together
+          ends, which is the usual time limit for claims about a contract.
+        </li>
+        <li>
+          <strong>Your website's files</strong> (if you were a client): once
+          hosting has ended and the handover is complete, I keep a recovery
+          copy for 30 days, then delete it. Backup copies are removed
+          automatically after about 8 weeks (weekly copies) or about 6 months
+          (monthly copies), and permanently deleted within a further 30 days.
+        </li>
+        <li>
+          <strong>Accounting records</strong> (payments and invoices): as
+          long as HMRC requires. For a sole trader, that's at least 5 years
+          after the 31 January Self Assessment deadline for the tax year
+          they relate to.
+        </li>
+      </ul>
+      <p>
+        Meta may also keep its own copy of instant-form enquiries under its
+        own terms.
+      </p>
+    </section>
+
+    <section id="cookies">
+      <h2>Cookies and tracking</h2>
+      <p>
+        This website doesn't set cookies, doesn't store anything in your
+        browser, and doesn't use analytics, advertising pixels or other
+        tracking tools. Everything on its pages, fonts included, is served
+        from this site's own hosting. That's why there's no
+        cookie banner: there's nothing to agree to.
+      </p>
+      <p>
+        Email links open your own email app. This site also links to other
+        websites, such as Instagram and sites I've built. Once you follow a
+        link, that site's own privacy policy applies.
+      </p>
+    </section>
+
+    <section id="rights">
+      <h2>Your rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>ask for a copy of the information I hold about you</li>
+        <li>ask me to correct anything that's wrong or incomplete</li>
+        <li>ask me to delete your information</li>
+        <li>ask me to limit how I use it</li>
+        <li>
+          ask me to send information you gave me to you or another
+          organisation, where that applies
+        </li>
+      </ul>
+      <div class="pp-callout">
+        <h3>Your right to object</h3>
+        <p>
+          Because I rely on legitimate interests, you can object to me
+          using your information at any time. You can always object to
+          marketing, and I'll stop.
+        </p>
+      </div>
+      <p>
+        To use any of these rights, email{" "}
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>. It's
+        free, and I'll reply within one month. I may need to confirm who
+        you are first.
+      </p>
+    </section>
+
+    <section id="complaints">
+      <h2>Complaints</h2>
+      <p>
+        If you're unhappy with how I've handled your information, please
+        email me at{" "}
+        <a href={`mailto:${contact.email}`}>{contact.email}</a> first. I'll
+        acknowledge your complaint within 30 days, look into it, and let
+        you know the outcome without undue delay.
+      </p>
+      <p>
+        You also have the right to complain to the Information
+        Commissioner's Office (ICO), the UK's data protection
+        regulator, at{" "}
+        <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener noreferrer">ico.org.uk/make-a-complaint<span class="visually-hidden"> (opens in a new tab)</span></a>{" "}
+        or on 0303 123 1113. The ICO will usually ask you to raise it
+        with me first.
+      </p>
+    </section>
+
+    <section id="changes">
+      <h2>Changes to this policy</h2>
+      <p>
+        If I change how I handle your information, I'll update this page
+        and the date at the top.
+      </p>
+    </section>
+</LegalLayout>

@@ -1,0 +1,405 @@
+---
+// Services in detail. No prices: everything is quoted in writing.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import Illustration from "../components/ui/Illustration.astro";
+import QuoteSheet from "../components/ui/QuoteSheet.astro";
+import ContactBand from "../components/ui/ContactBand.astro";
+import { services, steps } from "../data/services";
+import { ctas } from "../data/config";
+
+const faqs = [
+  {
+    q: "How much does a website cost?",
+    a: "Every project is quoted individually. Once I understand what you need, I'll send a written quote with what's included and the total price. If you'd like hosting and care, that's set out separately in the same quote.",
+  },
+  {
+    q: "Do you only work with trades?",
+    a: "No. Most of my work is aimed at trade and home-service businesses, but I'm happy to talk to other kinds of business too.",
+  },
+  {
+    q: "Can you redesign my existing website?",
+    a: "Yes. I can bring an outdated or hard-to-use website up to a modern, mobile-friendly standard.",
+  },
+  {
+    q: "Can you get me to the top of Google?",
+    a: "No one can honestly promise that. Rankings depend on many things outside any one website. What I can do is help with an eligible Google Business Profile and make sure your website gives search engines a clear, accurate picture of what you do and where.",
+  },
+  {
+    q: "Do I need to write the content?",
+    a: "Ideally you'll provide the details and photos, since you know your business best. I'll guide you on what's needed and help shape the wording.",
+  },
+  {
+    q: "Do I have to use your hosting?",
+    a: "No. Hosting and care is optional. You can use your own hosting instead, and your quote will set out the options.",
+  },
+  {
+    q: "How long does it take?",
+    a: "It depends on the project, and on how quickly content and feedback come together. I'll give you a realistic timescale when we talk.",
+  },
+];
+---
+
+<SiteLayout
+  title="Services | Websites and Google help for trades | Stapled."
+  description="Websites, Google Business Profile help, easier enquiries, and optional hosting and care for trade and service businesses. Every project quoted in writing."
+  path="/services/"
+>
+  <PageHero
+    eyebrow="Services"
+    heading="Everything your customers check before they call."
+    lead="Four things, done properly, by one person. You choose what you need, and it's all set out in a written quote before any work starts."
+  >
+    <nav class="jump" aria-label="Services on this page">
+      <ul>
+        {services.map((s) => (
+          <li><a href={`#${s.id}`}><span aria-hidden="true">{s.n}</span>{s.title}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </PageHero>
+
+  {services.map((s, i) => (
+    <section id={s.id} class:list={["detail", "section", { "detail--alt": i % 2 === 1 }]} aria-labelledby={`${s.id}-heading`}>
+      <div class="container detail__grid">
+        <div class="detail__copy">
+          <p class="detail__num" aria-hidden="true">{s.n}</p>
+          <h2 id={`${s.id}-heading`} class="detail__title">{s.title}</h2>
+          <p class="lead detail__summary">{s.summary}</p>
+          <h3 class="detail__label">What's included</h3>
+          <ul class="detail__list">
+            {s.includes.map((item) => <li>{item}</li>)}
+          </ul>
+          {s.note && <p class="detail__note">{s.note}</p>}
+        </div>
+        <div class="detail__art" data-graphite>
+          <span class="tag detail__tag">Illustrative</span>
+          <Illustration variant={s.art} />
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="how section" aria-labelledby="how-heading">
+    <div class="container">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-heading" class="headline how__heading">Straightforward from first chat to launch.</h2>
+      <ol class="how__list">
+        {steps.map((s, i) => (
+          <li>
+            <span class="how__n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="pricing" class="price section" aria-labelledby="price-heading">
+    <div class="container price__grid">
+      <div>
+        <p class="eyebrow">Pricing</p>
+        <h2 id="price-heading" class="headline price__heading">Quoted in writing, once I understand what you need.</h2>
+        <p class="lead price__lead">
+          There are no packages to squeeze into. Tell me about your business and
+          what you need, and you'll get a written quote with what's included and
+          the total price. Nothing is payable until you accept it.
+        </p>
+        <a href={ctas.primary.href} class="btn btn--lime price__cta">{ctas.primary.label}</a>
+      </div>
+      <QuoteSheet />
+    </div>
+  </section>
+
+  <section id="faq" class="faq section" aria-labelledby="faq-heading">
+    <div class="container faq__grid">
+      <div>
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-heading" class="headline faq__heading">Straight answers.</h2>
+      </div>
+      <div class="faq__list">
+        {faqs.map((f) => (
+          <details class="faq__item">
+            <summary>
+              <span>{f.q}</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactBand />
+</SiteLayout>
+
+<style>
+  .jump ul {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 44px;
+    padding: 0 1.1rem;
+    border: 1px solid var(--colour-border);
+    border-radius: 999px;
+    background: var(--colour-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .jump a:hover {
+    border-color: var(--colour-ink);
+  }
+
+  .jump span {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--colour-muted);
+  }
+
+  .detail {
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .detail--alt {
+    background: var(--colour-white);
+  }
+
+  .detail__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+
+  .detail--alt .detail__art {
+    order: -1;
+  }
+
+  .detail__num {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--colour-border-strong);
+  }
+
+  .detail__title {
+    margin-top: 1rem;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 620;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+  }
+
+  .detail__summary {
+    margin-top: 1.25rem;
+  }
+
+  .detail__label {
+    margin-top: 2rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--colour-muted);
+  }
+
+  .detail__list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .detail__list li {
+    position: relative;
+    padding-left: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .detail__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--colour-lime);
+    outline: 1px solid var(--colour-lime-ink);
+    outline-offset: -1px;
+  }
+
+  .detail__note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 0;
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-md);
+    background: var(--colour-bg);
+    color: var(--colour-text-2);
+    line-height: 1.55;
+  }
+
+  .detail__art {
+    position: relative;
+    border-radius: var(--radius-xl);
+    padding: 4rem clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  .detail__art :global(.ill) {
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+
+  .detail__tag {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+  }
+
+  .how {
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .how__heading,
+  .price__heading,
+  .faq__heading {
+    margin-top: 1.5rem;
+  }
+
+  .how__list {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .how__list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--colour-ink);
+  }
+
+  .how__n {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--colour-muted);
+  }
+
+  .how__list h3 {
+    font-size: 1.35rem;
+  }
+
+  .how__list p {
+    color: var(--colour-text-2);
+    line-height: 1.55;
+  }
+
+  .price {
+    background: var(--colour-white);
+    border-block: 1px solid var(--colour-border);
+  }
+
+  .price__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+
+  .price__lead {
+    margin-top: 1.5rem;
+  }
+
+  .price__cta {
+    margin-top: 2.25rem;
+  }
+
+  .faq__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--colour-border);
+  }
+
+  .faq__item:first-child {
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .faq__item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    min-height: 44px;
+    padding-block: 1.25rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .faq__item[open] summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq__item p {
+    padding-bottom: 1.5rem;
+    color: var(--colour-text-2);
+    line-height: 1.6;
+    max-width: 62ch;
+  }
+
+  @media (max-width: 960px) {
+    .detail__grid,
+    .price__grid,
+    .faq__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .detail--alt .detail__art {
+      order: 0;
+    }
+
+    .how__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .how__list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
