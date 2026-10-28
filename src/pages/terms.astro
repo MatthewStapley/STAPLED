@@ -1,11 +1,16 @@
 ---
 // Terms (version dated 28 Oct 2026). Prices are never stated here: each
-// written quote sets the price, any payment schedule agreed in writing,
-// and, if Stapled. hosts the site, the hosting and care cost, included
-// work, domain costs and cancellation arrangements. Homepage previews are
+// written quote sets the price, any staged payments (amounts, milestones,
+// due dates), how completed work is valued if a build is cancelled, and,
+// if Stapled. hosts the site, the hosting and care cost, included work,
+// domain costs and cancellation arrangements. Homepage previews are
 // offered case by case. Earlier versions are kept privately, outside this
 // repository, and each quote names the version that applies. Existing
-// clients' agreements are unchanged. Only settled terms appear here;
+// clients' agreements are unchanged. Ownership and files transfer only
+// after the build price is paid in full; cancelling a build is charged on
+// work completed (valued as the quote explains), never the whole remaining
+// balance; overdue payments can pause work or handover, and suspend only
+// hosting I provide. Only settled terms appear here;
 // anything awaiting a decision is marked with a <ToConfirm> (visible in
 // development, hidden in production, and caught by `npm run check:publish`).
 import LegalLayout from "../layouts/LegalLayout.astro";
@@ -21,7 +26,7 @@ const sections = [
   { id: "quotes", label: "Quotes and accepting them" },
   { id: "payment", label: "Paying for your website" },
   { id: "ownership", label: "When the website becomes yours" },
-  { id: "early", label: "Ending before it's paid for" },
+  { id: "early", label: "Cancelling a build" },
   { id: "maintenance", label: "Hosting and care" },
   { id: "backups", label: "Backups" },
   { id: "own-hosting", label: "Using your own hosting" },
@@ -104,7 +109,11 @@ const sections = [
     <ul>
       <li>what the website will include</li>
       <li>its total purchase price</li>
-      <li>if you'd like to spread the cost, the payment schedule we've agreed in writing</li>
+      <li>
+        if you'd like to spread the cost, each payment amount, the stage or
+        milestone it relates to, and when it's due
+      </li>
+      <li>how work completed is valued if you cancel before the build is finished</li>
       <li>
         whether I'll host and look after it or you'll use your own hosting,
         and if I will: what hosting and care costs, the work it includes,
@@ -123,9 +132,10 @@ const sections = [
   <section id="payment">
     <h2>Paying for your website</h2>
     <p>
-      Your quote sets your website's total price. You can pay it in one go,
-      or, if we agree, spread the cost: any payment schedule is agreed with
-      you individually in writing and set out in your quote.
+      Your quote sets your website's total build price. You can pay it in
+      one go or, if we agree, in stages: your written quote sets out each
+      payment amount, the stage or milestone it relates to, and when it's
+      due.
     </p>
     <p>
       Payments are made by bank transfer. I'll send you the details with
@@ -133,17 +143,24 @@ const sections = [
       price.
     </p>
     <p>
-      If you're paying in instalments, you can pay the remaining balance at
-      any time to finish paying early.
+      If you're paying in stages, you can pay the remaining balance at any
+      time to finish paying early.
     </p>
   </section>
 
   <section id="ownership">
     <h2>When the website becomes yours</h2>
     <p>
-      Once you've paid the full price, the website is yours. I transfer the
-      website's files to you, along with the rights I own in its design and
-      code.
+      Once you've paid the full build price, I transfer to you the ownership
+      rights agreed in your quote (the rights I own in the website's design
+      and code) and the website's transferable files. I don't transfer them
+      before then.
+    </p>
+    <p>
+      Paying in full doesn't end hosting and care. If I'm hosting your
+      website, that carries on under the separate hosting and care
+      arrangement in your quote until it's cancelled as that arrangement
+      sets out.
     </p>
     <p>
       Some parts of a website may be licensed from someone else, such as a
@@ -154,25 +171,39 @@ const sections = [
   </section>
 
   <section id="early">
-    <h2>Ending before your website is paid for</h2>
-    <p>You have two options if you want to stop before the price is paid:</p>
+    <h2>Cancelling a build</h2>
+    <p>
+      You can cancel the build at any time before it's finished or paid for
+      by emailing me. If the build is already finished, you can instead pay
+      the remaining balance and the website is yours, as described in{" "}
+      <a href="#ownership">when the website becomes yours</a>.
+    </p>
+    <p>If you cancel:</p>
     <ul>
       <li>
-        <strong>Finish paying:</strong> pay the remaining balance, and the
-        website and its transferable files are yours.
+        <strong>What you pay:</strong> the value of the work completed up to
+        when you tell me you're cancelling, worked out the way your quote
+        explains. You don't have to pay the whole remaining balance, and no
+        part of the price is a non-refundable deposit.
       </li>
       <li>
-        <strong>End the agreement early:</strong> give me one calendar
-        month's notice by email. Instalments that fall due during the notice
-        period are still payable, and they count towards the website's
-        price. If I'm hosting the website, hosting ends when the notice
-        period ends, and hosting and care is payable until then as set out
-        in your quote. If you end early,
-        the website and its files aren't transferred to you, but your domain
-        and the content you gave me are still yours.
+        <strong>Payments you've already made</strong> count towards that
+        amount. If you've paid more than the value of the work completed,
+        I'll refund the difference. If you've paid less, you pay the
+        difference.
+      </li>
+      <li>
+        <strong>Ownership:</strong> the website's ownership rights and
+        transferable files only pass to you once the full build price is
+        paid. Your domain and the content you gave me are still yours.
+      </li>
+      <li>
+        <strong>Hosting and care:</strong> if I'm hosting the website,
+        cancelling the build doesn't cancel hosting and care by itself.
+        Hosting and care ends as its own arrangement in your quote sets out.
       </li>
     </ul>
-    <ToConfirm note="Unresolved commercial decision: what a client owes if they cancel a fixed-price build before it's completed or fully paid for. The notice and instalment wording above is the existing draft and hasn't been signed off. Not decided yet; no clause has been drafted." />
+    <ToConfirm note="Legal question for review: after cancelling, a client pays for work completed but doesn't receive the files or ownership unless the full build price is paid. Check this is fair, particularly for personal buyers, before publishing." />
     <p>
       Personal buyers also have the 14-day cancellation right described{" "}
       <a href="#cancel-14">below</a>.
@@ -203,7 +234,7 @@ const sections = [
     </p>
     <p>
       Cancelling hosting and care never means losing a website you've
-      already paid for, and it doesn't cancel any instalments still due for
+      already paid for, and it doesn't cancel any payments still due for
       the website.
     </p>
   </section>
@@ -218,10 +249,12 @@ const sections = [
     </p>
     <ul>
       <li>
-        <strong>Timing:</strong> backups are scheduled weekly. If the
-        computer that runs them is switched off, asleep or offline, a backup
-        may run late, and is taken as soon as it's next available. A missed
-        week isn't recreated afterwards.
+        <strong>Timing:</strong> a check runs once a day and takes a backup
+        when one is due, so there's one a week. If the computer that runs
+        them is switched off, asleep or offline at the time of the check,
+        the backup runs late: when the computer wakes, or otherwise at the
+        next daily check it can run. A missed week isn't recreated
+        afterwards.
       </li>
       <li>
         <strong>Upload:</strong> a backup needs that computer to be connected
@@ -260,16 +293,16 @@ const sections = [
     <h2>Using your own hosting</h2>
     <p>
       You don't have to host with me. If you use your own hosting, you don't
-      pay me for hosting and care, and I'll provide the transferable website
-      files and basic setup instructions as set out in your quote.
+      pay me for hosting and care. Once the full build price is paid, I'll
+      provide the transferable website files and basic setup instructions
+      as set out in your quote.
     </p>
     <p>
-      Choosing your own hosting doesn't cancel any payments still due for
-      your website, and ownership only passes to you once the website is
-      fully paid for, as described in{" "}
-      <a href="#ownership">when the website becomes yours</a>.
+      I don't provide the files, or transfer ownership, before then, as
+      described in{" "}
+      <a href="#ownership">when the website becomes yours</a>. Choosing your
+      own hosting doesn't cancel any payments still due for your website.
     </p>
-    <ToConfirm note="Unresolved commercial decision: whether clients can receive and use the website files on their own hosting before the website is fully paid for, and on what basis. Not decided yet; no clause has been drafted." />
   </section>
 
   <section id="handover">
@@ -338,31 +371,39 @@ const sections = [
     <h2>If a payment is late</h2>
     <ol class="pp-steps">
       <li>
-        I'll email you a reminder saying what's overdue and the date hosting
-        will be suspended if it's still unpaid. That date will be at least
-        14 days after the reminder.
+        I'll email you a reminder saying what's overdue, what I'll pause if
+        it's still unpaid, and the date that would happen. That date will be
+        at least 14 days after the reminder.
       </li>
       <li>
         If you pay before then, nothing else happens. If something's wrong,
         reply to the reminder and we'll sort it out.
       </li>
       <li>
-        If it's still unpaid on that date and I'm hosting your website, I'll
-        suspend hosting, which takes the website offline.
+        If it's still unpaid on that date, I may pause unfinished work on
+        your website and hold back the handover of files until it's paid.
+      </li>
+      <li>
+        If I'm hosting your website, I may also suspend hosting, which takes
+        the website offline.
       </li>
     </ol>
     <p>
-      Suspension is temporary. It doesn't delete your website, it doesn't
-      end our agreement, and it doesn't add any charges. Once the overdue
-      amount is paid, I'll put the website back online.
+      If your website is hosted somewhere else, I won't access, change or
+      disable it because of a late payment.
     </p>
     <p>
-      Suspending hosting, ending the agreement and deleting data are three
+      Pausing work and suspending hosting are temporary. They don't delete
+      your website, they don't end our agreement, and they don't add any
+      charges. Once the overdue amount is paid, I'll restart the work and,
+      if I'd suspended hosting, put the website back online.
+    </p>
+    <p>
+      Pausing work, suspending hosting, cancelling and deleting data are
       separate things. The agreement only ends as described in these terms,
       and website data is only deleted as described in{" "}
       <a href="#after-hosting">after hosting ends</a>.
     </p>
-    <ToConfirm note="Unresolved commercial decision: what happens when a payment is overdue and I'm not hosting the client's website (the steps above only cover hosting). Not decided yet; no clause has been drafted." />
   </section>
 
   <section id="refunds">
