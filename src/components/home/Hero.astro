@@ -1,53 +1,100 @@
 ---
-// Homepage hero: what Stapled. does, said once. The staple fastens the
-// headline (the site's signature motion), and the main call to action eases
-// slightly towards the pointer on desktop (the magnetic script lives in
-// Layout.astro).
+// Homepage hero: a short headline and the call to action on the left; on
+// the right, a graphite stage showing the FORM Bathrooms concept (real
+// screenshots of the finished demo) with a phone view and an illustrative
+// enquiry, joined by a lime staple line. The words and buttons are visible
+// at once; only the stage has an entrance (about a second, once). Visitors
+// can switch the stage between the desktop and mobile view.
+//
+// The concept is fictional and labelled as such; the enquiry is
+// illustrative. The section below the hero explains the concept and links
+// to the full demo.
 import StapleMark from "../ui/StapleMark.astro";
-import { ctas, site } from "../../data/config";
+import { ctas } from "../../data/config";
 
-const trades = [
-  "Roofing",
-  "Tarmac and driveways",
-  "Landscaping",
-  "Bathrooms and kitchens",
-  "Plumbing and heating",
-];
+const img = (name: string) => `/images/form-demo/${name}`;
 ---
 
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="container">
-    <p class="eyebrow hero__eyebrow">{site.location}</p>
-    <h1 id="hero-heading" class="display hero__heading">
-      <span class="hero__line">Your work is good.</span>
-      <span class="hero__line">Your website should{" "}<span class="hero__fasten">show it.<StapleMark class="hero__staple" animated stretch /></span></span>
-    </h1>
+<section class="hero" aria-labelledby="hero-heading" data-hero>
+  <div class="hero__panel" aria-hidden="true"></div>
 
-    <div class="hero__row">
-      <div class="hero__copy">
-        <p class="lead hero__lead">
-          Websites, Google support and simpler enquiries for trade and service
-          businesses. Designed, built and looked after personally by Matt.
-        </p>
-        <div class="hero__actions">
-          <a href={ctas.primary.href} class="btn btn--lime" data-magnetic>
-            <span class="btn__label">
-              {ctas.primary.label}
-              <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </span>
-          </a>
-          <a href="#demo" class="link-arrow">
-            See the bathroom demo
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </a>
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <h1 id="hero-heading" class="hero__heading">
+        <span class="hero__line">Good businesses.</span>
+        <span class="hero__line"><span class="hero__fasten">Better online.<StapleMark class="hero__staple" animated stretch /></span></span>
+      </h1>
+      <p class="hero__lead">
+        Websites, Google support and simpler enquiries for trade and service
+        businesses.
+      </p>
+      <p class="hero__personal">Designed, built and looked after by me, Matt.</p>
+      <div class="hero__actions">
+        <a href={ctas.primary.href} class="btn btn--lime" data-magnetic>
+          <span class="btn__label">
+            {ctas.primary.label}
+            <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </span>
+        </a>
+        <a href="/possibilities/" class="link-arrow">
+          Explore what's possible
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__bar">
+        <a class="hero__label" href="#demo">
+          <span class="hero__label-dot" aria-hidden="true"></span>
+          Concept website: FORM Bathrooms
+        </a>
+        <div class="hero__switch" role="group" aria-label="Show the concept on" data-hero-switch hidden>
+          <button type="button" data-view="desktop" aria-pressed="true">Desktop</button>
+          <button type="button" data-view="mobile" aria-pressed="false">Mobile</button>
+          <span class="hero__switch-thumb" aria-hidden="true"></span>
         </div>
       </div>
-      <div class="hero__trades">
-        <p class="hero__trades-label">Especially for</p>
-        <ul class="trades">
-          {trades.map((t) => <li>{t}</li>)}
-          <li class="trades__other">and other service businesses</li>
-        </ul>
+
+      <div class="hero__stage" data-view="desktop" data-hero-stage>
+        <figure class="layer layer--browser" data-depth="6">
+          <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img
+            src={img("desktop-1600.webp")}
+            srcset={`${img("desktop-960.webp")} 960w, ${img("desktop-1600.webp")} 1600w`}
+            sizes="(min-width: 960px) 46vw, 92vw"
+            width="1600"
+            height="1000"
+            fetchpriority="high"
+            decoding="async"
+            alt="The FORM Bathrooms concept website on a desktop screen, with the headline 'A better beginning. Every day.' beside a photo of a stone vanity."
+          />
+        </figure>
+
+        <figure class="layer layer--phone" data-depth="12">
+          <div class="phone__screen">
+            <img
+              src={img("mobile-390.webp")}
+              srcset={`${img("mobile-390.webp")} 390w, ${img("mobile-780.webp")} 780w`}
+              sizes="(min-width: 960px) 14vw, 34vw"
+              width="390"
+              height="844"
+              decoding="async"
+              alt="The same concept on a phone."
+            />
+          </div>
+        </figure>
+
+        <div class="layer layer--enquiry" data-depth="18" aria-label="Illustrative example of an enquiry" role="img">
+          <p class="eq__top"><span class="eq__dot" aria-hidden="true"></span>New enquiry</p>
+          <p class="eq__title">Bathroom refit</p>
+          <p class="eq__meta">Postcode district · 2 photos</p>
+          <span class="eq__tag">Illustrative</span>
+        </div>
+
+        <svg class="hero__link" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path class="hero__link-path" d="M74 70 C 66 84, 46 90, 30 84"></path>
+        </svg>
       </div>
     </div>
   </div>
@@ -55,15 +102,45 @@ const trades = [
 
 <style>
   .hero {
-    padding-block: clamp(3.5rem, 7vw, 6.5rem) clamp(3rem, 6vw, 5rem);
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2.5rem, 5vw, 4rem);
   }
 
+  /* The graphite stage: bleeds to the right edge and down to the next
+     section, so the visual sits in the page rather than in a card. */
+  .hero__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 44%;
+    background: var(--colour-graphite);
+    border-top-left-radius: clamp(32px, 5vw, 72px);
+  }
+
+  .hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+
+  /* Copy ------------------------------------------------------------- */
   .hero__heading {
-    margin-top: 1.5rem;
+    /* Sized from the copy column so each line stays whole: "Good
+       businesses." is about 7.1 times the font size wide. */
+    font-size: clamp(2.6rem, calc((100vw - 2 * var(--gutter) - 4rem) / 14.8), 4.85rem);
+    line-height: 0.96;
+    font-weight: 650;
+    letter-spacing: -0.045em;
+    font-optical-sizing: auto;
   }
 
   .hero__line {
     display: block;
+    white-space: nowrap;
   }
 
   .hero__fasten {
@@ -77,20 +154,21 @@ const trades = [
     left: -1%;
     top: 96%;
     width: 102%;
-    height: 0.22em;
+    height: 0.2em;
   }
 
-  .hero__row {
-    margin-top: clamp(2rem, 4vw, 3rem);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 2rem 3rem;
+  .hero__lead {
+    margin-top: clamp(1.75rem, 3vw, 2.25rem);
+    max-width: 30ch;
+    font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+    line-height: 1.4;
+    font-weight: 500;
+    color: var(--colour-ink);
   }
 
-  .hero__copy {
-    max-width: 34rem;
+  .hero__personal {
+    margin-top: 0.75rem;
+    color: var(--colour-text-2);
   }
 
   .hero__actions {
@@ -101,67 +179,494 @@ const trades = [
     gap: 0.75rem 1.75rem;
   }
 
-  .hero__trades {
-    max-width: 30rem;
+  /* Visual ----------------------------------------------------------- */
+  .hero__visual {
+    position: relative;
+    color: var(--colour-bg);
   }
 
-  .hero__trades-label {
-    margin-bottom: 0.75rem;
-    font-size: 0.8125rem;
+  /* Desktop: the stage hangs over the edge into the graphite concept note
+     below, so the hero and that section read as one move. */
+  @media (min-width: 960px) {
+    .hero__visual {
+      margin-bottom: calc(-1 * (clamp(2.5rem, 5vw, 4rem) + 3rem));
+    }
+  }
+
+  .hero__bar {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 44px;
+    padding: 0 0.25rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--colour-on-dark-muted);
+    text-decoration: none;
+    transition: color 0.3s var(--ease-out);
+  }
+
+  .hero__label:hover,
+  .hero__label:focus-visible {
+    color: var(--colour-bg);
+  }
+
+  .hero__label-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--colour-lime);
+  }
+
+  .hero__label:focus-visible,
+  .hero__switch button:focus-visible {
+    outline: 2px solid var(--colour-lime);
+    outline-offset: 3px;
+    border-radius: 999px;
+  }
+
+  /* Switch: a lime thumb slides under the active option. */
+  .hero__switch {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 4px;
+    border-radius: 999px;
+    background: rgb(245 243 238 / 0.08);
+    border: 1px solid rgb(245 243 238 / 0.16);
+  }
+
+  .hero__switch[hidden] {
+    display: none;
+  }
+
+  .hero__switch button {
+    position: relative;
+    z-index: 1;
+    min-height: 40px;
+    min-width: 5.75rem;
+    padding: 0 1rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--colour-on-dark-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.35s var(--ease-out);
+  }
+
+  .hero__switch button[aria-pressed="true"] {
+    color: var(--colour-lime-ink);
+  }
+
+  .hero__switch-thumb {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    border-radius: 999px;
+    background: var(--colour-lime);
+    transition: transform 0.45s var(--ease-out);
+  }
+
+  .hero__visual:has([data-view="mobile"][aria-pressed="true"]) .hero__switch-thumb {
+    transform: translateX(100%);
+  }
+
+  .hero__stage {
+    position: relative;
+    aspect-ratio: 1 / 0.82;
+    perspective: 1600px;
+  }
+
+  .layer {
+    position: absolute;
+    margin: 0;
+    transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+    transition: transform 0.7s var(--ease-out), opacity 0.6s var(--ease-out), filter 0.6s var(--ease-out);
+  }
+
+  /* Browser window: straddles the graphite edge onto the paper. */
+  .layer--browser {
+    top: 0;
+    left: -10%;
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0b0c0d;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.06), 0 60px 100px -40px rgb(0 0 0 / 0.75), 0 24px 40px -24px rgb(0 0 0 / 0.5);
+  }
+
+  .browser__bar {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+    background: #1d1f22;
+  }
+
+  .browser__bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgb(245 243 238 / 0.22);
+  }
+
+  .layer--browser img,
+  .phone__screen img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Phone: overlaps the browser's lower right. */
+  .layer--phone {
+    right: 2%;
+    bottom: 0;
+    width: 29%;
+    padding: 2.2%;
+    border-radius: 34px;
+    background: #0b0c0d;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1), 0 50px 80px -30px rgb(0 0 0 / 0.9);
+  }
+
+  .phone__screen {
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 9 / 16;
+  }
+
+  /* Enquiry: the result, fastened to the journey by the staple line. */
+  .layer--enquiry {
+    left: 4%;
+    bottom: 4%;
+    width: min(17.5rem, 44%);
+    padding: 1rem 1.1rem 1.1rem;
+    border-radius: 18px;
+    background: var(--colour-bg);
+    color: var(--colour-ink);
+    box-shadow: 0 30px 60px -28px rgb(0 0 0 / 0.75);
+    z-index: 2;
+  }
+
+  .eq__top {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 600;
     color: var(--colour-muted);
   }
 
-  .trades {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .eq__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--colour-lime);
+    outline: 1px solid var(--colour-lime-ink);
   }
 
-  .trades li {
-    display: inline-flex;
-    align-items: center;
-    min-height: 38px;
-    padding: 0 0.95rem;
-    border: 1px solid var(--colour-border);
-    border-radius: 999px;
-    background: var(--colour-white);
-    font-size: 0.875rem;
-    font-weight: 500;
+  .eq__title {
+    margin-top: 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
   }
 
-  .trades .trades__other {
-    border-style: dashed;
-    background: transparent;
+  .eq__meta {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
     color: var(--colour-text-2);
   }
 
+  .eq__tag {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: var(--colour-paper-2);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  /* The staple line from the phone to the enquiry. */
+  .hero__link {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .hero__link-path {
+    fill: none;
+    stroke: var(--colour-lime);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 2 7;
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* Mobile view: the phone comes forward, the browser steps back. */
+  .hero__stage[data-view="mobile"] .layer--phone {
+    transform: translate3d(calc(-62% + var(--px, 0px)), calc(-10% + var(--py, 0px)), 0) scale(1.38);
+    z-index: 2;
+  }
+
+  .hero__stage[data-view="mobile"] .layer--browser {
+    transform: translate3d(calc(-4% + var(--px, 0px)), calc(2% + var(--py, 0px)), 0) scale(0.94);
+    opacity: 0.4;
+    filter: saturate(0.5);
+  }
+
+  .hero__stage[data-view="mobile"] .layer--enquiry {
+    transform: translate3d(calc(-6% + var(--px, 0px)), calc(4% + var(--py, 0px)), 0);
+  }
+
+  .hero__stage[data-view="mobile"] .hero__link {
+    opacity: 0;
+  }
+
+  .hero__link {
+    transition: opacity 0.4s var(--ease-out);
+  }
+
+  /* Entrance: the stage builds once, after the words are already there.
+     Fill mode "backwards" so the finished animation hands control back to
+     the transforms used by the switch and the pointer depth. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero__eyebrow,
-    .hero__heading,
-    .hero__row {
-      animation: hero-rise 0.8s var(--ease-out) both;
+    .hero__panel {
+      animation: hero-panel 0.9s var(--ease-out) backwards;
     }
 
-    .hero__heading {
-      animation-delay: 0.08s;
+    .layer--browser {
+      animation: hero-browser 1s var(--ease-out) 0.1s backwards;
     }
 
-    .hero__row {
-      animation-delay: 0.18s;
+    .layer--phone {
+      animation: hero-up 0.9s var(--ease-out) 0.35s backwards;
+    }
+
+    .layer--enquiry {
+      animation: hero-pop 0.7s var(--ease-out) 0.65s backwards;
+    }
+
+    .hero__link-path {
+      animation: hero-draw 0.8s var(--ease-out) 0.9s both;
+    }
+
+    .hero__bar {
+      animation: hero-fade 0.6s var(--ease-out) 0.5s both;
     }
   }
 
-  @keyframes hero-rise {
+  @keyframes hero-panel {
     from {
-      opacity: 0;
-      transform: translateY(24px);
+      transform: translateX(6%);
     }
     to {
-      opacity: 1;
       transform: none;
     }
   }
+
+  @keyframes hero-browser {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 40px, 0) rotateX(10deg) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes hero-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 50px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes hero-pop {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0) scale(0.94);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes hero-draw {
+    from {
+      clip-path: inset(0 0 0 100%);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .layer,
+    .hero__switch-thumb,
+    .hero__link {
+      transition: none;
+    }
+  }
+
+  /* Tablet and phone: words and the main button first, then a deliberate
+     stacked stage on a full-width graphite band. */
+  @media (max-width: 959px) {
+    .hero {
+      padding-bottom: 0;
+      overflow: clip;
+    }
+
+    .hero__panel {
+      display: none;
+    }
+
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 0;
+      gap: 2.5rem;
+    }
+
+    .hero__heading {
+      font-size: clamp(2.5rem, calc((100vw - 2 * var(--gutter)) / 8), 4.6rem);
+    }
+
+    .hero__line {
+      white-space: normal;
+    }
+
+    .hero__visual {
+      margin-inline: calc(-1 * var(--gutter));
+      padding: 1.5rem var(--gutter) 2.5rem;
+      background: var(--colour-graphite);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+    }
+
+    .hero__bar {
+      justify-content: space-between;
+    }
+
+    .hero__stage {
+      aspect-ratio: 1 / 0.8;
+    }
+
+    .layer--browser {
+      left: 0;
+      width: 92%;
+    }
+
+    .layer--phone {
+      right: 0;
+      bottom: 0;
+      width: 38%;
+    }
+
+    .layer--enquiry {
+      left: 0;
+      bottom: 0;
+      width: 56%;
+    }
+
+    .hero__link {
+      display: none;
+    }
+
+    .hero__stage[data-view="mobile"] .layer--phone {
+      transform: translate3d(-68%, -6%, 0) scale(1.15);
+    }
+  }
 </style>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const fine = window.matchMedia("(pointer: fine)");
+
+  for (const hero of document.querySelectorAll<HTMLElement>("[data-hero]")) {
+    const stage = hero.querySelector<HTMLElement>("[data-hero-stage]");
+    const sw = hero.querySelector<HTMLElement>("[data-hero-switch]");
+    if (!stage) continue;
+
+    // Desktop / Mobile switch. Arrow keys move between the two options.
+    if (sw) {
+      sw.hidden = false;
+      const opts = [...sw.querySelectorAll<HTMLButtonElement>("button[data-view]")];
+      const choose = (opt: HTMLButtonElement) => {
+        stage.dataset.view = opt.dataset.view;
+        for (const o of opts) o.setAttribute("aria-pressed", String(o === opt));
+      };
+      opts.forEach((opt, i) => {
+        opt.addEventListener("click", () => choose(opt));
+        opt.addEventListener("keydown", (e) => {
+          if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+          e.preventDefault();
+          const next = opts[(i + (e.key === "ArrowRight" ? 1 : -1) + opts.length) % opts.length];
+          choose(next);
+          next.focus();
+        });
+      });
+    }
+
+    // Depth: each layer drifts a few pixels with the pointer, nearer layers
+    // further. Fine pointers only; nothing moves on its own.
+    const layers = [...stage.querySelectorAll<HTMLElement>("[data-depth]")];
+    let frame = 0;
+    hero.addEventListener("pointermove", (e) => {
+      if (reduce.matches || !fine.matches) return;
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        for (const l of layers) {
+          const d = Number(l.dataset.depth) || 0;
+          l.style.setProperty("--px", `${(x * d).toFixed(1)}px`);
+          l.style.setProperty("--py", `${(y * d).toFixed(1)}px`);
+        }
+      });
+    });
+    hero.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(frame);
+      for (const l of layers) {
+        l.style.removeProperty("--px");
+        l.style.removeProperty("--py");
+      }
+    });
+  }
+</script>

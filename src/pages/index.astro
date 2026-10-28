@@ -1,12 +1,12 @@
 ---
-// Homepage. Each section has one job: what Stapled. does (hero and
-// services), proof of the design quality (the bathroom concept), how useful
-// features work (the customer story), how working together happens, who
-// Matt is, and how to get in touch.
+// Homepage. Each section has one job: the hero says what Stapled. does and
+// shows it (the bathroom concept), the note beneath explains that concept,
+// then services, how useful features work (the customer story), how
+// working together happens, who Matt is, and how to get in touch.
 import SiteLayout from "../layouts/SiteLayout.astro";
 import Hero from "../components/home/Hero.astro";
 import ServiceIndex from "../components/home/ServiceIndex.astro";
-import DemoShowcase from "../components/ui/DemoShowcase.astro";
+import DemoNote from "../components/home/DemoNote.astro";
 import Story from "../components/home/Story.astro";
 import WorkingTogether from "../components/home/WorkingTogether.astro";
 import ContactBand from "../components/ui/ContactBand.astro";
@@ -14,8 +14,8 @@ import ContactBand from "../components/ui/ContactBand.astro";
 
 <SiteLayout>
   <Hero />
+  <DemoNote />
   <ServiceIndex />
-  <DemoShowcase />
   <Story />
   <WorkingTogether />
 

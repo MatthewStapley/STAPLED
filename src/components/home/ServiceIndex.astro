@@ -13,6 +13,10 @@ import { services } from "../../data/services";
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </a>
     </div>
+    <p class="svc__for">
+      For roofers, driveway and landscaping firms, bathroom and kitchen
+      fitters, plumbing and heating engineers, and other service businesses.
+    </p>
     <ol class="svc__grid">
       {services.map((s) => (
         <li class="svc__item">
@@ -45,6 +49,12 @@ import { services } from "../../data/services";
   .svc__heading {
     font-size: clamp(1.75rem, 3vw, 2.4rem);
     letter-spacing: -0.03em;
+  }
+
+  .svc__for {
+    margin-top: 0.75rem;
+    max-width: 64ch;
+    color: var(--colour-text-2);
   }
 
   .svc__grid {

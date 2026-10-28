@@ -1,0 +1,117 @@
+---
+// The homepage's note about the concept shown in the hero: what it is,
+// what it demonstrates, and where to explore it. The full presentation
+// (devices, switch) lives in the hero and on /possibilities/, so this stays
+// compact rather than repeating it.
+import { bathroomDemoUrl } from "../../data/config";
+
+const points = [
+  "Scroll-led storytelling, chapter by chapter",
+  "Material styles compared side by side",
+  "An inspiration gallery with a full-screen viewer",
+  "Clear routes to an enquiry on every screen",
+];
+---
+
+<section class="demo-note" id="demo" data-graphite aria-labelledby="demo-heading">
+  <div class="container demo-note__grid">
+    <div>
+      <p class="eyebrow">The concept in the hero</p>
+      <h2 id="demo-heading" class="demo-note__heading">FORM Bathrooms: a renovation company website, built to show the work.</h2>
+      <p class="demo-note__credit">
+        A fictional brand I designed and built. Not client work; photography
+        is Unsplash inspiration, credited in the demo.
+      </p>
+    </div>
+    <div>
+      <ul class="demo-note__points">
+        {points.map((p) => <li>{p}</li>)}
+      </ul>
+      <div class="demo-note__actions">
+        <a class="btn btn--lime" href={bathroomDemoUrl}>
+          Explore the bathroom demo
+          <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <a class="link-arrow demo-note__more" href="/possibilities/">
+          More on Possibilities
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .demo-note {
+    padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  }
+
+  /* Leave room for the hero stage, which overlaps the top of this band. */
+  @media (min-width: 960px) {
+    :global(.hero) + .demo-note {
+      padding-top: calc(clamp(3.5rem, 7vw, 5.5rem) + 3rem);
+    }
+  }
+
+  .demo-note__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 2rem clamp(2.5rem, 6vw, 6rem);
+    align-items: end;
+  }
+
+  .demo-note__heading {
+    margin-top: 1.25rem;
+    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+    line-height: 1.05;
+    font-weight: 620;
+    letter-spacing: -0.03em;
+    max-width: 22ch;
+  }
+
+  .demo-note__credit {
+    margin-top: 1rem;
+    max-width: 52ch;
+    font-size: 0.9rem;
+    color: var(--colour-on-dark-muted);
+  }
+
+  .demo-note__points {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .demo-note__points li {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+
+  .demo-note__points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--colour-lime);
+  }
+
+  .demo-note__actions {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .demo-note__more {
+    color: var(--colour-bg);
+  }
+
+  @media (max-width: 860px) {
+    .demo-note__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
