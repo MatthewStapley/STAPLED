@@ -58,6 +58,25 @@ const { title, description, path, noindex } = Astro.props;
         el.style.setProperty("--reveal-index", String(i % 6));
         observer.observe(el);
       });
+
+      // Magnetic call to action: the label eases up to 6px towards the
+      // pointer. Fine pointers only, never with reduced motion. The button
+      // itself (its hit area) doesn't move.
+      const magneticOk = window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)");
+      document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((btn) => {
+        btn.addEventListener("pointermove", (e) => {
+          if (!magneticOk.matches) return;
+          const r = btn.getBoundingClientRect();
+          const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+          const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+          btn.style.setProperty("--mx", `${(dx * 6).toFixed(1)}px`);
+          btn.style.setProperty("--my", `${(dy * 3).toFixed(1)}px`);
+        });
+        btn.addEventListener("pointerleave", () => {
+          btn.style.removeProperty("--mx");
+          btn.style.removeProperty("--my");
+        });
+      });
     </script>
   </body>
 </html>

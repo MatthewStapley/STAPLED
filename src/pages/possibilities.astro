@@ -1,178 +1,515 @@
 ---
-// Possibilities: an illustrated tour of the features Stapled. can build.
-// Until Matt confirms which projects and demos to show, this page uses
-// labelled illustrations only. Candidate projects are listed in
-// the private launch notes; Crema Current is excluded.
+// Possibilities: the finished FORM Bathrooms concept first, then two working
+// examples of features (a gallery and an enquiry-form builder), then a short
+// list of other features. Working examples are labelled as such; nothing on
+// this page is client work.
 //
-// Filtering is progressive: without JavaScript every feature shows and the
-// filter buttons stay hidden.
+// No before/after comparison: the demo has no matched "before" photo of any
+// room, and pairing unrelated images would misrepresent a renovation.
 import SiteLayout from "../layouts/SiteLayout.astro";
 import PageHero from "../components/ui/PageHero.astro";
-import Illustration from "../components/ui/Illustration.astro";
+import DemoShowcase from "../components/ui/DemoShowcase.astro";
 import ContactBand from "../components/ui/ContactBand.astro";
-import { features, goals, type Goal } from "../data/services";
 
-const filters: { id: "all" | Goal; label: string }[] = [
-  { id: "all", label: "All features" },
-  ...(Object.entries(goals) as [Goal, string][]).map(([id, label]) => ({ id, label })),
+const img = (name: string) => `/images/form-demo/${name}`;
+
+// Unsplash photographs used in the demo's inspiration gallery (credits as in
+// the demo's IMAGE-CREDITS.md). Inspiration only: not FORM or Stapled. work.
+const gallery = [
+  { id: "g1", alt: "A pale freestanding bath against a textured plaster wall, with palms", by: "Jared Rice" },
+  { id: "g2", alt: "A white oval bath in front of a grey stone wall, with a plant", by: "Rebecca Chandler" },
+  { id: "g3", alt: "A green double vanity with brass taps and arched mirrors", by: "Clay Banks" },
+  { id: "g5", alt: "A double vanity in front of a large mirror in a bright bathroom", by: "Christian Mackie" },
+  { id: "g6", alt: "A double vanity beside a walk-in shower in stone tones", by: "Peter Muniz" },
+  { id: "g8", alt: "A large white bath next to a glass walk-in shower", by: "Lotus Design N Print" },
+];
+
+const fields = [
+  { id: "job", label: "Type of job", on: true },
+  { id: "area", label: "Postcode area", on: true },
+  { id: "time", label: "Timescale", on: true },
+  { id: "photos", label: "Photos", on: true },
+  { id: "budget", label: "Rough budget", on: false },
+  { id: "call", label: "Best time to call", on: false },
+];
+
+const more = [
+  { title: "Service and area pages", body: "A clear page for each service and the places you cover." },
+  { title: "Tap to call or message", body: "Phone and WhatsApp one tap away on every page." },
+  { title: "Reviews, shown well", body: "Your customers' reviews where people are deciding." },
+  { title: "Quick on a weak signal", body: "Light pages that load fast, out and about." },
+  { title: "Google Business Profile help", body: "Set up or improved, and linked properly to your site." },
 ];
 ---
 
 <SiteLayout
   title="Possibilities | What your website could do | Stapled."
-  description="An illustrated tour of the website features I build for trade and service businesses: galleries, service and area pages, quote requests, tap-to-call and more."
+  description="Explore a finished bathroom company website concept, try a working gallery and enquiry form builder, and see the features I build for trade and service businesses."
   path="/possibilities/"
 >
   <PageHero
     eyebrow="Possibilities"
-    heading="What your website could do."
-    lead="A tour of the features I can build, shown as simple illustrations. Pick what matters most to your business, then we can talk about how it would work for you."
+    heading="See what your website could do."
+    lead="Start with a finished concept, then try a couple of the features yourself."
   />
 
-  <section class="tour" aria-labelledby="tour-heading">
-    <div class="container">
-      <h2 id="tour-heading" class="visually-hidden">Features</h2>
-      <div class="tour__filters" role="group" aria-label="Show features that help you" data-filters hidden>
-        {filters.map((f, i) => (
-          <button type="button" class="tour__chip" data-filter={f.id} aria-pressed={i === 0 ? "true" : "false"}>
-            {f.label}
-          </button>
-        ))}
-      </div>
-      <p class="tour__count" aria-live="polite" data-count></p>
+  <DemoShowcase id="concept" eyebrow="Featured concept" heading="FORM Bathrooms, a finished concept website." />
 
-      <ul class="tour__grid">
-        {features.map((f) => (
-          <li class="tour__card" data-goal={f.goal}>
-            <div class="tour__art" data-graphite>
-              <span class="tag tour__tag">Illustrative</span>
-              <Illustration variant={f.art} />
-            </div>
-            <div class="tour__body">
-              <p class="tour__goal">{goals[f.goal]}</p>
-              <h3 class="tour__title">{f.title}</h3>
-              <p class="tour__text">{f.body}</p>
-            </div>
+  <section class="inside" aria-labelledby="inside-heading">
+    <div class="container">
+      <h2 id="inside-heading" class="inside__heading">Inside the demo</h2>
+      <div class="inside__grid">
+        <figure class="inside__shot">
+          <img src={img("details-section-960.webp")} srcset={`${img("details-section-960.webp")} 960w, ${img("details-section-1600.webp")} 1600w`} sizes="(min-width: 900px) 600px, 92vw" width="1600" height="848" loading="lazy" decoding="async" alt="The demo's 'Small things, done properly' section, with close-up photos of brass tapware and a note on surfaces." />
+          <figcaption>Finishing details, each with its photo credit.</figcaption>
+        </figure>
+        <figure class="inside__shot">
+          <img src={img("gallery-section-960.webp")} srcset={`${img("gallery-section-960.webp")} 960w, ${img("gallery-section-1600.webp")} 1600w`} sizes="(min-width: 900px) 600px, 92vw" width="1600" height="848" loading="lazy" decoding="async" alt="The demo's 'Rooms worth borrowing from' gallery, explaining the photos are Unsplash inspiration, not FORM projects." />
+          <figcaption>An inspiration gallery that says plainly where its photos come from.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="try section" aria-labelledby="try-heading">
+    <div class="container">
+      <p class="eyebrow">Try it</p>
+      <h2 id="try-heading" class="headline try__heading">Two features you can use right here.</h2>
+
+      <article class="widget" aria-labelledby="gal-title">
+        <header class="widget__head">
+          <h3 id="gal-title" class="widget__title">Project gallery</h3>
+          <span class="tag">Working example</span>
+        </header>
+        <p class="widget__intro">Choose a photo to view it larger. On a real site, these would be your own finished jobs.</p>
+        <div class="gal" data-gallery>
+          <figure class="gal__main">
+            <img class="gal__img" src={img("g1-1200.webp")} width="1200" height="800" loading="lazy" decoding="async" alt={gallery[0].alt} data-gal-img />
+            <figcaption class="gal__cap" data-gal-cap>Photo: {gallery[0].by} / Unsplash. Inspiration image, not FORM or Stapled. work.</figcaption>
+          </figure>
+          <ul class="gal__thumbs" aria-label="Choose a photo">
+            {gallery.map((g, i) => (
+              <li>
+                <a
+                  class="gal__thumb"
+                  href={img(`${g.id}-1200.webp`)}
+                  data-full={img(`${g.id}-1200.webp`)}
+                  data-alt={g.alt}
+                  data-by={g.by}
+                  aria-current={i === 0 ? "true" : undefined}
+                >
+                  <img src={img(`${g.id}-card-480.webp`)} width="480" height="600" loading="lazy" decoding="async" alt={`View: ${g.alt}`} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+
+      <article class="widget" aria-labelledby="form-title">
+        <header class="widget__head">
+          <h3 id="form-title" class="widget__title">Quote request, built for your trade</h3>
+          <span class="tag">Working example</span>
+        </header>
+        <p class="widget__intro">Choose what you'd want to know before calling a customer back. The preview updates as you go.</p>
+        <div class="builder">
+          <fieldset class="builder__opts">
+            <legend class="builder__legend">Ask for</legend>
+            {fields.map((f) => (
+              <label class="opt">
+                <input type="checkbox" id={`f-${f.id}`} checked={f.on} />
+                <span class="opt__box" aria-hidden="true">
+                  <svg viewBox="0 0 24 16"><path class="opt__legs" d="M4 4v9M20 4v9"></path><path class="opt__crown" d="M4 4h16"></path></svg>
+                </span>
+                <span>{f.label}</span>
+              </label>
+            ))}
+          </fieldset>
+
+          <div class="preview" role="group" aria-label="Preview of the quote request form">
+            <p class="preview__title">Request a quote</p>
+            <div class="pf"><span>Your name</span><i></i></div>
+            <div class="pf"><span>Phone or email</span><i></i></div>
+            <div class="pf pf--job"><span>Type of job</span><i class="pf__select">Bathroom refit</i></div>
+            <div class="pf pf--area"><span>Postcode area</span><i></i></div>
+            <div class="pf pf--time"><span>Timescale</span><i class="pf__select">Next 3 months</i></div>
+            <div class="pf pf--budget"><span>Rough budget</span><i class="pf__select">Prefer to discuss</i></div>
+            <div class="pf pf--photos"><span>Photos</span><i class="pf__drop">Add photos of the space</i></div>
+            <div class="pf pf--call"><span>Best time to call</span><i class="pf__select">Evenings</i></div>
+            <span class="preview__btn">Send request</span>
+            <p class="preview__note">Preview only. This form doesn't send anything.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="more" aria-labelledby="more-heading">
+    <div class="container">
+      <h2 id="more-heading" class="more__heading">Also on the menu</h2>
+      <ul class="more__list">
+        {more.map((m) => (
+          <li>
+            <h3>{m.title}</h3>
+            <p>{m.body}</p>
           </li>
         ))}
       </ul>
     </div>
   </section>
 
-  <section class="ask section" aria-labelledby="ask-heading">
-    <div class="container ask__inner">
-      <h2 id="ask-heading" class="ask__heading">Something specific in mind?</h2>
-      <p class="lead">
-        If there's a feature you need that isn't here, ask. Most things a trade
-        or service business needs from a website can be built.
-      </p>
-    </div>
-  </section>
-
-  <ContactBand />
+  <ContactBand heading="Want something like this?" />
 </SiteLayout>
 
 <script>
-  const bar = document.querySelector<HTMLElement>("[data-filters]");
-  const count = document.querySelector<HTMLElement>("[data-count]");
-  const cards = Array.from(document.querySelectorAll<HTMLElement>(".tour__card"));
-  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
-
-  const apply = (goal: string) => {
-    let shown = 0;
-    for (const card of cards) {
-      const match = goal === "all" || card.dataset.goal === goal;
-      card.hidden = !match;
-      if (match) shown++;
-    }
-    for (const b of buttons) b.setAttribute("aria-pressed", String(b.dataset.filter === goal));
-    if (count) count.textContent = `Showing ${shown} ${shown === 1 ? "feature" : "features"}`;
-  };
-
-  if (bar) {
-    bar.hidden = false;
-    for (const b of buttons) b.addEventListener("click", () => apply(b.dataset.filter ?? "all"));
+  for (const gal of document.querySelectorAll<HTMLElement>("[data-gallery]")) {
+    const main = gal.querySelector<HTMLImageElement>("[data-gal-img]");
+    const cap = gal.querySelector<HTMLElement>("[data-gal-cap]");
+    const thumbs = [...gal.querySelectorAll<HTMLAnchorElement>(".gal__thumb")];
+    if (!main || !cap) continue;
+    const select = (t: HTMLAnchorElement, focus = false) => {
+      thumbs.forEach((o) => (o === t ? o.setAttribute("aria-current", "true") : o.removeAttribute("aria-current")));
+      main.classList.add("is-swapping");
+      const next = new Image();
+      next.src = t.dataset.full ?? t.href;
+      next
+        .decode()
+        .catch(() => {})
+        .finally(() => {
+          main.src = next.src;
+          main.alt = t.dataset.alt ?? "";
+          cap.textContent = `Photo: ${t.dataset.by} / Unsplash. Inspiration image, not FORM or Stapled. work.`;
+          main.classList.remove("is-swapping");
+        });
+      if (focus) t.focus();
+    };
+    thumbs.forEach((t, i) => {
+      t.addEventListener("click", (e) => {
+        e.preventDefault();
+        select(t);
+      });
+      t.addEventListener("keydown", (e) => {
+        const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        select(thumbs[(i + step + thumbs.length) % thumbs.length], true);
+      });
+    });
   }
 </script>
 
 <style>
-  .tour {
-    padding-bottom: clamp(4rem, 8vw, 7rem);
+  .inside__heading,
+  .more__heading {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    letter-spacing: -0.02em;
   }
 
-  .tour__filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .inside {
+    padding-block: clamp(3rem, 6vw, 4.5rem) 0;
   }
 
-  .tour__filters[hidden] {
-    display: none;
+  .inside__grid {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
   }
 
-  .tour__chip {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 0 1.1rem;
-    border-radius: 999px;
+  .inside__shot {
+    margin: 0;
+  }
+
+  .inside__shot img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--colour-border);
+    box-shadow: 0 30px 60px -40px rgb(17 17 17 / 0.45);
+  }
+
+  .inside__shot figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--colour-text-2);
+  }
+
+  .try__heading {
+    margin-top: 1.25rem;
+  }
+
+  .widget {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    border-radius: var(--radius-xl);
     border: 1px solid var(--colour-border);
     background: var(--colour-white);
-    color: var(--colour-ink);
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
-      border-color var(--dur-fast) var(--ease-out);
   }
 
-  .tour__chip:hover {
-    border-color: var(--colour-ink);
+  .widget__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
   }
 
-  .tour__chip[aria-pressed="true"] {
-    background: var(--colour-ink);
-    border-color: var(--colour-ink);
-    color: var(--colour-bg);
+  .widget__title {
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
   }
 
-  .tour__count {
-    margin-top: 0.75rem;
-    min-height: 1.5em;
+  .widget__intro {
+    margin-top: 0.5rem;
+    color: var(--colour-text-2);
+  }
+
+  /* Gallery ----------------------------------------------------------- */
+  .gal {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    gap: 1rem;
+  }
+
+  .gal__main {
+    margin: 0;
+  }
+
+  .gal__img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    background: var(--colour-paper-2);
+    transition: opacity 0.35s var(--ease-out), transform 0.5s var(--ease-out);
+  }
+
+  .gal__img.is-swapping {
+    opacity: 0.35;
+    transform: scale(0.99);
+  }
+
+  .gal__cap {
+    margin-top: 0.6rem;
     font-size: 0.85rem;
     color: var(--colour-muted);
   }
 
-  .tour__grid {
+  .gal__thumbs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    align-content: start;
+  }
+
+  .gal__thumb {
+    position: relative;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    outline-offset: 2px;
+  }
+
+  .gal__thumb img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    height: auto;
+    object-fit: cover;
+    filter: saturate(0.75);
+    transition: transform 0.5s var(--ease-out), filter 0.3s var(--ease-out);
+  }
+
+  .gal__thumb:hover img,
+  .gal__thumb:focus-visible img,
+  .gal__thumb[aria-current="true"] img {
+    filter: none;
+  }
+
+  .gal__thumb:hover img,
+  .gal__thumb:focus-visible img {
+    transform: scale(1.05);
+  }
+
+  .gal__thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 0 var(--colour-lime);
+    transition: box-shadow 0.3s var(--ease-out);
+  }
+
+  .gal__thumb[aria-current="true"]::after {
+    box-shadow: inset 0 0 0 3px var(--colour-lime);
+  }
+
+  /* Form builder ------------------------------------------------------ */
+  .builder {
     margin-top: 1.5rem;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
   }
 
-  .tour__card {
+  .builder__opts {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .builder__legend {
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--colour-muted);
+  }
+
+  .opt {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    background: var(--colour-white);
+    align-items: center;
+    gap: 0.85rem;
+    min-height: 48px;
+    padding: 0 1rem;
+    border-radius: 14px;
     border: 1px solid var(--colour-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    background: var(--colour-bg);
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out);
   }
 
-  .tour__card[hidden] {
-    display: none;
+  .opt:hover {
+    border-color: var(--colour-ink);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .tour__card {
-      animation: tour-in 0.45s var(--ease-out) both;
-    }
+  .opt input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
   }
 
-  @keyframes tour-in {
+  .opt:has(input:focus-visible) {
+    outline: 2px solid var(--colour-ink);
+    outline-offset: 3px;
+  }
+
+  .opt:has(input:checked) {
+    background: var(--colour-white);
+    border-color: var(--colour-ink);
+  }
+
+  /* The checkbox: when ticked, a staple fastens it. */
+  .opt__box {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    border: 1.5px solid var(--colour-border-strong);
+    background: var(--colour-white);
+    transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+  }
+
+  .opt__box svg {
+    width: 20px;
+    height: 14px;
+    fill: none;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    overflow: visible;
+  }
+
+  .opt__crown {
+    stroke: var(--colour-lime-ink);
+    stroke-dasharray: 18;
+    stroke-dashoffset: 18;
+    transition: stroke-dashoffset 0.25s var(--ease-out);
+  }
+
+  .opt__legs {
+    stroke: var(--colour-lime-ink);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: transform 0.2s var(--ease-out) 0.18s, opacity 0.12s linear 0.18s;
+  }
+
+  .opt input:checked + .opt__box {
+    background: var(--colour-lime);
+    border-color: var(--colour-lime-ink);
+  }
+
+  .opt input:checked + .opt__box .opt__crown {
+    stroke-dashoffset: 0;
+  }
+
+  .opt input:checked + .opt__box .opt__legs {
+    opacity: 1;
+    transform: none;
+  }
+
+  .preview {
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border-radius: 20px;
+    background: var(--colour-graphite);
+    color: var(--colour-bg);
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .preview__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .pf {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    animation: pf-in 0.4s var(--ease-out);
+  }
+
+  .pf span {
+    color: var(--colour-on-dark-muted);
+  }
+
+  .pf i {
+    display: block;
+    min-height: 40px;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    background: rgb(245 243 238 / 0.08);
+    border: 1px solid rgb(245 243 238 / 0.14);
+    font-style: normal;
+    color: var(--colour-bg);
+  }
+
+  .pf__select::after {
+    content: "▾";
+    float: right;
+    color: var(--colour-on-dark-muted);
+  }
+
+  .pf i.pf__drop {
+    border-style: dashed;
+    text-align: center;
+    color: var(--colour-on-dark-muted);
+  }
+
+  @keyframes pf-in {
     from {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(-6px);
     }
     to {
       opacity: 1;
@@ -180,70 +517,103 @@ const filters: { id: "all" | Goal; label: string }[] = [
     }
   }
 
-  .tour__art {
-    position: relative;
-    padding: 3.5rem 1.5rem 1.5rem;
+  /* Show a field only while its option is ticked (CSS :has, so it works
+     without JavaScript; browsers without :has simply show every field). */
+  .builder:has(#f-job:not(:checked)) .pf--job,
+  .builder:has(#f-area:not(:checked)) .pf--area,
+  .builder:has(#f-time:not(:checked)) .pf--time,
+  .builder:has(#f-photos:not(:checked)) .pf--photos,
+  .builder:has(#f-budget:not(:checked)) .pf--budget,
+  .builder:has(#f-call:not(:checked)) .pf--call {
+    display: none;
   }
 
-  .tour__art :global(.ill) {
-    max-width: 18rem;
-    margin-inline: auto;
-  }
-
-  .tour__tag {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-  }
-
-  .tour__body {
-    padding: 1.5rem 1.5rem 1.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .tour__goal {
-    font-size: 0.75rem;
+  .preview__btn {
+    margin-top: 0.25rem;
+    display: block;
+    padding: 0.8rem;
+    border-radius: 999px;
+    background: var(--colour-lime);
+    color: var(--colour-lime-ink);
+    text-align: center;
     font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--colour-muted);
   }
 
-  .tour__title {
-    font-size: 1.35rem;
+  .preview__note {
+    font-size: 0.78rem;
+    color: var(--colour-on-dark-muted);
+    text-align: center;
   }
 
-  .tour__text {
+  /* Also on the menu -------------------------------------------------- */
+  .more {
+    padding-bottom: clamp(3.5rem, 7vw, 5rem);
+  }
+
+  .more__list {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .more__list li {
+    padding-top: 1rem;
+    border-top: 2px solid var(--colour-ink);
+  }
+
+  .more__list h3 {
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+
+  .more__list p {
+    margin-top: 0.4rem;
+    font-size: 0.92rem;
     color: var(--colour-text-2);
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
-  .ask {
-    background: var(--colour-white);
-    border-top: 1px solid var(--colour-border);
-  }
+  @media (prefers-reduced-motion: reduce) {
+    .pf {
+      animation: none;
+    }
 
-  .ask__inner {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .ask__heading {
-    font-size: clamp(2rem, 4vw, 3rem);
-    letter-spacing: -0.03em;
+    .gal__img.is-swapping,
+    .gal__thumb:hover img,
+    .gal__thumb:focus-visible img {
+      transform: none;
+    }
   }
 
   @media (max-width: 1000px) {
-    .tour__grid {
+    .more__list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (max-width: 640px) {
-    .tour__grid {
+  @media (max-width: 860px) {
+    .inside__grid,
+    .builder,
+    .gal {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .gal__thumbs {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .gal__thumb img {
+      aspect-ratio: 1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .gal__thumbs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .more__list {
       grid-template-columns: minmax(0, 1fr);
     }
   }

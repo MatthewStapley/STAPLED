@@ -58,6 +58,7 @@ const isCurrent = (href: string) => current === href || current === href.replace
 
 <style>
   .nav {
+    view-transition-name: site-header;
     position: sticky;
     top: 0;
     z-index: 50;
@@ -217,6 +218,38 @@ const isCurrent = (href: string) => current === href || current === href.replace
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
+  }
+
+  /* Links rise in one after another when the menu opens. */
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-menu li,
+    #mobile-menu-cta {
+      animation: menu-item 0.5s var(--ease-out) both;
+    }
+
+    .mobile-menu li:nth-child(1) { animation-delay: 0.04s; }
+    .mobile-menu li:nth-child(2) { animation-delay: 0.08s; }
+    .mobile-menu li:nth-child(3) { animation-delay: 0.12s; }
+    .mobile-menu li:nth-child(4) { animation-delay: 0.16s; }
+    #mobile-menu-cta { animation-delay: 0.22s; }
+  }
+
+  @keyframes menu-item {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .mobile-menu__link[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-color: var(--colour-lime);
+    text-decoration-thickness: 4px;
+    text-underline-offset: 0.2em;
   }
 
   .mobile-menu__link {

@@ -1,58 +1,95 @@
 ---
-// "How it comes together": three short panels on graphite. On wide screens
-// a phone stays pinned beside them and its screen changes as each panel
-// scrolls past (CSS scroll timelines, no JavaScript). The text carries the
-// whole story; the phone is decorative. On phones, and anywhere scroll
-// timelines or motion aren't available, each panel shows its own small
-// illustration instead and the pinned phone shows its first screen only.
-import Illustration from "../ui/Illustration.astro";
-
-const panels = [
-  {
-    title: "Someone needs a new roof. They search on their phone.",
-    body: "Your business shows up with clear services, the areas you cover and photos of real jobs.",
-    art: "website" as const,
-  },
-  {
-    title: "They can tell straight away that you do this properly.",
-    body: "Fast pages, plain English and genuine work. No stock photos of someone else's roof.",
-    art: "profile" as const,
-  },
-  {
-    title: "They send a quote request you can actually price.",
-    body: "It asks what you'd ask on the phone, so you get the job type, rough location and photos in one message.",
-    art: "enquiry" as const,
-  },
-];
+// "How it works for a customer": three steps (search and business profile,
+// website, enquiry), each with its own phone screen, using the fictional
+// FORM Bathrooms concept as the example.
+//
+// Wide screens with JavaScript and motion allowed: the phone stays pinned
+// beside the steps and its screen changes when a step reaches the middle of
+// the window (IntersectionObserver, so it works in every current browser,
+// not only those with CSS scroll timelines). The new screen wipes up over
+// the old one, so a half-finished change never shows two faded interfaces.
+// Everywhere else (phones, reduced motion, no JavaScript): each step shows
+// its own screen inline, and nothing is pinned.
+const img = (name: string) => `/images/form-demo/${name}`;
 ---
 
-<section class="story section" data-graphite aria-labelledby="story-heading">
+<section class="story section" data-graphite aria-labelledby="story-heading" data-story>
   <div class="container">
-    <p class="eyebrow">How it comes together</p>
-    <h2 id="story-heading" class="headline story__heading">From a search to a job you can price.</h2>
-    <p class="tag story__tag">Illustrative example</p>
+    <p class="eyebrow">How it works for your customers</p>
+    <h2 id="story-heading" class="headline story__heading">From a search to an enquiry you can act on.</h2>
+    <p class="story__note">Illustrated with the FORM Bathrooms concept, a fictional brand.</p>
 
     <div class="story__grid">
-      <ol class="story__panels">
-        {panels.map((p, i) => (
-          <li class={`story__panel story__panel--${i + 1}`}>
-            <span class="story__step" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-            <h3 class="story__title">{p.title}</h3>
-            <p class="story__body">{p.body}</p>
-            <div class="story__inline">
-              <Illustration variant={p.art} />
+      <ol class="story__steps">
+        <li class="story__step" data-step="0">
+          <span class="story__n" aria-hidden="true">01</span>
+          <h3 class="story__title">They find you.</h3>
+          <p class="story__body">
+            Someone looking for a bathroom fitter finds a complete business
+            profile: what you do, where you work, photos, and a link straight
+            to your website.
+          </p>
+          <div class="story__inline" aria-hidden="true">
+            <div class="screen screen--profile">
+              <div class="pf__photos">
+                <img src={img("g2-card-480.webp")} alt="" width="480" height="600" loading="lazy" decoding="async" />
+                <img src={img("g3-card-480.webp")} alt="" width="480" height="600" loading="lazy" decoding="async" />
+              </div>
+              <p class="pf__name">FORM Bathrooms</p>
+              <p class="pf__meta">Bathroom designer · Serves your area</p>
+              <div class="pf__actions"><span>Call</span><span class="is-primary">Website</span><span>Directions</span></div>
+              <ul class="pf__services"><li>Bathroom design</li><li>Full refits</li><li>Wet rooms</li></ul>
             </div>
-          </li>
-        ))}
+          </div>
+        </li>
+        <li class="story__step" data-step="1">
+          <span class="story__n" aria-hidden="true">02</span>
+          <h3 class="story__title">Your website shows the work.</h3>
+          <p class="story__body">
+            One tap later they're on a site that looks the part on a phone,
+            shows your projects clearly and explains what you offer.
+          </p>
+          <div class="story__inline" aria-hidden="true">
+            <div class="screen screen--site">
+              <img src={img("mobile-390.webp")} srcset={`${img("mobile-390.webp")} 390w, ${img("mobile-780.webp")} 780w`} sizes="300px" alt="" width="390" height="844" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </li>
+        <li class="story__step" data-step="2">
+          <span class="story__n" aria-hidden="true">03</span>
+          <h3 class="story__title">The enquiry arrives with the details.</h3>
+          <p class="story__body">
+            The quote request asks the questions you'd ask on the phone, so you
+            have better information before you call back, and understand the
+            job before you arrange a visit.
+          </p>
+          <div class="story__inline" aria-hidden="true">
+            <div class="screen screen--enquiry">
+              <p class="eq__from">New enquiry</p>
+              <p class="eq__title">Bathroom refit</p>
+              <dl class="eq__rows">
+                <div><dt>Area</dt><dd>Postcode district</dd></div>
+                <div><dt>Timescale</dt><dd>Next 3 months</dd></div>
+                <div><dt>Best contact</dt><dd>Phone, evenings</dd></div>
+              </dl>
+              <p class="eq__label">Inspiration photos</p>
+              <div class="eq__thumbs">
+                <img src={img("g1-card-480.webp")} alt="" width="480" height="600" loading="lazy" decoding="async" />
+                <img src={img("g5-card-480.webp")} alt="" width="480" height="600" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+        </li>
       </ol>
 
-      <div class="story__phone-col" aria-hidden="true">
+      <div class="story__pin" aria-hidden="true">
         <div class="story__phone">
-          {panels.map((p, i) => (
-            <div class={`story__screen story__screen--${i + 1}`}>
-              <Illustration variant={p.art} />
-            </div>
-          ))}
+          <div class="story__screens">
+            <div class="story__screen is-active" data-screen="0"></div>
+            <div class="story__screen" data-screen="1"></div>
+            <div class="story__screen" data-screen="2"></div>
+          </div>
+          <ol class="story__dots"><li></li><li></li><li></li></ol>
         </div>
       </div>
     </div>
@@ -60,153 +97,372 @@ const panels = [
 </section>
 
 <style>
-  .story__heading {
-    margin-top: 1.5rem;
+  /* Straight after the dark demo band: carry on without a second gap. */
+  :global(.demo) + .story {
+    padding-top: clamp(1rem, 3vw, 2rem);
   }
 
-  .story__tag {
-    margin-top: 1.5rem;
+  :global(.demo) + .story .container {
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+    border-top: 1px solid rgb(245 243 238 / 0.12);
+  }
+
+  .story__heading {
+    margin-top: 1.25rem;
+  }
+
+  .story__note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--colour-on-dark-muted);
   }
 
   .story__grid {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 6vw, 6rem);
-    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .story__panel {
-    /* Fixed, not viewport-relative: a vh height balloons in tall frames. */
-    min-height: 40rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.1rem;
-    max-width: 30rem;
+  .story__steps {
+    display: grid;
+    gap: 3rem;
   }
 
   .story__step {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 32rem;
+  }
+
+  .story__n {
     font-family: var(--font-display);
     font-weight: 600;
     color: var(--colour-lime);
   }
 
   .story__title {
-    font-size: clamp(2rem, 3.4vw, 3rem);
-    line-height: 1.02;
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.04;
     font-weight: 620;
     letter-spacing: -0.03em;
   }
 
   .story__body {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     line-height: 1.55;
     color: var(--colour-on-dark-muted);
+    max-width: 44ch;
   }
 
   .story__inline {
+    margin-top: 0.75rem;
+    max-width: 18.5rem;
+  }
+
+  .story__pin {
     display: none;
   }
 
-  .story__phone-col {
-    position: sticky;
-    top: 6rem;
+  /* Screens ---------------------------------------------------------- */
+  .screen {
+    border-radius: 26px;
+    overflow: hidden;
+    background: var(--colour-bg);
+    color: var(--colour-ink);
+    box-shadow: 0 30px 60px -36px rgb(0 0 0 / 0.9);
+  }
+
+  .screen--profile,
+  .screen--enquiry {
+    padding: 1.1rem;
+    display: grid;
+    gap: 0.55rem;
+    align-content: start;
+  }
+
+  .screen--site img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Inline (phones, reduced motion): show the top of the site, not the
+     full-height screenshot. */
+  .story__inline .screen--site {
+    max-height: 22rem;
+  }
+
+  .pf__photos {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: 100%;
+    gap: 6px;
+    height: 120px;
+    overflow: hidden;
+    margin: -0.35rem -0.35rem 0.4rem;
+  }
+
+  .pf__photos img,
+  .eq__thumbs img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .pf__name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .pf__meta,
+  .eq__from,
+  .eq__label {
+    font-size: 0.75rem;
+    color: var(--colour-muted);
+  }
+
+  .pf__actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 0.3rem;
+  }
+
+  .pf__actions span {
+    padding: 0.5rem 0;
+    border-radius: 999px;
+    border: 1px solid var(--colour-border);
+    background: var(--colour-white);
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .pf__actions .is-primary {
+    background: var(--colour-lime);
+    border-color: var(--colour-lime);
+    color: var(--colour-lime-ink);
+  }
+
+  .pf__services {
     display: flex;
-    justify-content: center;
-    padding-block: 1.5rem;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 0.3rem;
+  }
+
+  .pf__services li {
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: var(--colour-paper-2);
+    font-size: 0.7rem;
+  }
+
+  .eq__title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .eq__rows {
+    margin: 0.2rem 0 0;
+    border-radius: 14px;
+    background: var(--colour-white);
+    border: 1px solid var(--colour-paper-2);
+    padding: 0.2rem 0.8rem;
+  }
+
+  .eq__rows div {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-block: 0.5rem;
+    font-size: 0.78rem;
+    border-bottom: 1px solid var(--colour-paper-2);
+  }
+
+  .eq__rows div:last-child {
+    border-bottom: 0;
+  }
+
+  .eq__rows dt {
+    color: var(--colour-muted);
+  }
+
+  .eq__rows dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .eq__thumbs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+    gap: 6px;
+    height: 92px;
+    overflow: hidden;
+  }
+
+  /* Pinned phone (enhanced layout only) ------------------------------ */
+  @media (min-width: 861px) and (prefers-reduced-motion: no-preference) {
+    .story[data-enhanced] .story__grid {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: start;
+    }
+
+    /* Room below the last step so the pinned phone stays clear of the
+       header while the last step is being read. */
+    .story[data-enhanced] .story__steps {
+      gap: 0;
+      padding-bottom: 9rem;
+    }
+
+    .story[data-enhanced] .story__step {
+      min-height: 22rem;
+      align-content: center;
+      opacity: 0.7;
+      transition: opacity 0.5s var(--ease-out);
+    }
+
+    .story[data-enhanced] .story__step.is-active {
+      opacity: 1;
+    }
+
+    .story[data-enhanced] .story__inline {
+      display: none;
+    }
+
+    .story[data-enhanced] .story__pin {
+      display: block;
+      position: sticky;
+      top: max(6rem, calc(50vh - 18rem));
+    }
   }
 
   .story__phone {
-    position: relative;
-    height: min(38.75rem, calc(100vh - 9.5rem));
-    aspect-ratio: 300 / 620;
-    border-radius: 48px;
+    width: 18.5rem;
+    padding: 10px;
+    border-radius: 44px;
     background: #0b0c0d;
-    box-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.8), inset 0 0 0 1px rgb(255 255 255 / 0.08);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 50px 90px -40px rgb(0 0 0 / 0.9);
+  }
+
+  .story__screens {
+    position: relative;
+    aspect-ratio: 9 / 18.5;
+    border-radius: 34px;
+    overflow: hidden;
+    background: var(--colour-bg);
   }
 
   .story__screen {
     position: absolute;
-    inset: 12px;
-    border-radius: 38px;
+    inset: 0;
     overflow: hidden;
-    background: var(--colour-bg);
-    padding: 3rem 0.9rem 1rem;
-    display: flex;
-    align-items: flex-start;
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 0.55s var(--ease-out);
   }
 
-  .story__screen :global(.ill-card) {
+  .story__screen > .screen {
+    height: 100%;
+    border-radius: 0;
     box-shadow: none;
+    padding-top: 2.6rem;
   }
 
-  .story__screen--2,
-  .story__screen--3 {
-    display: none;
+  .story__screen > .screen--site {
+    padding-top: 0;
   }
 
-  @supports (timeline-scope: --a) {
-    @media (prefers-reduced-motion: no-preference) and (min-width: 861px) {
-      .story__grid {
-        timeline-scope: --story-2, --story-3;
-      }
-
-      .story__panel--2 {
-        view-timeline: --story-2 block;
-      }
-
-      .story__panel--3 {
-        view-timeline: --story-3 block;
-      }
-
-      .story__screen--2,
-      .story__screen--3 {
-        display: flex;
-        opacity: 0;
-        animation: story-swap linear both;
-        animation-range: entry 40% contain 10%;
-      }
-
-      .story__screen--2 {
-        animation-timeline: --story-2;
-      }
-
-      .story__screen--3 {
-        animation-timeline: --story-3;
-      }
-    }
+  .story__screen.is-active,
+  .story__screen.was-active {
+    clip-path: inset(0 0 0 0);
   }
 
-  @keyframes story-swap {
-    from {
-      opacity: 0;
-      transform: scale(0.96);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
+  .story__screen.is-active {
+    z-index: 2;
   }
 
-  @media (max-width: 860px) {
-    .story__grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
+  .story__screen.was-active {
+    z-index: 1;
+  }
 
-    .story__phone-col {
-      display: none;
-    }
+  .story__dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
 
-    .story__panel {
-      min-height: 0;
-      padding-block: 2rem 1rem;
-      max-width: none;
-    }
+  .story__dots li {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgb(245 243 238 / 0.25);
+    transition: background 0.3s var(--ease-out), width 0.3s var(--ease-out);
+  }
 
-    .story__inline {
-      display: block;
-      max-width: 20rem;
-      margin-top: 0.5rem;
-    }
+  .story__dots li.is-active {
+    width: 18px;
+    border-radius: 3px;
+    background: var(--colour-lime);
   }
 </style>
+
+<script>
+  const wide = window.matchMedia("(min-width: 861px) and (prefers-reduced-motion: no-preference)");
+
+  for (const section of document.querySelectorAll<HTMLElement>("[data-story]")) {
+    const steps = [...section.querySelectorAll<HTMLElement>(".story__step")];
+    const screens = [...section.querySelectorAll<HTMLElement>(".story__screen")];
+    const dots = [...section.querySelectorAll<HTMLElement>(".story__dots li")];
+
+    // Fill the pinned phone with copies of each step's inline screen, so the
+    // content lives in one place.
+    screens.forEach((slot, i) => {
+      const source = steps[i]?.querySelector(".screen");
+      if (source && !slot.firstElementChild) slot.append(source.cloneNode(true));
+    });
+
+    let current = -1;
+    const show = (i: number) => {
+      if (i === current) return;
+      screens.forEach((s, j) => {
+        s.classList.toggle("was-active", j === current);
+        s.classList.toggle("is-active", j === i);
+      });
+      steps.forEach((s, j) => s.classList.toggle("is-active", j === i));
+      dots.forEach((d, j) => d.classList.toggle("is-active", j === i));
+      current = i;
+    };
+
+    let io: IntersectionObserver | undefined;
+    const setUp = () => {
+      io?.disconnect();
+      if (!wide.matches || !("IntersectionObserver" in window)) {
+        section.removeAttribute("data-enhanced");
+        return;
+      }
+      section.setAttribute("data-enhanced", "");
+      show(0);
+      // A step becomes active when it crosses the middle band of the window.
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) show(steps.indexOf(e.target as HTMLElement));
+          }
+        },
+        { rootMargin: "-45% 0px -45% 0px" }
+      );
+      steps.forEach((s) => io!.observe(s));
+    };
+
+    setUp();
+    wide.addEventListener("change", setUp);
+  }
+</script>

@@ -47,9 +47,19 @@ const legs = mono ? crown : "var(--colour-ink)";
     stroke-width: 0.085em;
   }
 
+  .staple--stretch .staple__crown {
+    stroke-dasharray: none;
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .staple--animated .staple__crown {
       animation: staple-crown 0.5s var(--ease-out) 0.55s both;
+    }
+
+    .staple--animated.staple--stretch .staple__crown {
+      animation-name: staple-crown-scale;
     }
 
     .staple--animated .staple__legs {
@@ -63,6 +73,15 @@ const legs = mono ? crown : "var(--colour-ink)";
     }
     to {
       stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes staple-crown-scale {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
     }
   }
 

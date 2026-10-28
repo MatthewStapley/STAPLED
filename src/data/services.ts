@@ -23,6 +23,8 @@ export const services: {
   id: string;
   n: string;
   title: string;
+  /** One line for the homepage. */
+  short: string;
   summary: string;
   includes: string[];
   note?: string;
@@ -32,6 +34,7 @@ export const services: {
     id: "websites",
     n: "01",
     title: "Websites, built around your work",
+    short: "New sites and redesigns that show your real jobs and work beautifully on a phone.",
     summary:
       "New websites and redesigns, built around your trade, the areas you cover and photos of your real jobs. Fast and easy to use on a phone.",
     includes: [
@@ -46,6 +49,7 @@ export const services: {
     id: "google",
     n: "02",
     title: "Google Business Profile and search basics",
+    short: "Help with an eligible Google Business Profile, and a site search engines can understand.",
     summary:
       "Help setting up or improving an eligible Google Business Profile, and a website built so search engines can understand it.",
     includes: [
@@ -55,13 +59,14 @@ export const services: {
       "Fast, well-structured pages",
     ],
     note:
-      "Rankings depend on many things outside any one website, so I don't promise positions or a number of enquiries. I make sure the basics are done properly.",
+      "Search rankings depend on many factors, so the focus is on getting the foundations right: an accurate profile and a clear, fast website.",
     art: "profile",
   },
   {
     id: "enquiries",
     n: "03",
     title: "Easier enquiries",
+    short: "Tap-to-call, messaging and quote requests that ask the right questions up front.",
     summary:
       "Clear ways for customers to get in touch: one-tap calling and messaging, and quote requests that ask for the job, the area and a few photos.",
     includes: [
@@ -75,6 +80,7 @@ export const services: {
     id: "care",
     n: "04",
     title: "Hosting and care",
+    short: "Optional hosting, updates, backups and small changes from the person who built it.",
     summary:
       "Optional hosting, updates, backups and small changes, handled by the person who built your site. Set out in your written quote if you want it.",
     includes: [
@@ -122,7 +128,7 @@ export const features: {
     id: "reviews",
     goal: "look",
     title: "Genuine reviews, shown well",
-    body: "Real reviews from your customers, presented clearly. Never invented, never padded.",
+    body: "Real reviews from your customers, presented clearly where people are deciding.",
     art: "reviews",
   },
   {
@@ -136,14 +142,14 @@ export const features: {
     id: "profile",
     goal: "found",
     title: "Google Business Profile help",
-    body: "Help setting up or improving an eligible profile, linked properly to your website. No promised rankings.",
+    body: "Help setting up or improving an eligible profile, linked properly to your website.",
     art: "profile",
   },
   {
     id: "quote",
     goal: "enquire",
     title: "Quote request forms",
-    body: "Ask for the job type, area and photos up front, so you can price the work before you visit.",
+    body: "Ask for the job type, area, timing and photos up front, so you understand the job before you call back or arrange a visit.",
     art: "enquiry",
   },
   {

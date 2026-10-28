@@ -1,0 +1,231 @@
+---
+// How working together happens: four steps joined by a line that fastens a
+// small staple at each step as it reaches it (once, when the section comes
+// into view). Ends with the compact "scope and price in writing" note.
+// Without JavaScript or with reduced motion, everything is simply shown.
+import { steps } from "../../data/services";
+import { ctas } from "../../data/config";
+---
+
+<section class="wt section" aria-labelledby="wt-heading" data-fasten>
+  <div class="container">
+    <p class="eyebrow">Working together</p>
+    <h2 id="wt-heading" class="headline wt__heading">Straightforward from first chat to launch.</h2>
+
+    <ol class="wt__steps">
+      {steps.map((s, i) => (
+        <li class="wt__step" style={`--i: ${i}`}>
+          <svg class="wt__staple" viewBox="0 0 40 18" aria-hidden="true">
+            <path class="wt__legs" d="M5 5v10M35 5v10"></path>
+            <path class="wt__crown" d="M5 5h30"></path>
+          </svg>
+          <span class="wt__n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="wt__title">{s.title}</h3>
+          <p class="wt__body">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="wt__price">
+      <div>
+        <h3 class="wt__price-title">Scope and price, agreed in writing</h3>
+        <p class="wt__price-body">
+          Every project is quoted individually. Your written quote sets out what's
+          included and the total price, plus any hosting and care you choose,
+          before any work starts.
+        </p>
+      </div>
+      <a href={ctas.primary.href} class="btn btn--primary">
+        {ctas.primary.label}
+        <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wt__heading {
+    margin-top: 1.25rem;
+  }
+
+  .wt__steps {
+    position: relative;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  /* The connecting line, behind the staples. */
+  .wt__steps::before,
+  .wt__steps::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 8px;
+    height: 2px;
+    background: var(--colour-border);
+  }
+
+  .wt__steps::after {
+    background: var(--colour-ink);
+    transform-origin: left;
+  }
+
+  .wt__step {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+  }
+
+  .wt__staple {
+    position: relative;
+    z-index: 1;
+    width: 40px;
+    height: 18px;
+    margin-bottom: 0.75rem;
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    overflow: visible;
+    background: var(--colour-bg);
+    padding-inline: 2px;
+    box-sizing: content-box;
+  }
+
+  .wt__crown {
+    stroke: var(--colour-lime);
+    stroke-dasharray: 30;
+  }
+
+  .wt__legs {
+    stroke: var(--colour-ink);
+  }
+
+  .wt__n {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--colour-muted);
+  }
+
+  .wt__title {
+    font-size: 1.35rem;
+  }
+
+  .wt__body {
+    color: var(--colour-text-2);
+    line-height: 1.55;
+  }
+
+  /* Enhanced: the line draws across, and each staple fastens as it's
+     reached. Only when scripts run and motion is welcome. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .wt__steps::after {
+      transform: scaleX(0);
+      transition: transform 1.3s var(--ease-out) 0.1s;
+    }
+
+    :global(.js) .wt__crown {
+      stroke-dashoffset: 30;
+      transition: stroke-dashoffset 0.35s var(--ease-out);
+      transition-delay: calc(0.15s + var(--i) * 0.32s);
+    }
+
+    :global(.js) .wt__legs {
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: transform 0.3s var(--ease-out), opacity 0.2s linear;
+      transition-delay: calc(0.4s + var(--i) * 0.32s);
+    }
+
+    :global(.js) .wt.is-in .wt__steps::after {
+      transform: scaleX(1);
+    }
+
+    :global(.js) .wt.is-in .wt__crown {
+      stroke-dashoffset: 0;
+    }
+
+    :global(.js) .wt.is-in .wt__legs {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .wt__price {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding: clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem 3rem;
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-lg);
+    background: var(--colour-white);
+  }
+
+  .wt__price-title {
+    font-size: 1.35rem;
+  }
+
+  .wt__price-body {
+    margin-top: 0.5rem;
+    max-width: 56ch;
+    color: var(--colour-text-2);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 900px) {
+    .wt__steps {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      row-gap: 2.5rem;
+    }
+
+    .wt__steps::before,
+    .wt__steps::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .wt__steps {
+      gap: 1.75rem 1.25rem;
+    }
+
+    .wt__title {
+      font-size: 1.15rem;
+    }
+
+    .wt__body {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .wt__steps {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  for (const el of document.querySelectorAll<HTMLElement>("[data-fasten]")) {
+    if (!("IntersectionObserver" in window)) {
+      el.classList.add("is-in");
+      continue;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          el.classList.add("is-in");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(el.querySelector("ol") ?? el);
+  }
+</script>

@@ -2,8 +2,6 @@
 // Services in detail. No prices: everything is quoted in writing.
 import SiteLayout from "../layouts/SiteLayout.astro";
 import PageHero from "../components/ui/PageHero.astro";
-import Illustration from "../components/ui/Illustration.astro";
-import QuoteSheet from "../components/ui/QuoteSheet.astro";
 import ContactBand from "../components/ui/ContactBand.astro";
 import { services, steps } from "../data/services";
 import { ctas } from "../data/config";
@@ -23,7 +21,7 @@ const faqs = [
   },
   {
     q: "Can you get me to the top of Google?",
-    a: "No one can honestly promise that. Rankings depend on many things outside any one website. What I can do is help with an eligible Google Business Profile and make sure your website gives search engines a clear, accurate picture of what you do and where.",
+    a: "Rankings depend on many factors outside any one website, so nobody can honestly promise a position. What I can do is help with an eligible Google Business Profile and make sure your website gives search engines a clear, accurate picture of what you do and where.",
   },
   {
     q: "Do I need to write the content?",
@@ -66,15 +64,13 @@ const faqs = [
           <p class="detail__num" aria-hidden="true">{s.n}</p>
           <h2 id={`${s.id}-heading`} class="detail__title">{s.title}</h2>
           <p class="lead detail__summary">{s.summary}</p>
+        </div>
+        <div class="detail__more">
           <h3 class="detail__label">What's included</h3>
           <ul class="detail__list">
             {s.includes.map((item) => <li>{item}</li>)}
           </ul>
           {s.note && <p class="detail__note">{s.note}</p>}
-        </div>
-        <div class="detail__art" data-graphite>
-          <span class="tag detail__tag">Illustrative</span>
-          <Illustration variant={s.art} />
         </div>
       </div>
     </section>
@@ -97,18 +93,22 @@ const faqs = [
   </section>
 
   <section id="pricing" class="price section" aria-labelledby="price-heading">
-    <div class="container price__grid">
-      <div>
-        <p class="eyebrow">Pricing</p>
-        <h2 id="price-heading" class="headline price__heading">Quoted in writing, once I understand what you need.</h2>
-        <p class="lead price__lead">
-          There are no packages to squeeze into. Tell me about your business and
-          what you need, and you'll get a written quote with what's included and
-          the total price. Nothing is payable until you accept it.
-        </p>
-        <a href={ctas.primary.href} class="btn btn--lime price__cta">{ctas.primary.label}</a>
+    <div class="container">
+      <div class="price__box">
+        <div>
+          <p class="eyebrow">Pricing</p>
+          <h2 id="price-heading" class="price__heading">Scope and price, agreed in writing.</h2>
+          <p class="price__lead">
+            There are no packages to squeeze into. Tell me about your business and
+            what you need, and you'll get a written quote with what's included and
+            the total price. Nothing is payable until you accept it.
+          </p>
+        </div>
+        <a href={ctas.primary.href} class="btn btn--lime">
+          {ctas.primary.label}
+          <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
       </div>
-      <QuoteSheet />
     </div>
   </section>
 
@@ -175,15 +175,19 @@ const faqs = [
     background: var(--colour-white);
   }
 
+  .detail {
+    padding-block: clamp(3rem, 6vw, 4.75rem);
+  }
+
   .detail__grid {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 6vw, 6rem);
-    align-items: center;
+    gap: 1.5rem clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
   }
 
-  .detail--alt .detail__art {
-    order: -1;
+  .detail__more {
+    padding-top: 0.5rem;
   }
 
   .detail__num {
@@ -208,7 +212,7 @@ const faqs = [
   }
 
   .detail__label {
-    margin-top: 2rem;
+    margin-top: 0;
     font-family: var(--font-body);
     font-size: 0.8125rem;
     font-weight: 600;
@@ -252,23 +256,6 @@ const faqs = [
     background: var(--colour-bg);
     color: var(--colour-text-2);
     line-height: 1.55;
-  }
-
-  .detail__art {
-    position: relative;
-    border-radius: var(--radius-xl);
-    padding: 4rem clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
-  }
-
-  .detail__art :global(.ill) {
-    max-width: 22rem;
-    margin-inline: auto;
-  }
-
-  .detail__tag {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
   }
 
   .how {
@@ -316,19 +303,29 @@ const faqs = [
     border-block: 1px solid var(--colour-border);
   }
 
-  .price__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 6vw, 6rem);
+  .price__box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
+    gap: 1.5rem 3rem;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--colour-border);
+    background: var(--colour-bg);
+  }
+
+  .price__heading {
+    margin-top: 1rem;
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    letter-spacing: -0.025em;
   }
 
   .price__lead {
-    margin-top: 1.5rem;
-  }
-
-  .price__cta {
-    margin-top: 2.25rem;
+    margin-top: 0.75rem;
+    max-width: 58ch;
+    color: var(--colour-text-2);
+    line-height: 1.6;
   }
 
   .faq__grid {
@@ -383,14 +380,10 @@ const faqs = [
 
   @media (max-width: 960px) {
     .detail__grid,
-    .price__grid,
     .faq__grid {
       grid-template-columns: minmax(0, 1fr);
     }
 
-    .detail--alt .detail__art {
-      order: 0;
-    }
 
     .how__list {
       grid-template-columns: repeat(2, minmax(0, 1fr));

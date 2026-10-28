@@ -1,10 +1,10 @@
 ---
-// Homepage hero: services first. The headline is fastened by the staple,
-// and the graphite stage previews the three things Stapled. helps with
-// using labelled illustrations (no project screenshots).
+// Homepage hero: what Stapled. does, said once. The staple fastens the
+// headline (the site's signature motion), and the main call to action eases
+// slightly towards the pointer on desktop (the magnetic script lives in
+// Layout.astro).
 import StapleMark from "../ui/StapleMark.astro";
-import Illustration from "../ui/Illustration.astro";
-import { ctas } from "../../data/config";
+import { ctas, site } from "../../data/config";
 
 const trades = [
   "Roofing",
@@ -13,17 +13,11 @@ const trades = [
   "Bathrooms and kitchens",
   "Plumbing and heating",
 ];
-
-const stage = [
-  { n: "01", label: "A website that shows your work", art: "website" as const },
-  { n: "02", label: "Help being found on Google", art: "profile" as const },
-  { n: "03", label: "Enquiries that are easy to act on", art: "enquiry" as const },
-];
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
   <div class="container">
-    <p class="eyebrow hero__eyebrow">Websites and digital support for trade and service businesses</p>
+    <p class="eyebrow hero__eyebrow">{site.location}</p>
     <h1 id="hero-heading" class="display hero__heading">
       <span class="hero__line">Your work is good.</span>
       <span class="hero__line">Your website should{" "}<span class="hero__fasten">show it.<StapleMark class="hero__staple" animated stretch /></span></span>
@@ -32,49 +26,36 @@ const stage = [
     <div class="hero__row">
       <div class="hero__copy">
         <p class="lead hero__lead">
-          Stapled. provides websites and digital support for trade and service
-          businesses: a website that shows your work properly, help being found
-          on Google, and simpler ways for customers to get in touch. Built and
-          looked after personally by me, Matt.
-        </p>
-        <p class="hero__place">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" stroke="currentColor" stroke-width="1.6"></path><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"></circle></svg>
-          Serving Southampton and businesses across the UK
+          Websites, Google support and simpler enquiries for trade and service
+          businesses. Designed, built and looked after personally by Matt.
         </p>
         <div class="hero__actions">
-          <a href={ctas.primary.href} class="btn btn--lime">{ctas.primary.label}</a>
-          <a href="/services/" class="link-arrow">
-            How I can help
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <a href={ctas.primary.href} class="btn btn--lime" data-magnetic>
+            <span class="btn__label">
+              {ctas.primary.label}
+              <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </span>
+          </a>
+          <a href="#demo" class="link-arrow">
+            See the bathroom demo
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </a>
         </div>
       </div>
       <div class="hero__trades">
-        <p class="visually-hidden">Businesses I work with:</p>
+        <p class="hero__trades-label">Especially for</p>
         <ul class="trades">
           {trades.map((t) => <li>{t}</li>)}
           <li class="trades__other">and other service businesses</li>
         </ul>
       </div>
     </div>
-
-    <div class="stage" data-graphite>
-      <p class="tag stage__tag">Illustrative examples, not a real business</p>
-      <ul class="stage__grid">
-        {stage.map((s) => (
-          <li class="stage__item">
-            <Illustration variant={s.art} />
-            <p class="stage__cap"><span aria-hidden="true">{s.n}</span>{s.label}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    padding-block: clamp(3.5rem, 8vw, 7.5rem) clamp(4rem, 8vw, 7.5rem);
+    padding-block: clamp(3.5rem, 7vw, 6.5rem) clamp(3rem, 6vw, 5rem);
   }
 
   .hero__heading {
@@ -100,7 +81,7 @@ const stage = [
   }
 
   .hero__row {
-    margin-top: clamp(2.5rem, 4vw, 3.5rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -109,22 +90,7 @@ const stage = [
   }
 
   .hero__copy {
-    max-width: 36rem;
-  }
-
-  .hero__place {
-    margin-top: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-
-  .hero__place svg {
-    width: 1.1rem;
-    height: 1.1rem;
-    flex-shrink: 0;
+    max-width: 34rem;
   }
 
   .hero__actions {
@@ -136,7 +102,16 @@ const stage = [
   }
 
   .hero__trades {
-    max-width: 32rem;
+    max-width: 30rem;
+  }
+
+  .hero__trades-label {
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--colour-muted);
   }
 
   .trades {
@@ -148,8 +123,8 @@ const stage = [
   .trades li {
     display: inline-flex;
     align-items: center;
-    min-height: 40px;
-    padding: 0 1rem;
+    min-height: 38px;
+    padding: 0 0.95rem;
     border: 1px solid var(--colour-border);
     border-radius: 999px;
     background: var(--colour-white);
@@ -161,41 +136,6 @@ const stage = [
     border-style: dashed;
     background: transparent;
     color: var(--colour-text-2);
-  }
-
-  .stage {
-    margin-top: clamp(3rem, 6vw, 5rem);
-    border-radius: var(--radius-xl);
-    padding: clamp(1.5rem, 4vw, 4rem);
-  }
-
-  .stage__grid {
-    margin-top: 1.75rem;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1rem, 2vw, 1.75rem);
-    align-items: end;
-    perspective: 1200px;
-  }
-
-  .stage__item {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .stage__cap {
-    display: flex;
-    gap: 0.75rem;
-    align-items: baseline;
-    font-size: 0.95rem;
-    font-weight: 500;
-  }
-
-  .stage__cap span {
-    font-family: var(--font-display);
-    font-weight: 600;
-    color: var(--colour-lime);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -212,22 +152,6 @@ const stage = [
     .hero__row {
       animation-delay: 0.18s;
     }
-
-    .stage__item {
-      animation: hero-card 1s var(--ease-out) both;
-    }
-
-    .stage__item:nth-child(1) {
-      animation-delay: 0.35s;
-    }
-
-    .stage__item:nth-child(2) {
-      animation-delay: 0.47s;
-    }
-
-    .stage__item:nth-child(3) {
-      animation-delay: 0.59s;
-    }
   }
 
   @keyframes hero-rise {
@@ -238,29 +162,6 @@ const stage = [
     to {
       opacity: 1;
       transform: none;
-    }
-  }
-
-  @keyframes hero-card {
-    from {
-      opacity: 0;
-      transform: translateY(48px) rotateX(10deg);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @media (max-width: 860px) {
-    .stage__grid {
-      grid-template-columns: minmax(0, 1fr);
-      max-width: 22rem;
-    }
-
-    /* One card is enough on a phone; the story section shows the rest. */
-    .stage__item:nth-child(n + 2) {
-      display: none;
     }
   }
 </style>

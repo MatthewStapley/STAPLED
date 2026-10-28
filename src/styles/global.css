@@ -216,103 +216,213 @@ ol {
 }
 
 /* Buttons ------------------------------------------------------------- */
+/* One system for every button: a quick lift and deeper shadow on hover or
+   keyboard focus, a fill that sweeps in from the left, an arrow that leans
+   forward, and a firm pressed state. Reduced motion keeps the colour
+   changes and drops the movement. */
 
 .btn {
+  --btn-bg: var(--colour-ink);
+  --btn-fg: var(--colour-bg);
+  --btn-fill: var(--colour-lime);
+  --btn-fill-fg: var(--colour-lime-ink);
+  --btn-shadow: rgb(17 17 17 / 0.28);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6em;
-  padding: 0.95rem 1.75rem;
+  min-height: 52px;
+  padding: 0.95rem 1.6rem;
   border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
-  text-decoration: none;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: transform var(--dur-fast) var(--ease-out),
-    background var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out),
-    box-shadow var(--dur-fast) var(--ease-out);
+  line-height: 1.2;
   text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
 }
 
-.btn:hover {
+/* The sweep: a fill layer behind the label that grows from the left. */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--btn-fill);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s var(--ease-out);
+}
+
+.btn__arrow {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  color: var(--btn-fill-fg);
   transform: translateY(-2px);
+  box-shadow: 0 14px 30px -14px var(--btn-shadow);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.btn:hover .btn__arrow,
+.btn:focus-visible .btn__arrow {
+  transform: translateX(4px);
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 4px 10px -6px var(--btn-shadow);
+  transition-duration: 0.08s;
 }
 
+.btn:focus-visible {
+  outline: 2px solid var(--colour-ink);
+  outline-offset: 3px;
+}
+
+/* Ink button, filled with lime on hover. */
 .btn--primary {
-  background: var(--colour-ink);
-  color: var(--colour-bg);
+  --btn-bg: var(--colour-ink);
+  --btn-fg: var(--colour-bg);
 }
 
-.btn--primary:hover {
-  background: #000;
-  box-shadow: 0 10px 30px -12px rgb(17 17 17 / 0.45);
-}
-
+/* The signature call to action: lime, filled with ink on hover. */
 .btn--lime {
-  background: var(--colour-lime);
-  color: var(--colour-lime-ink);
-}
-
-.btn--lime:hover {
-  box-shadow: 0 10px 30px -10px rgb(200 245 96 / 0.55);
+  --btn-bg: var(--colour-lime);
+  --btn-fg: var(--colour-lime-ink);
+  --btn-fill: var(--colour-ink);
+  --btn-fill-fg: var(--colour-lime);
+  --btn-shadow: rgb(26 36 5 / 0.45);
 }
 
 .btn--outline {
-  background: transparent;
+  --btn-bg: transparent;
+  --btn-fg: var(--colour-ink);
+  --btn-fill: var(--colour-ink);
+  --btn-fill-fg: var(--colour-bg);
   border-color: var(--colour-border-strong);
-  color: var(--colour-ink);
-}
-
-.btn--outline:hover {
-  border-color: var(--colour-ink);
 }
 
 .btn--ghost-light {
-  background: transparent;
-  border-color: rgb(245 243 238 / 0.3);
-  color: var(--colour-bg);
+  --btn-bg: transparent;
+  --btn-fg: var(--colour-bg);
+  --btn-fill: var(--colour-bg);
+  --btn-fill-fg: var(--colour-ink);
+  border-color: rgb(245 243 238 / 0.35);
 }
 
-.btn--ghost-light:hover {
-  border-color: var(--colour-bg);
+[data-dark] .btn:focus-visible,
+[data-graphite] .btn:focus-visible {
+  outline-color: var(--colour-lime);
+}
+
+/* On dark grounds the lime button fills with paper instead of ink. */
+[data-dark] .btn--lime,
+[data-graphite] .btn--lime {
+  --btn-fill: var(--colour-bg);
+  --btn-fill-fg: var(--colour-ink);
+  --btn-shadow: rgb(200 245 96 / 0.35);
 }
 
 .btn--sm {
-  padding: 0.7rem 1.35rem;
+  min-height: 44px;
+  padding: 0.65rem 1.2rem;
   font-size: 0.875rem;
+}
+
+/* Magnetic CTA (see Layout.astro): the button eases slightly towards the
+   pointer. The offset is applied to an inner wrapper so the hit area never
+   moves away from where the visitor is aiming. */
+.btn[data-magnetic] .btn__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  transform: translate(var(--mx, 0px), var(--my, 0px));
+  transition: transform 0.4s var(--ease-out);
 }
 
 .link-arrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.4em;
+  gap: 0.45em;
+  min-height: 44px;
   font-weight: 600;
-  text-decoration: none;
-  border-bottom: 1px solid var(--colour-border);
-  padding-bottom: 0.15em;
-  transition: border-color var(--dur-fast) var(--ease-out);
+  text-decoration: underline;
+  text-decoration-color: var(--colour-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+  transition: text-decoration-color 0.3s var(--ease-out);
 }
 
-.link-arrow:hover {
-  border-color: var(--colour-ink);
+.link-arrow:hover,
+.link-arrow:focus-visible {
+  text-decoration-color: currentColor;
 }
 
 .link-arrow svg {
   width: 1em;
   height: 1em;
   flex-shrink: 0;
-  transition: transform var(--dur-fast) var(--ease-out);
+  transition: transform 0.35s var(--ease-out);
 }
 
-.link-arrow:hover svg {
-  transform: translateX(0.2em);
+.link-arrow:hover svg,
+.link-arrow:focus-visible svg {
+  transform: translateX(0.25em);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn::before,
+  .btn__arrow,
+  .link-arrow svg {
+    transition-property: color, background-color, border-color, box-shadow;
+  }
+
+  .btn:hover,
+  .btn:focus-visible,
+  .btn:active {
+    transform: none;
+  }
+
+  .btn::before {
+    transform: scaleX(0) !important;
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    background: var(--btn-fill);
+  }
+
+  .btn:hover .btn__arrow,
+  .btn:focus-visible .btn__arrow,
+  .link-arrow:hover svg,
+  .link-arrow:focus-visible svg {
+    transform: none;
+  }
 }
 
 /* Scroll reveal --------------------------------------------------------- */
@@ -446,23 +556,19 @@ h3 {
   color: var(--colour-bg);
 }
 
-/* Text links get a full 44px tap area (WCAG 2.2 target size). */
-.link-arrow {
-  min-height: 44px;
-  border-bottom: 0;
-  padding-bottom: 0;
-  text-decoration: underline;
-  text-decoration-color: var(--colour-border);
-  text-underline-offset: 0.35em;
-}
-
-.link-arrow:hover {
-  text-decoration-color: currentColor;
-}
-
 /* Page transitions between routes, where the browser supports them. */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition {
     navigation: auto;
+  }
+
+  /* Quick, subtle cross-fade; the header stays put (see Navigation). */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.18s;
+  }
+
+  ::view-transition-group(site-header) {
+    animation-duration: 0s;
   }
 }

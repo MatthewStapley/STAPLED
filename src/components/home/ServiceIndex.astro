@@ -1,131 +1,149 @@
 ---
-// Numbered service rows. Each row's illustration wipes in as it scrolls
-// into view (CSS scroll timelines only; static everywhere else).
-import Illustration from "../ui/Illustration.astro";
+// "What Stapled. does": the four services in one compact band. The detail
+// lives on /services/.
 import { services } from "../../data/services";
 ---
 
-<section class="svc section" id="services" aria-labelledby="svc-heading">
+<section class="svc" id="services" aria-labelledby="svc-heading">
   <div class="container">
-    <p class="eyebrow">Services</p>
-    <h2 id="svc-heading" class="headline svc__heading">Everything your customers check before they call.</h2>
-    <p class="lead svc__lead">
-      Most people look you up before they pick up the phone. I make sure what
-      they find is clear, current and easy to act on.
-    </p>
-
-    <ol class="svc__list">
+    <div class="svc__head">
+      <h2 id="svc-heading" class="svc__heading">What I do</h2>
+      <a href="/services/" class="link-arrow">
+        Services in detail
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+    <ol class="svc__grid">
       {services.map((s) => (
-        <li class="svc__row">
-          <span class="svc__num" aria-hidden="true">{s.n}</span>
-          <h3 class="svc__title">{s.title}</h3>
-          <p class="svc__body">{s.summary}</p>
-          <div class="svc__art">
-            <Illustration variant={s.art} />
-          </div>
+        <li class="svc__item">
+          <a class="svc__link" href={`/services/#${s.id}`}>
+            <span class="svc__num" aria-hidden="true">{s.n}</span>
+            <h3 class="svc__title">{s.title}</h3>
+            <p class="svc__body">{s.short}</p>
+          </a>
         </li>
       ))}
     </ol>
-
-    <a href="/services/" class="link-arrow svc__more">
-      More about each service
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    </a>
   </div>
 </section>
 
 <style>
   .svc {
+    padding-block: clamp(3rem, 6vw, 5rem);
     background: var(--colour-white);
     border-block: 1px solid var(--colour-border);
   }
 
+  .svc__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 2rem;
+  }
+
   .svc__heading {
-    margin-top: 1.5rem;
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    letter-spacing: -0.03em;
   }
 
-  .svc__lead {
-    margin-top: 1.5rem;
-  }
-
-  .svc__list {
-    margin-top: clamp(2.5rem, 5vw, 4rem);
+  .svc__grid {
+    margin-top: 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     border-top: 1px solid var(--colour-border);
   }
 
-  .svc__row {
+  .svc__item + .svc__item {
+    border-left: 1px solid var(--colour-border);
+  }
+
+  .svc__link {
+    position: relative;
     display: grid;
-    grid-template-columns: 6rem minmax(0, 1.1fr) minmax(0, 1fr) 15rem;
-    gap: clamp(1.25rem, 3vw, 3rem);
-    align-items: center;
-    padding-block: clamp(1.75rem, 3.5vw, 3rem);
-    border-bottom: 1px solid var(--colour-border);
+    align-content: start;
+    gap: 0.6rem;
+    height: 100%;
+    padding: 1.5rem 1.5rem 1.75rem;
+    text-decoration: none;
+    transition: background 0.35s var(--ease-out);
+  }
+
+  /* A lime rule fastens along the top of the card on hover or focus. */
+  .svc__link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -1px;
+    height: 3px;
+    background: var(--colour-lime);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out);
+  }
+
+  .svc__link:hover,
+  .svc__link:focus-visible {
+    background: var(--colour-bg);
+  }
+
+  .svc__link:hover::before,
+  .svc__link:focus-visible::before {
+    transform: scaleX(1);
   }
 
   .svc__num {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 650;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--colour-border-strong);
+    font-weight: 600;
+    color: var(--colour-muted);
   }
 
   .svc__title {
-    font-size: clamp(1.5rem, 2.4vw, 2.2rem);
-    font-weight: 620;
-    letter-spacing: -0.025em;
+    font-size: 1.3rem;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
   }
 
   .svc__body {
-    font-size: 1.0625rem;
-    line-height: 1.6;
     color: var(--colour-text-2);
+    line-height: 1.55;
+    font-size: 0.98rem;
   }
 
-  .svc__art {
-    background: var(--colour-graphite);
-    border-radius: 20px;
-    padding: 1rem;
-  }
-
-  .svc__more {
-    margin-top: 2rem;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .svc__art {
-        animation: svc-wipe linear both;
-        animation-timeline: view();
-        animation-range: entry 10% cover 35%;
-      }
+  @media (prefers-reduced-motion: reduce) {
+    .svc__link::before {
+      transition: none;
     }
   }
 
-  @keyframes svc-wipe {
-    from {
-      clip-path: inset(0 100% 0 0 round 20px);
+  @media (max-width: 1000px) {
+    .svc__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    to {
-      clip-path: inset(0 0 0 0 round 20px);
+
+    .svc__item:nth-child(3) {
+      border-left: 0;
     }
+
+    .svc__item:nth-child(n + 3) {
+      border-top: 1px solid var(--colour-border);
+    }
+
   }
 
-  @media (max-width: 1100px) {
-    .svc__row {
-      grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 1fr);
-    }
-
-    .svc__art {
-      display: none;
-    }
-  }
-
-  @media (max-width: 760px) {
-    .svc__row {
+  @media (max-width: 600px) {
+    .svc__grid {
       grid-template-columns: minmax(0, 1fr);
-      gap: 0.75rem;
+    }
+
+    .svc__item + .svc__item {
+      border-left: 0;
+      border-top: 1px solid var(--colour-border);
+    }
+
+    .svc__link {
+      padding: 1.25rem 0.75rem;
     }
   }
 </style>

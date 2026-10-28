@@ -1,7 +1,8 @@
 ---
-// Contact: email only for now. A form service will be assessed separately
-// before launch (it needs a published data processing agreement, data
-// location and retention; see the private asset register). Don't add one here.
+// Contact: email only. No form service is configured (FormSubmit was removed
+// on 22 Oct 2026); a real form needs Matt to choose a provider with a
+// published data processing agreement, data location and retention. Don't
+// add a form, or pretend to submit one, until then.
 import SiteLayout from "../layouts/SiteLayout.astro";
 import PageHero from "../components/ui/PageHero.astro";
 import { contact } from "../data/config";
@@ -19,6 +20,13 @@ const body = [
 ].join("\n");
 const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
+const include = [
+  "your name and business name",
+  "what the business does, and where",
+  "your current website or social media page, if you have one",
+  "what you'd like help with",
+];
+
 const next = [
   { title: "I reply personally", body: "Usually with a few questions, or to suggest a quick call if that's easier." },
   { title: "We talk it through", body: "Your work, your customers and what you need. Where it helps, I may put together a quick homepage preview." },
@@ -35,30 +43,41 @@ const next = [
     eyebrow="Contact"
     heading="Talk about your business."
     lead="A short email is enough to start. Tell me a little about what you do and what you need, and I'll reply personally."
-  />
+  >
+    <div class="reach">
+      <a href={mailto} class="btn btn--lime reach__btn">
+        Email Matt
+        <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+      <div class="reach__address">
+        <a href={`mailto:${contact.email}`} class="reach__email">{contact.email}</a>
+        <button type="button" class="reach__copy" data-copy={contact.email} hidden>
+          <span class="reach__copy-label">Copy address</span>
+        </button>
+        <span class="reach__status" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+    <p class="reach__hint">
+      The button opens your email app with a few headings filled in. Prefer
+      to write your own? Use the address above.
+    </p>
+  </PageHero>
 
-  <section class="contact" aria-label="How to get in touch">
+  <section class="contact" aria-label="What to include and what happens next">
     <div class="container contact__grid">
-      <div class="contact__card" data-dark>
-        <h2 class="contact__heading">Email me</h2>
-        <p class="contact__intro">It helps to include:</p>
+      <div class="contact__card">
+        <h2 class="contact__heading">It helps to include</h2>
         <ul class="contact__include">
-          <li>your name and business name</li>
-          <li>what the business does, and where</li>
-          <li>your current website or social media page, if you have one</li>
-          <li>what you'd like help with</li>
+          {include.map((item) => <li>{item}</li>)}
         </ul>
-        <p class="contact__note">Add a phone number only if you'd rather I called you.</p>
-        <a href={mailto} class="btn btn--lime contact__btn">Email {contact.email}</a>
-        <p class="contact__small">
-          The button opens your email app with these headings filled in. If it
-          doesn't, write to <a href={`mailto:${contact.email}`}>{contact.email}</a>.
-          I use your details to reply to you. See the <a href="/privacy/">privacy policy</a>.
+        <p class="contact__note">
+          Add a phone number only if you'd rather I called you. I use your
+          details to reply to you; see the <a href="/privacy/">privacy policy</a>.
         </p>
       </div>
 
       <div class="contact__next">
-        <h2 class="contact__next-heading">What happens next</h2>
+        <h2 class="contact__heading">What happens next</h2>
         <ol class="contact__steps">
           {next.map((n, i) => (
             <li>
@@ -83,9 +102,108 @@ const next = [
   </section>
 </SiteLayout>
 
+<script>
+  for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+    if (!navigator.clipboard) continue;
+    btn.hidden = false;
+    const label = btn.querySelector(".reach__copy-label");
+    const status = btn.parentElement?.querySelector(".reach__status");
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+        btn.classList.add("is-done");
+        if (label) label.textContent = "Copied";
+        if (status) status.textContent = "Email address copied";
+        setTimeout(() => {
+          btn.classList.remove("is-done");
+          if (label) label.textContent = "Copy address";
+          if (status) status.textContent = "";
+        }, 2200);
+      } catch {
+        if (status) status.textContent = "Couldn't copy. Select the address instead.";
+      }
+    });
+  }
+</script>
+
 <style>
+  .reach {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .reach__address {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .reach__email {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration-color: var(--colour-border);
+    text-underline-offset: 0.3em;
+    overflow-wrap: anywhere;
+  }
+
+  .reach__email:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .reach__copy {
+    position: relative;
+    min-height: 44px;
+    padding: 0 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--colour-border);
+    background: var(--colour-white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out), transform 0.2s var(--ease-out);
+  }
+
+  .reach__copy:hover {
+    border-color: var(--colour-ink);
+  }
+
+  .reach__copy:active {
+    transform: scale(0.97);
+  }
+
+  .reach__copy.is-done {
+    background: var(--colour-lime);
+    border-color: var(--colour-lime);
+    color: var(--colour-lime-ink);
+  }
+
+  .reach__status {
+    font-size: 0.85rem;
+    color: var(--colour-muted);
+  }
+
+  .reach__status:empty {
+    display: none;
+  }
+
+  .reach__hint {
+    margin-top: 1rem;
+    max-width: 52ch;
+    font-size: 0.9rem;
+    color: var(--colour-muted);
+  }
+
   .contact {
-    padding-bottom: clamp(4rem, 9vw, 8rem);
+    padding-bottom: clamp(4rem, 9vw, 7rem);
   }
 
   .contact__grid {
@@ -96,25 +214,20 @@ const next = [
   }
 
   .contact__card {
-    border-radius: var(--radius-xl);
-    padding: clamp(1.75rem, 4vw, 3rem);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--colour-border);
+    background: var(--colour-white);
   }
 
   .contact__heading {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-  }
-
-  .contact__intro {
-    color: var(--colour-on-dark-muted);
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
   }
 
   .contact__include {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    margin-top: 1.25rem;
+    display: grid;
+    gap: 0.6rem;
   }
 
   .contact__include li {
@@ -131,32 +244,23 @@ const next = [
     height: 8px;
     border-radius: 2px;
     background: var(--colour-lime);
+    outline: 1px solid var(--colour-lime-ink);
+    outline-offset: -1px;
   }
 
-  .contact__note,
-  .contact__small {
+  .contact__note {
+    margin-top: 1.25rem;
     font-size: 0.9rem;
-    color: var(--colour-on-dark-muted);
+    color: var(--colour-text-2);
     line-height: 1.55;
   }
 
-  .contact__btn {
-    align-self: flex-start;
-    margin-block: 0.5rem;
-    overflow-wrap: anywhere;
-  }
-
-  .contact__small a {
-    color: var(--colour-bg);
+  .contact__note a {
     text-underline-offset: 0.2em;
   }
 
-  .contact__next-heading {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-  }
-
   .contact__steps {
-    margin-top: 1.75rem;
+    margin-top: 1.25rem;
     display: flex;
     flex-direction: column;
   }
@@ -165,29 +269,29 @@ const next = [
     display: grid;
     grid-template-columns: 3rem minmax(0, 1fr);
     gap: 1rem;
-    padding-block: 1.25rem;
+    padding-block: 1.1rem;
     border-top: 1px solid var(--colour-border);
   }
 
   .contact__steps span {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--colour-muted);
   }
 
   .contact__steps h3 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
   .contact__steps p {
-    margin-top: 0.35rem;
+    margin-top: 0.3rem;
     color: var(--colour-text-2);
     line-height: 1.55;
   }
 
   .contact__social {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     color: var(--colour-text-2);
   }
 
@@ -198,6 +302,12 @@ const next = [
     color: var(--colour-ink);
     font-weight: 600;
     text-underline-offset: 0.2em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reach__copy {
+      transition: none;
+    }
   }
 
   @media (max-width: 860px) {
